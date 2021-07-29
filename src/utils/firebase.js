@@ -1,8 +1,4 @@
-import firebase from 'firebase'
-
-import 'firebase/firestore'
-
-export const config = {
+const config = {
     apiKey: "AIzaSyDntPnVriYJiT59lS_uPzdOGmBLnFJxXgQ",
     authDomain: "chroniques-oubliees-zombies.firebaseapp.com",
     databaseURL: "https://chroniques-oubliees-zombies-default-rtdb.europe-west1.firebasedatabase.app",
@@ -13,8 +9,4 @@ export const config = {
     measurementId: "G-F9Y5KZJSTD"
 }
 
-firebase.initializeApp(config)
-
-export const db = firebase.firestore
-
-export default firebase
+export default config

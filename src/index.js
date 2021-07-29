@@ -2,7 +2,9 @@ import React, { StrictMode } from 'react'
 import { render } from 'react-dom'
 import { createGlobalStyle } from 'styled-components'
 import reset from 'styled-reset'
+import { Provider } from 'react-redux'
 
+import store from './store'
 import App from './components/app'
 import reportWebVitals from './reportWebVitals'
 
@@ -14,7 +16,9 @@ const GlobalStyle = createGlobalStyle`
 render(
   <StrictMode>
     <GlobalStyle />
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </StrictMode>,
   document.getElementById('root')
 )
