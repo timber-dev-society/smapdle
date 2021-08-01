@@ -3,8 +3,7 @@ import styled from "styled-components"
 export const Icon = styled.div`
   background-color: white;
   border: 4px solid tomato;
-  border-radius: 50% 50% 50% 0;
-  transform: rotate(-45deg);
+  border-radius: 50% 50% 50% 50%;
 
   padding: 5px;
   margin-top: 4px;

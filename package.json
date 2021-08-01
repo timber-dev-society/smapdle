@@ -5,6 +5,7 @@
   "dependencies": {
     "@react-firebase/auth": "^0.2.10",
     "@react-firebase/database": "^0.3.11",
+    "@react-firebase/firestore": "^0.5.5",
     "@reduxjs/toolkit": "^1.6.1",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",

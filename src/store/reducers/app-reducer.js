@@ -1,15 +1,21 @@
-import { SET_USER } from '../../actions/app'
+import { SET_USER, SET_MARKERS } from '../../actions/app'
 
 const defaultState = {
-  user: null
+  user: null,
+  markers: [],
 }
 
-const appReducer = (state = defaultState, { type, ...action }) => {
+const appReducer = (state = defaultState, { type, payload }) => {
   switch (type) {
     case SET_USER:
       return {
         ...state,
-        user: action.user,
+        user: payload.user,
+      }
+    case SET_MARKERS:
+      return {
+        ...state,
+        markers: payload,
       }
     default:
       return state
