@@ -19,3 +19,9 @@ export const setMarkers = (markers) => ({
   type: SET_MARKERS,
   payload: markers,
 })
+
+export const UPDATE_MARKER = Symbol('UPDATE_MARKER@APP')
+export const updateMarker = (marker) => ({
+  type: UPDATE_MARKER,
+  payload: marker,
+})

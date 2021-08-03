@@ -1,4 +1,4 @@
-import { SET_USER, SET_MARKERS } from '../../actions/app'
+import { SET_USER, SET_MARKERS, UPDATE_MARKER } from '../../actions/app'
 
 const defaultState = {
   user: null,
@@ -16,6 +16,16 @@ const appReducer = (state = defaultState, { type, payload }) => {
       return {
         ...state,
         markers: payload,
+      }
+    case UPDATE_MARKER:
+      console.log(state)
+      return {
+        ...state,
+        markers: state.markers.map(marker => {
+          if (marker.uid !== payload.uid) { return marker }
+
+          return payload
+        })
       }
     default:
       return state

@@ -39,24 +39,38 @@ const renderToken = (Token) => ({ lng, lat }) => {
         console.log("Document successfully updated!");
       }).catch((error) => {
         console.error("Error updating document: ", error);
-      });
+      })
     })
   }
 
-  return container
+  return marker
 }
 
 const Markers = ({ map }) => {
   const data = useSelector(({ app }) => app.markers)
   const markers = useRef(null)
+  console.log({markers: data, ref: markers?.current})
 
   useEffect(() => {
-    if (data.length === 0 || markers.current) return
+    if (data.length === 0) { return }
+    if (markers.current) {
+      data.every(({ uid, position }) => {
+        console.log(uid)
+        markers.current[uid].setLngLat({ lng: position.longitude, lat: position.latitude })
+      })
 
-    markers.current = data.map((m) => {
+      return
+    }
+
+    markers.current = data.reduce((acc, m) => {
       const Token = tokens[m.token]
-      return renderToken(<Token uid={m.uid} map={map.current} isDraggable />)({ lat: m.position.latitude, lng: m.position.longitude})
-    })
+      const marker = renderToken(<Token uid={m.uid} map={map.current} isDraggable />)({ lat: m.position.latitude, lng: m.position.longitude})
+
+      return {
+        ...acc,
+        [m.uid]: marker,
+      }
+    }, {})
   })
 
 
