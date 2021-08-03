@@ -31,16 +31,31 @@ const Map = () => {
         })
 
         map.current.addControl(new mapboxgl.NavigationControl(), 'top-right')
+
         map.current.addControl(new mapboxgl.ScaleControl(), 'bottom-right')
+
         map.current.on('zoomend', () => {
           window.localStorage.setItem('zoom', map.current.getZoom())
         })
+
         map.current.on('moveend', () => {
           const { lng, lat } = map.current.getCenter();
           window.localStorage.setItem('lng', lng)
           window.localStorage.setItem('lat', lat)
         })
 
+        map.current.on('dragend', () => {
+          const { lng, lat } = map.current.getCenter();
+          console.log('dragend', lng, lat)
+        })
+
+        map.current.on('mouseenter', 'land', () => {
+          console.log('dragend')
+        })
+
+        map.current.on('contextmenu', () => {
+          console.log('contextmenu')
+        })
     })
 
     return (

@@ -8,6 +8,13 @@ export const Icon = styled.div`
   padding: 5px;
   margin-top: 4px;
   text-align: center;
+
+  &.p-token {
+    height: var(--p-token-size);
+    font-size: var(--p-token-font-size);
+    line-height: var(--p-token-size);
+    width: var(--p-token-size);
+  }
 `
 
 export const Wrapper = styled.div`

@@ -5,6 +5,7 @@ import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-load
 
 import PlayerToken from './player-marker'
 import ZToken from './z-marker'
+import CssHack from './css-hack'
 import { firestore } from '../../../utils/firebase'
 
 const tokens = {
@@ -60,7 +61,7 @@ const Markers = ({ map }) => {
 
 
   return (
-    <></>
+    <CssHack map={map} />
   )
 }
 
