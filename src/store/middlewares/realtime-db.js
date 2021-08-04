@@ -1,5 +1,5 @@
 import { database } from '../../utils/firebase'
-import { SET_USER } from '../../actions/app'
+import { SET_USER } from '../../actions'
 
 const realtimeDb = store => next => action => {
 

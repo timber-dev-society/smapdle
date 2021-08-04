@@ -1,8 +1,9 @@
 import { render } from 'react-dom'
 import { useEffect, useRef } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 
+import { loadMarkers } from '../../../actions'
 import PlayerToken from './player-marker'
 import ZToken from './z-marker'
 import CssHack from './css-hack'
@@ -13,7 +14,7 @@ const tokens = {
   z: ZToken,
 }
 
-const renderToken = (Token) => ({ lng, lat }) => {
+export const renderToken = (Token) => ({ lng, lat }) => {
   const container = document.createElement('div')
   const { uid, isDraggable, map } = Token.props
 
@@ -48,15 +49,19 @@ const renderToken = (Token) => ({ lng, lat }) => {
 
 const Markers = ({ map }) => {
   const data = useSelector(({ app }) => app.markers)
+  const dispatch = useDispatch()
   const markers = useRef(null)
-  console.log({markers: data, ref: markers?.current})
 
   useEffect(() => {
-    if (data.length === 0) { return }
+    if (data.length === 0) {
+      dispatch(loadMarkers())
+      return
+    }
     if (markers.current) {
       data.every(({ uid, position }) => {
-        console.log(uid)
         markers.current[uid].setLngLat({ lng: position.longitude, lat: position.latitude })
+
+        return true
       })
 
       return

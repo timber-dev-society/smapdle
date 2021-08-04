@@ -1,8 +1,10 @@
-import { useRef, useEffect, Profiler } from 'react'
+import { useRef, useEffect, useState, Profiler } from 'react'
+import { useDispatch } from 'react-redux'
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 import styled from 'styled-components'
 
 import Markers from './markers'
+import { setMap } from '../../actions'
 
 import 'mapbox-gl/dist/mapbox-gl.css'
 
@@ -16,13 +18,18 @@ mapboxgl.accessToken = 'pk.eyJ1Ijoiam9saW5lNmIiLCJhIjoiY2tyaGdtbHVxMDhyMjJwcGV2c
 const Map = () => {
     const mapContainer = useRef(null)
     const map = useRef(null)
-    let lng = window.localStorage.getItem('lng') || -70.9
-    let lat = window.localStorage.getItem('lat') || 42.35
-    let zoom = window.localStorage.getItem('zoom') || 9
+    const dispatch = useDispatch()
+    const [ isLoaded, setIsLoaded ] = useState(false)
 
     useEffect(() => {
         if (map.current) return; // initialize map only once
 
+        // Init map position
+        const lng = window.localStorage.getItem('lng') || -70.9
+        const lat = window.localStorage.getItem('lat') || 42.35
+        const zoom = window.localStorage.getItem('zoom') || 9
+
+        // create map
         map.current = new mapboxgl.Map({
             container: mapContainer.current,
             style: 'mapbox://styles/joline6b/ckrjlmvix8ffu17ny2vaseowq',
@@ -30,9 +37,17 @@ const Map = () => {
             zoom: zoom
         })
 
+        // save map in store
+        dispatch(setMap(map.current))
+
+
+        // attach basic controllers
         map.current.addControl(new mapboxgl.NavigationControl(), 'top-right')
 
         map.current.addControl(new mapboxgl.ScaleControl(), 'bottom-right')
+
+        // attach map listeners
+        map.current.on('load', () => setIsLoaded(true))
 
         map.current.on('zoomend', () => {
           window.localStorage.setItem('zoom', map.current.getZoom())
@@ -64,7 +79,7 @@ const Map = () => {
             <MapDiv ref={mapContainer} className="map-container" />
           </Profiler>
           <Profiler id="markers" onRender={console.log}>
-            <Markers map={map} />
+            {isLoaded && <Markers map={map} />}
           </Profiler>
         </>
     )

@@ -5,7 +5,7 @@ import firebase, { config } from '../utils/firebase'
 import LoginForm from './login-form'
 import Map from './map'
 import Panel from './panel'
-import { setUser, loadMarkers } from '../actions/app'
+import { setUser, loadMarkers } from '../actions'
 
 const App = () => {
   const dispatch = useDispatch()
@@ -16,7 +16,6 @@ const App = () => {
         {({ isSignedIn, user, providerId }) => {
           if (isSignedIn && user.uid !== undefined) {
             dispatch(setUser(user))
-            dispatch(loadMarkers())
           }
         }}
       </FirebaseAuthConsumer>

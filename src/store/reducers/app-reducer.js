@@ -1,7 +1,8 @@
-import { SET_USER, SET_MARKERS, UPDATE_MARKER } from '../../actions/app'
+import { SET_USER, SET_MARKERS, UPDATE_MARKER, SET_MAP } from '../../actions'
 
 const defaultState = {
   user: null,
+  map: null,
   markers: [],
 }
 
@@ -12,13 +13,17 @@ const appReducer = (state = defaultState, { type, payload }) => {
         ...state,
         user: payload.user,
       }
+    case SET_MAP:
+      return {
+        ...state,
+        map: payload,
+      }
     case SET_MARKERS:
       return {
         ...state,
         markers: payload,
       }
     case UPDATE_MARKER:
-      console.log(state)
       return {
         ...state,
         markers: state.markers.map(marker => {
