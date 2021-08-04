@@ -1,13 +1,13 @@
 import Emoji from "a11y-react-emoji"
+import { useSelector } from 'react-redux'
 
 import { Wrapper, Icon } from './__style__/marker.style'
 
-const PlayerMarker = () => {
-  console.log('render')
+const PlayerMarker = (props) => {
 
   return (
     <Wrapper>
-      <Icon className="p-token"><Emoji symbol="🧠" label="login" /></Icon>
+      <Icon style={{ borderColor: props.color }} className="p-token"><Emoji symbol="🧠" label="login" /></Icon>
     </Wrapper>
   )
 }

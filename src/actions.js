@@ -33,7 +33,10 @@ export const setMap = (map) => ({
 })
 
 export const CREATE_MARKERS = Symbol('CREATE_MARKERS_@_MARKER')
-export const createMarkers = (markers) => ({
+export const createMarkers = (markers, map) => ({
   type: CREATE_MARKERS,
-  payload: markers,
+  payload: {
+    markers,
+    map,
+  }
 })

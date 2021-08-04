@@ -1,5 +1,5 @@
 import { CREATE_MARKERS, UPDATE_MARKER } from '../../actions'
-import { renderToken } from '../../components/map/markers'
+import { renderToken, positionToLngLat } from '../../utils/mapbox'
 
 const defaultState = []
 
@@ -12,15 +12,16 @@ const markerReducer = (state = defaultState, { type, payload }) => {
   switch (type) {
 
     case CREATE_MARKERS:
-      return payload.markers.map(m => ({
-        uid: m.uid,
-        ref: renderToken(m, payload.map)
+      console.log(payload)
+      return payload.markers.map(marker => ({
+        uid: marker.uid,
+        ref: renderToken(marker, payload.map)
       }))
 
     case UPDATE_MARKER:
       return state.map(marker => {
         if (marker.uid === payload.uid) {
-          marker.ref.setLngLat({ lng: payload.position.longitude, lat: payload.position.latitude })
+          marker.ref.setLngLat(positionToLngLat(payload.position))
         }
 
         return marker

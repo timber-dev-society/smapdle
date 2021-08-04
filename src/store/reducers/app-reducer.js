@@ -3,7 +3,7 @@ import { SET_USER, SET_MARKERS, UPDATE_MARKER, SET_MAP } from '../../actions'
 const defaultState = {
   user: null,
   map: null,
-  markers: [],
+  markers: {},
 }
 
 const appReducer = (state = defaultState, { type, payload }) => {
@@ -21,16 +21,15 @@ const appReducer = (state = defaultState, { type, payload }) => {
     case SET_MARKERS:
       return {
         ...state,
-        markers: payload,
+        markers: payload.reduce((marker, acc) => ({ ...acc, [marker.uid]: marker }), {}),
       }
     case UPDATE_MARKER:
       return {
         ...state,
-        markers: state.markers.map(marker => {
-          if (marker.uid !== payload.uid) { return marker }
-
-          return payload
-        })
+        markers: {
+          ...state.markers,
+          [payload.uid]: payload,
+        }
       }
     default:
       return state

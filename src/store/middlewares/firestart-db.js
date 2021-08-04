@@ -1,5 +1,5 @@
 import { firestore } from '../../utils/firebase'
-import { LOAD_MARKERS, setMarkers, updateMarker } from '../../actions'
+import { LOAD_MARKERS, setMarkers, createMarkers, updateMarker } from '../../actions'
 
 const firestoreDb = store => next => async (action) => {
 
@@ -9,6 +9,9 @@ const firestoreDb = store => next => async (action) => {
     case LOAD_MARKERS:
       if (isLoaded) { break }
       isLoaded = true
+      console.log('loading markers')
+      // it seems we can use only the second system to load everthing
+      // @TODO delete this code when add marker is implemented
       firestore.collection("markers").get().then((querySnapshot) => {
         const markers = []
 
@@ -16,7 +19,9 @@ const firestoreDb = store => next => async (action) => {
             markers.push({ uid: doc.id, ...doc.data() })
         })
 
+        console.log(markers)
         store.dispatch(setMarkers(markers))
+        store.dispatch(createMarkers(markers, store.getState().app.map))
       })
 
       /**

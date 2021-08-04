@@ -2,7 +2,7 @@ import styled from "styled-components"
 
 export const Icon = styled.div`
   background-color: white;
-  border: 4px solid tomato;
+  border: 4px solid white;
   border-radius: 50% 50% 50% 50%;
 
   padding: 5px;

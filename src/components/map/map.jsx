@@ -47,7 +47,10 @@ const Map = () => {
         map.current.addControl(new mapboxgl.ScaleControl(), 'bottom-right')
 
         // attach map listeners
-        map.current.on('load', () => setIsLoaded(true))
+        map.current.on('load', () => {
+          console.log('map loaded')
+          setIsLoaded(true)
+        })
 
         map.current.on('zoomend', () => {
           window.localStorage.setItem('zoom', map.current.getZoom())
