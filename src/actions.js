@@ -9,6 +9,18 @@ export const setUser = ({ uid, email }) => ({
   },
 })
 
+export const SET_IS_DRAGGING_NEW_MARKER = Symbol('SET_IS_DRAGGING_NEW_MARKER_@_APP')
+export const setIsDraggingNewMarker = (isDragging) => ({
+  type: SET_IS_DRAGGING_NEW_MARKER,
+  payload: isDragging,
+})
+
+export const CREATE_NEW_MARKER = Symbol('CREATE_NEW_MARKER')
+export const createNewMarker = (location) => ({
+  type: CREATE_NEW_MARKER,
+  payload: location,
+})
+
 export const LOAD_MARKERS = Symbol('LOAD_MARKERS_@_APP')
 export const loadMarkers = () => ({
   type: LOAD_MARKERS,

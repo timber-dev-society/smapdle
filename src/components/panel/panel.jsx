@@ -1,6 +1,9 @@
 import styled from 'styled-components'
 import Emoji from "a11y-react-emoji"
+import { useDispatch } from 'react-redux'
 import { useState } from 'react'
+
+import { setIsDraggingNewMarker } from '../../actions'
 
 const Box = styled.div`
   background-color: white;
@@ -21,12 +24,23 @@ const Icon = styled.div`
 `
 
 const Panel = () => {
+  const dispatch = useDispatch()
+  const [ isDragging, setIsDragging ] = useState(false)
+  const [ isOutside, setIsOutside ] = useState(false)
 
-  const [ isDrag, setIsDrag ] = useState(false)
+  const handleDragStart = () => dispatch(setIsDraggingNewMarker(true))
+  const handleDragEnd = (event) => {
+    if (isOutside) {
+      dispatch(setIsDraggingNewMarker(true))
+    }
+    setIsDragging(false)
+    setIsOutside(false)
+  }
+
 
   return (
-    <Box onDragLeave={() => {console.log('going outside')}}  onDragEnter={() => {console.log('going inside')}}>
-      <Icon draggable onDragStart={() => setIsDrag(true)} onDragEnd={() => setIsDrag(false)}>
+    <Box className="yolo" onDragExit={() => { isDragging && setTimeout(() => setIsOutside(true), 10) }}  onDragEnter={() => { isDragging && setIsOutside(false) }}>
+      <Icon style={{ backgroundColor: 'transparent' }} draggable onDragStart={() => { setIsDragging(true) }} onDragEnd={handleDragEnd}>
         <Emoji symbol="🧠" label="login" />
       </Icon>
     </Box>

@@ -4,6 +4,7 @@ import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-load
 import styled from 'styled-components'
 
 import Markers from './markers'
+import Events from './events'
 import { setMap } from '../../actions'
 
 import 'mapbox-gl/dist/mapbox-gl.css'
@@ -48,8 +49,56 @@ const Map = () => {
 
         // attach map listeners
         map.current.on('load', () => {
-          console.log('map loaded')
+
           setIsLoaded(true)
+          var layers = map.current.getStyle().layers;
+          var labelLayerId;
+          for (var i = 0; i < layers.length; i++) {
+            if (layers[i].type === 'symbol' && layers[i].layout['text-field']) {
+              labelLayerId = layers[i].id;
+              break;
+            }
+          }
+
+          // The 'building' layer in the Mapbox Streets
+          // vector tileset contains building height data
+          // from OpenStreetMap.
+          map.current.addLayer({
+            'id': 'add-3d-buildings',
+            'source': 'composite',
+            'source-layer': 'building',
+            'filter': ['==', 'extrude', 'true'],
+            'type': 'fill-extrusion',
+            'minzoom': 15,
+            'paint': {
+              'fill-extrusion-color': '#aaa',
+
+              // Use an 'interpolate' expression to
+              // add a smooth transition effect to
+              // the buildings as the user zooms in.
+              'fill-extrusion-height': [
+                'interpolate',
+                ['linear'],
+                ['zoom'],
+                15,
+                0,
+                15.05,
+                ['get', 'height']
+              ],
+              'fill-extrusion-base': [
+                'interpolate',
+                ['linear'],
+                ['zoom'],
+                15,
+                0,
+                15.05,
+                ['get', 'min_height']
+              ],
+              'fill-extrusion-opacity': 0.8
+            }
+          },
+          labelLayerId
+        );
         })
 
         map.current.on('zoomend', () => {
@@ -62,18 +111,18 @@ const Map = () => {
           window.localStorage.setItem('lat', lat)
         })
 
-        map.current.on('dragend', () => {
-          const { lng, lat } = map.current.getCenter();
-          console.log('dragend', lng, lat)
-        })
+        // map.current.on('dragend', () => {
+        //   const { lng, lat } = map.current.getCenter();
+        //   console.log('dragend', lng, lat)
+        // })
 
-        map.current.on('mouseenter', 'land', () => {
-          console.log('dragend')
-        })
+        // map.current.on('mouseenter', 'land', () => {
+        //   console.log('dragend')
+        // })
 
-        map.current.on('contextmenu', () => {
-          console.log('contextmenu')
-        })
+        // map.current.on('contextmenu', () => {
+        //   console.log('contextmenu')
+        // })
     })
 
     return (
@@ -82,7 +131,7 @@ const Map = () => {
             <MapDiv ref={mapContainer} className="map-container" />
           </Profiler>
           <Profiler id="markers" onRender={console.log}>
-            {isLoaded && <Markers map={map} />}
+            {isLoaded && <><Markers map={map} /><Events map={map} /></>}
           </Profiler>
         </>
     )

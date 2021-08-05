@@ -1,13 +1,19 @@
-import { SET_USER, SET_MARKERS, UPDATE_MARKER, SET_MAP } from '../../actions'
+import { SET_USER, SET_MARKERS, UPDATE_MARKER, SET_MAP, SET_IS_DRAGGING_NEW_MARKER } from '../../actions'
 
 const defaultState = {
   user: null,
   map: null,
   markers: {},
+  isDraggingNewMarker: false
 }
 
 const appReducer = (state = defaultState, { type, payload }) => {
   switch (type) {
+    case SET_IS_DRAGGING_NEW_MARKER:
+      return {
+        ...state,
+        isDraggingNewMarker: payload,
+      }
     case SET_USER:
       return {
         ...state,
