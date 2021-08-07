@@ -4,7 +4,7 @@ const defaultState = {
   user: null,
   map: null,
   markers: {},
-  isDraggingNewMarker: false
+  dragActionState: 0
 }
 
 const appReducer = (state = defaultState, { type, payload }) => {
@@ -12,7 +12,7 @@ const appReducer = (state = defaultState, { type, payload }) => {
     case SET_IS_DRAGGING_NEW_MARKER:
       return {
         ...state,
-        isDraggingNewMarker: payload,
+        dragActionState: payload,
       }
     case SET_USER:
       return {

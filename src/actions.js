@@ -52,3 +52,12 @@ export const createMarkers = (markers, map) => ({
     map,
   }
 })
+
+export const CREATE_MARKER_AT_POSITION = Symbol('CREATE_MARKER_AT_POSITION')
+export const createMarkerAtPositon = ({ clientX, clientY }) => ({
+  type: CREATE_MARKER_AT_POSITION,
+  payload: {
+    clientX,
+    clientY,
+  },
+})

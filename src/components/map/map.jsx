@@ -5,7 +5,7 @@ import styled from 'styled-components'
 
 import Markers from './markers'
 import Events from './events'
-import { setMap } from '../../actions'
+import { setMap, createMarkerAtPositon } from '../../actions'
 
 import 'mapbox-gl/dist/mapbox-gl.css'
 
@@ -128,7 +128,7 @@ const Map = () => {
     return (
         <>
           <Profiler id="map" onRender={console.log}>
-            <MapDiv ref={mapContainer} className="map-container" />
+            <MapDiv onDrop={(event) => dispatch(createMarkerAtPositon(event))} onDragOver={(e) => e.preventDefault()} ref={mapContainer} className="map-container" />
           </Profiler>
           <Profiler id="markers" onRender={console.log}>
             {isLoaded && <><Markers map={map} /><Events map={map} /></>}
