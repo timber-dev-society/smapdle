@@ -1,5 +1,4 @@
-import Emoji from "a11y-react-emoji"
-import { useSelector } from 'react-redux'
+import Emoji from 'a11y-react-emoji'
 
 import { Wrapper, Icon } from './__style__/marker.style'
 

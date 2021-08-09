@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import { createGlobalStyle } from 'styled-components'
 
-const getSize = (zoom) => {
-  const size = zoom + (zoom / 4.4)
-
-  return size > 25 ? size : 25
-}
+// const getSize = (zoom) => {
+//   const size = zoom + (zoom / 4.4)
+//
+//   return size > 25 ? size : 25
+// }
 
 const getFontSize = (zoom) => {
   const size = zoom - 7

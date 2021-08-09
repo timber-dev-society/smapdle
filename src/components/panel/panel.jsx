@@ -1,50 +1,35 @@
-import styled from 'styled-components'
-import Emoji from "a11y-react-emoji"
-import { useDispatch, useSelector } from 'react-redux'
-import { useState, useEffect } from 'react'
-import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
+// @flow
+import type { Element } from 'react'
+import { render } from 'react-dom'
+import { useState } from 'react'
 
+import { Box, DragContainer } from './__style__/panel.style'
+import Menu from './menu'
+import Trash from './trash'
 
-import { setIsDraggingNewMarker } from '../../actions'
-
-const Box = styled.div`
-  background-color: white;
-  border-radius: 5px;
-  height: 100px;
-  left: 50px;
-  padding: 15px;
-  position: absolute;
-  top: 50px;
-  width: 100px;
-`
-
-const Icon = styled.div`
-  background-color: transparent;
-  cursor: grab;
-  font-size: 20px;
-  height: 20px;
-  width: 20px;
-`
-
-const Panel = () => {
-  const dispatch = useDispatch()
+const Panel = (): Element<any> => {
   const [ isDragging, setIsDragging ] = useState(false)
 
-  const handleDragStart = () => {
+  const handleDragStart = (event: MouseEvent, type: string, token: Element<any>) => {
+    event.stopPropagation()
+
+    const dragImage = document.createElement('div')
+    render(<DragContainer>{token}</DragContainer>, dragImage)
+
+    event.dataTransfer.effectAllowed = 'copy'
+    event.dataTransfer.setData('text/plain', type)
 
     setIsDragging(true)
   }
 
   const handleDragEnd = () => {
-
     setIsDragging(false)
   }
 
   return (
     <Box onDrop={(e) => e.stopPropagation()} onDragOver={(e) => e.preventDefault()}>
-      <Icon draggable onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
-        <Emoji symbol="🧠" label="login" />
-      </Icon>
+      <Trash isOpen={ isDragging }/>
+      <Menu handleDragStart={handleDragStart} handleDragEnd={handleDragEnd} />
     </Box>
   )
 }

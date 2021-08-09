@@ -6,7 +6,7 @@ import { Provider } from 'react-redux'
 
 import store from './store'
 import App from './components/app'
-import reportWebVitals from './reportWebVitals'
+import reportWebVitals, { sendToAnalytics } from './reportWebVitals'
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -26,4 +26,4 @@ render(
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals(console.log)
+reportWebVitals(sendToAnalytics)

@@ -1,22 +1,30 @@
-import { CREATE_MARKERS, UPDATE_MARKER } from '../../actions'
+import { CREATE_MARKERS, UPDATE_MARKER, ADD_MARKER } from '../../actions'
 import { renderToken, positionToLngLat } from '../../utils/mapbox'
 
 const defaultState = []
 
-const defaultMarker = {
-  uid: null,
-  ref: null,
-}
+// const defaultMarker = {
+//   uid: null,
+//   ref: null,
+// }
 
 const markerReducer = (state = defaultState, { type, payload }) => {
   switch (type) {
 
     case CREATE_MARKERS:
-      console.log(payload)
       return payload.markers.map(marker => ({
         uid: marker.uid,
         ref: renderToken(marker, payload.map)
       }))
+
+    case ADD_MARKER:
+      return [
+        ...state,
+        {
+          ...payload.marker,
+          ref: renderToken(payload.marker, payload.map, payload.user)
+        }
+      ]
 
     case UPDATE_MARKER:
       return state.map(marker => {
