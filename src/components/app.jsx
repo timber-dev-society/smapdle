@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import firebase, { config } from '../utils/firebase'
 import LoginForm from './login-form'
 import Map from './map'
-import Panel from './panel'
+import Panel, { ZPanel } from './panel'
 import { setUser } from '../actions'
 
 const App = () => {
@@ -15,7 +15,6 @@ const App = () => {
       <FirebaseAuthConsumer>
         {({ isSignedIn, user, providerId }) => {
           if (isSignedIn && user.uid !== undefined) {
-            console.log(user)
             dispatch(setUser(user))
           }
         }}
@@ -28,6 +27,7 @@ const App = () => {
           <>
             <Map />
             <Panel />
+            <ZPanel />
           </>
         ) }
       </IfFirebaseAuthed>

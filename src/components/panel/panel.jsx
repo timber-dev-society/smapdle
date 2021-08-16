@@ -27,7 +27,7 @@ const Panel = (): Element<any> => {
   }
 
   return (
-    <Box onDrop={(e) => e.stopPropagation()} onDragOver={(e) => e.preventDefault()}>
+    <Box onDrop={(e) =>  {e.stopPropagation(); e.preventDefault()}} onDragOver={(e) => e.preventDefault()}>
       <Trash isOpen={ isDragging }/>
       <Menu handleDragStart={handleDragStart} handleDragEnd={handleDragEnd} />
     </Box>

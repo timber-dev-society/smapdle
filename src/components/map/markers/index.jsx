@@ -11,13 +11,14 @@ const Markers = ({map}) => {
   useEffect(() => {
 
     if (data.length === 0) {
-      dispatch(loadMarkers())
-      return
+      return dispatch(loadMarkers())
     }
   })
 
   return (
-    <CssHack map={map} />
+    <>
+      <CssHack map={map} />
+    </>
   )
 }
 

@@ -1,4 +1,4 @@
-import { SET_USER, SET_MARKERS, UPDATE_MARKER, SET_MAP } from '../../actions'
+import { SET_USER, DEFINE_MARKER, UPDATE_MARKER, SET_MAP } from '../../actions'
 
 const defaultState = {
   user: null,
@@ -19,10 +19,13 @@ const appReducer = (state = defaultState, { type, payload }) => {
         ...state,
         map: payload,
       }
-    case SET_MARKERS:
+    case DEFINE_MARKER:
       return {
         ...state,
-        markers: payload.reduce((marker, acc) => ({ ...acc, [marker.uid]: marker }), {}),
+        markers: {
+          ...state.markers,
+          [payload.uid]: payload,
+        }
       }
     case UPDATE_MARKER:
       return {

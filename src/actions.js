@@ -37,6 +37,12 @@ export const addMarker = (marker: Object, map: Object, user: Object): Action => 
   },
 })
 
+export const DEFINE_MARKER: symbol = Symbol('DEFINE_MARKER_@_APP')
+export const defineMarker = (marker: Object): Action => ({
+  type: DEFINE_MARKER,
+  payload: marker,
+})
+
 export const CREATE_MARKERS: symbol = Symbol('CREATE_MARKERS_@_MARKER')
 export const createMarkers = (markers: Object, map: Object): Action => ({
   type: CREATE_MARKERS,

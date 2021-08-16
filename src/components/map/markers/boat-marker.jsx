@@ -5,7 +5,7 @@ import styled from 'styled-components'
 
 import { Wrapper } from './__style__/marker.style'
 
-export const skins = ['🧟', '🧟‍♂️', '🧟‍♀️']
+export const skins = ['⛵', '🛥️', '🚢']
 const defaultVisibleAfter = 17.5
 
 const Container = styled.div`
@@ -22,7 +22,7 @@ const Menu = styled.div`
   width: 39px;
 `
 
-const ZMarker = ({ uid, map, skin, hidden, visibleAfter }) => {
+const BoatMarker = ({ uid, map, skin, hidden, visibleAfter }) => {
 
   const [ isVisible, setIsVisible ] = useState(map.getZoom() > visibleAfter)
   const [ zMenu, toggleZMenu ] = useState(false)
@@ -48,17 +48,17 @@ const ZMarker = ({ uid, map, skin, hidden, visibleAfter }) => {
   )
 }
 
-ZMarker.propTypes = {
+BoatMarker.propTypes = {
   map: PropTypes.object.isRequired,
   skin: PropTypes.number,
   visibleAfter: PropTypes.number,
   hidden: PropTypes.bool,
 }
 
-ZMarker.defaultProps = {
+BoatMarker.defaultProps = {
   skin: 1,
   visibleAfter: defaultVisibleAfter,
   hiddden: false,
 };
 
-export default ZMarker
+export default BoatMarker

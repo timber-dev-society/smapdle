@@ -21,6 +21,11 @@ const Map = () => {
     const map = useRef(null)
     const dispatch = useDispatch()
     const [ isLoaded, setIsLoaded ] = useState(false)
+    const handleDrop = (event) => {
+       event.stopPropagation()
+       event.preventDefault()
+       dispatch(createMarkerAtPositon(event))
+    }
 
     useEffect(() => {
         if (map.current) return; // initialize map only once
@@ -63,7 +68,7 @@ const Map = () => {
           // The 'building' layer in the Mapbox Streets
           // vector tileset contains building height data
           // from OpenStreetMap.
-          map.current.addLayer({
+          /*map.current.addLayer({
             'id': 'add-3d-buildings',
             'source': 'composite',
             'source-layer': 'building',
@@ -98,7 +103,7 @@ const Map = () => {
             }
           },
           labelLayerId
-        );
+        );*/
         })
 
         map.current.on('zoomend', () => {
@@ -128,7 +133,7 @@ const Map = () => {
     return (
         <>
           <Profiler id="map" onRender={console.log}>
-            <MapDiv onDrop={(event) => dispatch(createMarkerAtPositon(event))} onDragOver={(e) => e.preventDefault()} ref={mapContainer} className="map-container" />
+            <MapDiv onDrop={handleDrop} onDragOver={(e) => e.preventDefault()} ref={mapContainer} className="map-container" />
           </Profiler>
           <Profiler id="markers" onRender={console.log}>
             {isLoaded && <><Markers map={map} /><Events map={map} /></>}

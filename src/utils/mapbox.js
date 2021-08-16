@@ -3,11 +3,17 @@ import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-load
 
 import PlayerToken from '../components/map/markers/player-marker'
 import ZToken from '../components/map/markers/z-marker'
+import BoatToken from '../components/map/markers/boat-marker'
+import IncidentToken from '../components/map/markers/incident-marker'
+import CarToken from '../components/map/markers/car-marker'
 import { firestore } from './firebase'
 
 const tokens = {
   player: PlayerToken,
   z: ZToken,
+  boat: BoatToken,
+  incident: IncidentToken,
+  car: CarToken,
 }
 
 // convert Firebase position into lngLat mapbox
@@ -19,7 +25,10 @@ export const renderToken = (marker, map, user) => {
   const Token = tokens[marker.token]
   const canControl = marker.owner === user.uid
 
-  render(<Token map={map} {...marker} />, container)
+  render(
+    <Token map={map} {...marker} />,
+    container
+  )
 
   const ref = new mapboxgl.Marker(container)
                           .setLngLat(positionToLngLat(marker.position))

@@ -14,7 +14,7 @@ const markerReducer = (state = defaultState, { type, payload }) => {
     case CREATE_MARKERS:
       return payload.markers.map(marker => ({
         uid: marker.uid,
-        ref: renderToken(marker, payload.map)
+        mapRef: renderToken(marker, payload.map)
       }))
 
     case ADD_MARKER:
@@ -22,14 +22,14 @@ const markerReducer = (state = defaultState, { type, payload }) => {
         ...state,
         {
           ...payload.marker,
-          ref: renderToken(payload.marker, payload.map, payload.user)
+          mapRef: renderToken(payload.marker, payload.map, payload.user)
         }
       ]
 
     case UPDATE_MARKER:
       return state.map(marker => {
         if (marker.uid === payload.uid) {
-          marker.ref.setLngLat(positionToLngLat(payload.position))
+          marker.mapRef.setLngLat(positionToLngLat(payload.position))
         }
 
         return marker
