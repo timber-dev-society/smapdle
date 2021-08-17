@@ -2,7 +2,7 @@ import { render } from 'react-dom'
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 
 import PlayerToken from '../components/map/markers/player-marker'
-import ZToken from '../components/map/markers/z-marker'
+import ZToken from '../components/map/markers/z-token'
 import BoatToken from '../components/map/markers/boat-marker'
 import IncidentToken from '../components/map/markers/incident-marker'
 import CarToken from '../components/map/markers/car-marker'
@@ -19,6 +19,34 @@ const tokens = {
 // convert Firebase position into lngLat mapbox
 export const positionToLngLat = position => ({ lng: position.longitude, lat: position.latitude })
 
+export const createMarker = ({ el, map, position }) => {
+  const marker = new mapboxgl.Marker(el)
+                          .setLngLat(positionToLngLat(position))
+                          .setPitchAlignment('map')
+                          .addTo(map)
+
+  return {
+    item: marker,
+    addControl: () => {
+      const tokenRef = firestore.collection('markers').doc(marker.uid)
+
+      marker.setDraggable(true)
+      marker.on('dragend', (event) => {
+        const { lng, lat } = marker.getLngLat()
+        tokenRef.update({
+          position: {
+            latitude: lat,
+            longitude: lng,
+          }
+        }).then(() => {
+          console.log("Document successfully updated!")
+        }).catch((error) => {
+          console.error("Error updating document: ", error)
+        })
+      })
+    },
+  }
+}
 // render a token in the map
 export const renderToken = (marker, map, user) => {
   const container = document.createElement('div')

@@ -1,21 +1,19 @@
 import { firestore } from '../../utils/firebase'
-import { LOAD_MARKERS, CREATE_MARKER_AT_POSITION, defineMarker, updateMarker, addMarker } from '../../actions'
+import { LOAD_MARKERS, CREATE_MARKER_AT_POSITION, updateMarker, addMarker, setIsLoaded } from '../../actions'
 import { getMousePosition } from '../../utils/mapbox'
 
 const firestoreDb = store => next => async (action) => {
 
-  let isLoaded = false
-
   switch (action.type) {
     case LOAD_MARKERS:
       {
-        if (isLoaded) { break }
-        isLoaded = true
+        if (store.getState().app.isLoaded) { break }
+
         const map = store.getState().app.map
         const user = store.getState().app.user
         // it seems we can use only the second system to load everthing
         // @TODO delete this code when add marker is implemented
-        firestore.collection("users").doc(user.uid).get().then((doc) => {
+        /*firestore.collection("users").doc(user.uid).get().then((doc) => {
           console.log(doc, doc.data())
         })
 
@@ -28,9 +26,7 @@ const firestoreDb = store => next => async (action) => {
 
             switch (change.type) {
               case 'added':
-                store.dispatch(defineMarker(marker))
-                console.log(user)
-                store.dispatch(addMarker(marker, map, user))
+                store.dispatch(addMarker(marker))
                 return
               case 'modified':
                 store.dispatch(updateMarker(marker))
@@ -43,6 +39,7 @@ const firestoreDb = store => next => async (action) => {
                 return
             }
           })
+          store.dispatch(setIsLoaded())
         })
       }
       break

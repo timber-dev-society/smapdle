@@ -2,7 +2,7 @@ import Emoji from 'a11y-react-emoji'
 import styled from 'styled-components'
 
 import { Li } from '../__style__/menu.style'
-import { skins } from '../../map/markers/z-marker'
+import { skins } from '../../map/markers/z-token'
 
 const ListItem = styled(Li)`
   cursor: pointer;

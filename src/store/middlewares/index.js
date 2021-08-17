@@ -1,13 +1,11 @@
-import { applyMiddleware } from 'redux'
-
 import crashReporter from './crash-report'
 import realtimeDb from './realtime-db'
-import firestoreDb from './firestart-db'
+import firestoreDb from './firestore-db'
 import debugStore from './debug-store'
 
-export default applyMiddleware(
+export default [
   crashReporter,
   realtimeDb,
   firestoreDb,
   debugStore,
-)
+]

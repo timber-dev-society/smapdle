@@ -1,43 +1,17 @@
-import { SET_USER, DEFINE_MARKER, UPDATE_MARKER, SET_MAP } from '../../actions'
+import { createReducer } from '@reduxjs/toolkit'
 
-const defaultState = {
+import { SET_USER, SET_MAP, SET_IS_LOADED } from '../../actions'
+
+const initialState = {
   user: null,
   map: null,
-  markers: {},
+  isLoaded: false,
 }
 
-const appReducer = (state = defaultState, { type, payload }) => {
-  switch (type) {
-    case SET_USER:
-      console.log(payload)
-      return {
-        ...state,
-        user: payload,
-      }
-    case SET_MAP:
-      return {
-        ...state,
-        map: payload,
-      }
-    case DEFINE_MARKER:
-      return {
-        ...state,
-        markers: {
-          ...state.markers,
-          [payload.uid]: payload,
-        }
-      }
-    case UPDATE_MARKER:
-      return {
-        ...state,
-        markers: {
-          ...state.markers,
-          [payload.uid]: payload,
-        }
-      }
-    default:
-      return state
-  }
-}
+const appReducer = createReducer(initialState, {
+  [SET_USER]: (state, action) => void (state.user = action.payload),
+  [SET_MAP]: (state, action) => void (state.map = action.payload),
+  [SET_IS_LOADED]: (state, action) => void (state.isLoaded = true),
+})
 
 export default appReducer

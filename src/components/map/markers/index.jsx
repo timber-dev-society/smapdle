@@ -3,14 +3,14 @@ import { useEffect } from 'react'
 
 import CssHack from './css-hack'
 import { loadMarkers } from '../../../actions'
+import ZMarkers from './z-markers'
 
-const Markers = ({map}) => {
+const Markers = ({ map }) => {
   const dispatch = useDispatch()
-  const data = useSelector(({ markers }) => markers)
+  const isLoaded = useSelector((state) => state.app.isLoaded)
 
   useEffect(() => {
-
-    if (data.length === 0) {
+    if (isLoaded === false) {
       return dispatch(loadMarkers())
     }
   })
@@ -18,6 +18,7 @@ const Markers = ({map}) => {
   return (
     <>
       <CssHack map={map} />
+      { isLoaded && <ZMarkers map={map} /> }
     </>
   )
 }

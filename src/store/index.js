@@ -1,11 +1,12 @@
-import { createStore } from 'redux'
+import { configureStore } from '@reduxjs/toolkit'
 
-import reducers from './reducers'
-import middlewares from './middlewares'
+import reducer from './reducers'
+import middleware from './middlewares'
 
-const store = createStore(
-  reducers,
-  middlewares,
-)
+const store = configureStore({
+  reducer,
+  middleware,
+  devTools: true,
+})
 
 export default store

@@ -17,8 +17,8 @@ const List = styled.ul`
 `
 
 const ZPanel = () => {
-  const zMarkers = useSelector(state => state.markers.filter(marker => marker.token === 'z'))
-                              .map(marker => (<Item key={marker.uid} {...marker} />))
+  const zMarkers = 'coucou' //useSelector(state => state.markers.filter(marker => marker.token === 'z'))
+                              //.map(marker => (<Item key={marker.uid} {...marker} />))
 
   return (
     <Wrapper>

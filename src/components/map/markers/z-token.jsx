@@ -1,9 +1,12 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef, memo } from 'react'
+import { createPortal } from 'react-dom'
+import { useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
 import Emoji from 'a11y-react-emoji'
 import styled from 'styled-components'
 
 import { Wrapper } from './__style__/marker.style'
+import { createMarker } from '../../../utils/mapbox'
 
 export const skins = ['🧟', '🧟‍♂️', '🧟‍♀️']
 const defaultVisibleAfter = 17.5
@@ -22,43 +25,51 @@ const Menu = styled.div`
   width: 39px;
 `
 
-const ZMarker = ({ uid, map, skin, hidden, visibleAfter }) => {
-
-  const [ isVisible, setIsVisible ] = useState(map.getZoom() > visibleAfter)
+const ZMarker = ({ uid, map, visibleAfter }) => {
+  const canControl = true
+  const [ el ] = useState(document.createElement('div'))
+  const [ isVisible, setIsVisible ] = useState(map.current.getZoom() > visibleAfter)
   const [ zMenu, toggleZMenu ] = useState(false)
 
+  const { skin, hidden, position } = useSelector(state => state.markers.z[uid])
+
+  const token = useRef(null)
+
   useEffect(() => {
-    const handleZoom = () => {
-      if (isVisible !== (map.getZoom() > visibleAfter)) {
-        setIsVisible(map.getZoom() > visibleAfter)
+    if (token.current) return;
+
+    token.current = createMarker({
+      el,
+      position,
+      map: map.current,
+    })
+
+    map.current.on('zoom', () => {
+      if (isVisible !== (map.current.getZoom() > visibleAfter)) {
+        setIsVisible(map.current.getZoom() > visibleAfter)
       }
-    }
+    })
 
-    map.on('zoom', handleZoom)
-
-    return () => map.off('zoom', handleZoom)
   }, [ isVisible, map, visibleAfter ])
 
 
-  return (
+  return createPortal(
     <Container>
       { isVisible && <Wrapper onClick={() => toggleZMenu(!zMenu)} style={{fontSize:'24px', opacity:`${hidden ? 0.5 : 1}`}}><Emoji symbol={skins[skin - 1]} label="z" /></Wrapper> }
       { zMenu && <Menu /> }
-    </Container>
+    </Container>,
+    el
   )
 }
 
 ZMarker.propTypes = {
   map: PropTypes.object.isRequired,
-  skin: PropTypes.number,
   visibleAfter: PropTypes.number,
-  hidden: PropTypes.bool,
 }
 
 ZMarker.defaultProps = {
-  skin: 1,
   visibleAfter: defaultVisibleAfter,
   hiddden: false,
-};
+}
 
-export default ZMarker
+export default memo(ZMarker)
