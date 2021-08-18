@@ -1,9 +1,9 @@
-import { enableMapSet } from 'immer'
-
 import app from './app-reducer'
 import markers from './marker-reducer'
 
-export default {
+const reducers = {
   app,
   markers,
 }
+
+export default reducers

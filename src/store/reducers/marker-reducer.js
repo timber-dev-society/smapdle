@@ -1,7 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit'
 
-import { UPDATE_MARKER, ADD_MARKER } from '../../actions'
-import { renderToken, positionToLngLat } from '../../utils/mapbox'
+import { UPDATE_MARKER, ADD_MARKER, SET_IS_OVER_MARKER, DELETE_MARKER } from '../../actions'
 
 const initialState = {
   z: {},
@@ -15,8 +14,9 @@ const initialState = {
 const defaultMarker = {
   hidden: true,
   skin: 1,
+  isOver: false,
+  isDead: false,
 }
-
 
 const markerReducer = createReducer(initialState, {
 
@@ -26,14 +26,33 @@ const markerReducer = createReducer(initialState, {
       ...defaultMarker,
       ...action.payload
     }
+
     return state
   },
 
   [UPDATE_MARKER]: (state, action) => {
-    const { token, uid, position } = action.payload
-    state[token][uid].position = position
+    const { token, uid } = action.payload
+    state[token][uid] = {
+      ...state[token][uid],
+      ...action.payload,
+    }
+
     return state
   },
+
+  [SET_IS_OVER_MARKER]: (state, action) => {
+    const { token, uid, isOver } = action.payload
+    state[token][uid].isOver = isOver
+
+    return state
+  },
+
+  [DELETE_MARKER]: (state, action) => {
+    const { token, uid } = action.payload
+    delete state[token][uid]
+
+    return state
+  }
 })
 
 

@@ -56,9 +56,10 @@ const Map = () => {
         map.current.on('load', () => {
 
           setIsLoaded(true)
-          var layers = map.current.getStyle().layers;
-          var labelLayerId;
-          for (var i = 0; i < layers.length; i++) {
+          /*
+          const layers = map.current.getStyle().layers;
+          let labelLayerId;
+          for (let i = 0; i < layers.length; i++) {
             if (layers[i].type === 'symbol' && layers[i].layout['text-field']) {
               labelLayerId = layers[i].id;
               break;
@@ -68,7 +69,7 @@ const Map = () => {
           // The 'building' layer in the Mapbox Streets
           // vector tileset contains building height data
           // from OpenStreetMap.
-          /*map.current.addLayer({
+          map.current.addLayer({
             'id': 'add-3d-buildings',
             'source': 'composite',
             'source-layer': 'building',
@@ -136,7 +137,7 @@ const Map = () => {
             <MapDiv onDrop={handleDrop} onDragOver={(e) => e.preventDefault()} ref={mapContainer} className="map-container" />
           </Profiler>
           <Profiler id="markers" onRender={console.log}>
-            {isLoaded && <><Markers map={map} /><Events map={map} /></>}
+            { isLoaded && <><Markers map={map} /><Events map={map} /></> }
           </Profiler>
         </>
     )

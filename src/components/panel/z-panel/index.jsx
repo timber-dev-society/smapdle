@@ -17,13 +17,14 @@ const List = styled.ul`
 `
 
 const ZPanel = () => {
-  const zMarkers = 'coucou' //useSelector(state => state.markers.filter(marker => marker.token === 'z'))
+  const isLoaded = useSelector(state => state.app.isLoaded)
+  const zMarkers = useSelector(state => state.markers.z)
                               //.map(marker => (<Item key={marker.uid} {...marker} />))
 
   return (
     <Wrapper>
       <List>
-        { zMarkers }
+        { isLoaded && Object.keys(zMarkers).map(key => <Item key={key} {...zMarkers[key]} />)}
       </List>
     </Wrapper>
   )

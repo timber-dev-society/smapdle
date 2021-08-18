@@ -1,7 +1,6 @@
+// @flow
 import { createAction } from '@reduxjs/toolkit'
 
-// @flow
-type Action = { type: symbol, payload?: any }
 type MouseEvent = { clientX: number, clientY: number }
 
 // USER EVENTS
@@ -38,5 +37,25 @@ export const createMarkerAtPositon = createAction(CREATE_MARKER_AT_POSITION, ({ 
 export const LOAD_MARKERS: symbol = Symbol('LOAD_MARKERS')
 export const loadMarkers = createAction(LOAD_MARKERS)
 
+export const SET_IS_OVER_MARKER: symbol = Symbol('SET_IS_OVER_MARKER')
+export const setIsOverMarker = createAction(SET_IS_OVER_MARKER)
+
 export const UPDATE_MARKER: symbol = Symbol('UPDATE_MARKER_@_MARKER')
 export const updateMarker = createAction(UPDATE_MARKER)
+
+
+export const DELETE_MARKER: symbol = Symbol('DELETE_MARKER_@_MARKER')
+export const deleteMarker = createAction(DELETE_MARKER)
+
+export const FLY_TO: symbol = Symbol('FLY_TO')
+export const flyTo = createAction(FLY_TO)
+
+// TOKENS EVENTS
+export const TOGGLE_VISIBILITY: symbol = Symbol('TOGGLE_VISIBILITY')
+export const toggleVisibility = createAction(TOGGLE_VISIBILITY)
+
+export const KILL: symbol = Symbol('KILL')
+export const kill = createAction(KILL)
+
+export const DELETE: symbol = Symbol('DELETE')
+export const deleteToken = createAction(DELETE)
