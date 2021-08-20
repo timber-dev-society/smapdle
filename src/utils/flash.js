@@ -1,49 +1,62 @@
-import { createStore } from 'redux'
+import { configureStore, createSlice } from '@reduxjs/toolkit'
+import { Provider, createDispatchHook, createSelectorHook } from 'react-redux'
+import { createContext } from 'react'
 
-let i = 0
-const ADD_FLASH = 'ADD_FLASH'
-const REMOVE_FLASH = 'REMOVE_FLASH'
-const reducer = (state = [], { type, ...action}) => {
-  switch (type) {
-    case ADD_FLASH:
-      return [
-        ...state,
-        {
-          content: action.text,
-          style: action.style,
-          id: i++,
-        }
-      ]
-    case REMOVE_FLASH:
-      return state.filter((alert) => alert.id === action.id)
-    default:
-      return state
+let increment = 0
+
+export const INFO = 'info'
+export const SUCCESS = 'success'
+export const WARNING = 'warn'
+export const ERROR = 'error'
+
+const flashSlice = createSlice({
+  name: 'flash',
+  initialState: [],
+  reducers: {
+    setSuccess(state, action) {
+      state.push({
+        id: increment++,
+        content: action.payload,
+        style: SUCCESS,
+      })
+    },
+    setInfo(state, action) {
+      state.push({
+        id: increment++,
+        content: action.payload,
+        style: INFO,
+      })
+    },
+    setWarning(state, action) {
+      state.push({
+        id: increment++,
+        content: action.payload,
+        style: WARNING,
+      })
+    },
+    setError(state, action) {
+      state.push({
+        id: increment++,
+        content: action.payload,
+        style: ERROR,
+      })
+    },
+    removeFlash(state, action) {
+      console.log(action)
+      return state.filter(flash => flash.id !== action.payload)
+    }
   }
-}
-
-const store = createStore(reducer)
-
-export default store
-
-export const sendFlashMessage = (text) => ({
-  type: ADD_FLASH,
-  text,
-  style: 'info',
 })
 
-export const sendFlashError = (text) => ({
-  type: ADD_FLASH,
-  text,
-  style: 'error',
-})
+export const flashStore = configureStore({ reducer: flashSlice.reducer })
 
-export const sendFlashWarning = (text) => ({
-  type: ADD_FLASH,
-  text,
-  style: 'warning',
-})
+export const FlashContext = createContext(null)
+export const useFlashDispatch = createDispatchHook(FlashContext)
+export const useSelector = createSelectorHook(FlashContext)
 
-export const removeFlahMessage = (id) => ({
-  type: REMOVE_FLASH,
-  id,
-})
+export const { setSuccess, setError, setInfo, setWarning, removeFlash } = flashSlice.actions
+export const FlashProvider = ({ children }) => (
+  <Provider context={FlashContext} store={flashStore}>
+    {children}
+  </Provider>
+)
