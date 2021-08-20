@@ -12,13 +12,16 @@ export const Container = styled.div`
   }
 `
 
-export const Menu = styled.div`
-  background:white;
-  border-radius: 510px;
+export const Block = styled.div`
+  background: white;
+  padding: 5px;
+  border-radius: 5px;
+  position: absolute;
+`
+
+export const Menu = styled(Block)`
   left: 100%;
   margin-left: 10px;
-  padding: 5px;
-  position:absolute;
   top: 0;
 
   &:after {
@@ -33,4 +36,18 @@ export const Menu = styled.div`
     top: 15px;
     width: 0;
   }
+`
+
+export const Sublist = styled(Block)`
+  border-radius: 0 5px 5px 0;
+  left: 100%;
+  top: 38px;
+`
+
+export const HorizontalList = styled.ul`
+  display: flex;
+`
+
+export const HorizontalItem = styled.li`
+  padding: 0 5px;
 `

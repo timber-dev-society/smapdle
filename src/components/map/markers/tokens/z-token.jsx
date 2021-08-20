@@ -5,10 +5,10 @@ import PropTypes from 'prop-types'
 import Emoji from 'a11y-react-emoji'
 import { FaSkull, FaEyeSlash, FaEye, FaCog, FaTrashAlt } from 'react-icons/fa'
 
-import { Container, Menu } from '../__style__/token.style'
+import { Container, Menu, Sublist, HorizontalList, HorizontalItem } from '../__style__/token.style'
 import { Wrapper } from '../__style__/marker.style'
 import { createMarker } from '../../../../utils/mapbox'
-import { toggleVisibility, kill, deleteToken } from '../../../../actions'
+import { toggleVisibility, kill, deleteToken, changeSkin } from '../../../../actions'
 
 
 export const skins = ['🧟', '🧟‍♂️', '🧟‍♀️']
@@ -19,11 +19,16 @@ const ZMarker = ({ uid, map, visibleAfter }) => {
   const [ el ] = useState(document.createElement('div'))
   const [ isVisible, setIsVisible ] = useState(map.current.getZoom() > visibleAfter)
   const [ zMenu, toggleZMenu ] = useState(false)
+  const [ zMenuSetting, setZMenuSetting ] = useState(false)
 
   const { skin, hidden, position, isOver, isDead } = useSelector(state => state.markers.z[uid])
-  console.log(hidden)
 
   const token = useRef(null)
+
+  const handleAction = (action, payload) => {
+    dispatch(action(payload))
+    toggleZMenu(false)
+  }
 
   useEffect(() => {
     if (token.current) return;
@@ -56,14 +61,28 @@ const ZMarker = ({ uid, map, visibleAfter }) => {
       { zMenu &&
         <Menu>
           <ul style={{cursor:'pointer'}}>
-            <li onClick={() => dispatch(toggleVisibility({ uid, hidden: !hidden }))}>
+            <li onClick={() => handleAction(toggleVisibility, { uid, hidden: !hidden })}>
               { hidden ? <FaEye /> : <FaEyeSlash /> }
             </li>
-            <li onClick={() => dispatch(kill(uid))}>
+            <li onClick={() => handleAction(kill, uid)}>
               <FaSkull />
             </li>
-            <li><FaCog /></li>
-            <li onClick={() => dispatch(deleteToken(uid))}>
+            <li onClick={() => setZMenuSetting(!zMenuSetting)}>
+              <FaCog />
+              { zMenuSetting && <Sublist>
+                <HorizontalList>
+                  { skins.map((skin, id) => (
+                    <HorizontalItem onClick={() => {
+                      setZMenuSetting(false)
+                      handleAction(changeSkin, { uid, skin: id + 1 })
+                    }}>
+                      <Emoji symbol={skin} label={`z-${id}`} />
+                    </HorizontalItem>
+                  )) }
+                </HorizontalList>
+              </Sublist> }
+            </li>
+            <li onClick={() => handleAction(deleteToken, uid)}>
               <FaTrashAlt />
             </li>
           </ul>

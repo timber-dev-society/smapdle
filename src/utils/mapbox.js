@@ -14,7 +14,6 @@ export const createMarker = ({ el, map, position }) => {
   return {
     item: marker,
     addControl: uid => {
-      console.log(marker)
       const tokenRef = firestore.collection('markers').doc(uid)
 
       marker.setDraggable(true)

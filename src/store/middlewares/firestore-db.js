@@ -1,9 +1,10 @@
 import { firestore } from '../../utils/firebase'
 import {
-  LOAD_MARKERS, CREATE_MARKER_AT_POSITION, TOGGLE_VISIBILITY, KILL, DELETE,
+  LOAD_MARKERS, CREATE_MARKER_AT_POSITION, TOGGLE_VISIBILITY, KILL, DELETE, CHANGE_SKIN,
   updateMarker, addMarker, setIsLoaded, deleteMarker,
 } from '../../actions'
 import { getMousePosition } from '../../utils/mapbox'
+import { flashStore, setError } from '../../utils/flash'
 
 const firestoreDb = store => next => async (action) => {
 
@@ -31,10 +32,10 @@ const firestoreDb = store => next => async (action) => {
               store.dispatch(updateMarker(marker))
               return
             case 'removed': // @TODO implement delete marker
-              console.log("Removed : ", change.doc.data())
               store.dispatch(deleteMarker(marker))
               return
             default:
+              flashStore.dispatch(setError('This is crap'))
               console.error('must not raised', change)
               return
           }
@@ -57,19 +58,19 @@ const firestoreDb = store => next => async (action) => {
         }
 
         firestore.collection("markers")
-                 .add(marker)
-                 .then(docRef => {
-                    console.log(docRef)
-                 }).catch((error) => {
+                .add(marker)
+                .then(docRef => {
+                  console.log(docRef)
+                }).catch((error) => {
+                  flashStore.dispatch(setError('Something wrong append'))
                   console.error("Error adding document: ", error);
-                 });
+                });
       }
       break
 
     case TOGGLE_VISIBILITY:
       {
         const { uid, hidden } = action.payload
-        console.log(action.payload)
         const tokenRef = firestore.collection("markers").doc(uid)
 
         tokenRef.update({
@@ -79,6 +80,25 @@ const firestoreDb = store => next => async (action) => {
         })
         .catch((error) => {
           // The document probably doesn't exist.
+            flashStore.dispatch(setError('Something wrong append'))
+          console.error("Error updating document: ", error);
+        })
+      }
+      break;
+
+    case CHANGE_SKIN:
+      {
+        const { uid, skin } = action.payload
+        const tokenRef = firestore.collection("markers").doc(uid)
+
+        tokenRef.update({
+          skin,
+        }).then(() => {
+          console.log("Document successfully updated!");
+        })
+        .catch((error) => {
+          // The document probably doesn't exist.
+          flashStore.dispatch(setError('Something wrong append'))
           console.error("Error updating document: ", error);
         })
       }
@@ -95,6 +115,7 @@ const firestoreDb = store => next => async (action) => {
         })
         .catch((error) => {
           // The document probably doesn't exist.
+          flashStore.dispatch(setError('Something wrong append'))
           console.error("Error updating document: ", error);
         })
       }
@@ -106,6 +127,7 @@ const firestoreDb = store => next => async (action) => {
       })
       .catch((error) => {
         // The document probably doesn't exist.
+        flashStore.dispatch(setError('Something wrong append'))
         console.error("Error updating document: ", error);
       })
       break;

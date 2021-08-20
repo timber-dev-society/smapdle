@@ -59,3 +59,6 @@ export const kill = createAction(KILL)
 
 export const DELETE: symbol = Symbol('DELETE')
 export const deleteToken = createAction(DELETE)
+
+export const CHANGE_SKIN: symbol = Symbol('CHANGE_SKIN')
+export const changeSkin = createAction(CHANGE_SKIN)

@@ -5,8 +5,9 @@ import reset from 'styled-reset'
 import { Provider } from 'react-redux'
 
 import store from './store'
-import flashStore from './utils/flash'
+import { FlashProvider } from './utils/flash'
 import App from './components/app'
+import Flash from './components/flash-messages'
 import reportWebVitals, { sendToAnalytics } from './reportWebVitals'
 
 const GlobalStyle = createGlobalStyle`
@@ -17,11 +18,14 @@ const GlobalStyle = createGlobalStyle`
 render(
   <StrictMode>
     <GlobalStyle />
-    <Provider store={flashStore}>
-      <Provider store={store}>
-        <App />
-      </Provider>
+
+    <Provider store={store}>
+      <App />
     </Provider>
+
+    <FlashProvider>
+      <Flash />
+    </FlashProvider>
   </StrictMode>,
   document.getElementById('root')
 )
