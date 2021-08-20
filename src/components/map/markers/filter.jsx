@@ -1,7 +1,7 @@
-import { useSelector } from 'react-redux'
+import { useSelector, shallowEqual } from 'react-redux'
 
 const Filter = ({ filter, Token }) => {
-  const tokens = useSelector(filter)
+  const tokens = useSelector(filter, shallowEqual)
 
   return (
     <>

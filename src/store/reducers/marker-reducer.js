@@ -12,8 +12,8 @@ const initialState = {
 }
 
 const defaultMarker = {
-  hidden: true,
   skin: 1,
+  isHidden: true,
   isOver: false,
   isDead: false,
 }

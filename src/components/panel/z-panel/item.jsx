@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { useDispatch } from 'react-redux'
 
 import { Li } from '../__style__/menu.style'
-import { skins } from '../../z/z-token'
+import { getSkin } from '../../z/skin'
 import { setIsOverMarker, flyTo } from '../../../actions'
 
 const ListItem = styled(Li)`
@@ -21,7 +21,7 @@ const Item = ({ uid, token, skin }) => {
 
   return (
     <ListItem onClick={handleClick} onMouseOver={() => handleOver(true)} onMouseLeave={() => handleOver(false)}>
-      <Emoji symbol={skins[skin - 1]} label="z" />
+      <Emoji symbol={getSkin(skin)} label="z" />
     </ListItem>
   )
 }

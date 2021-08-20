@@ -31,7 +31,7 @@ const firestoreDb = store => next => async (action) => {
             case 'modified':
               store.dispatch(updateMarker(marker))
               return
-            case 'removed': // @TODO implement delete marker
+            case 'removed':
               store.dispatch(deleteMarker(marker))
               return
             default:
@@ -70,11 +70,11 @@ const firestoreDb = store => next => async (action) => {
 
     case TOGGLE_VISIBILITY:
       {
-        const { uid, hidden } = action.payload
+        const { uid, isHidden } = action.payload
         const tokenRef = firestore.collection("markers").doc(uid)
 
         tokenRef.update({
-          hidden,
+          isHidden,
         }).then(() => {
           console.log("Document successfully updated!");
         })

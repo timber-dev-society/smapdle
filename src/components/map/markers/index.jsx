@@ -20,7 +20,7 @@ const Markers = ({ map }) => {
   return (
     <>
       <CssHack map={map} />
-      { isLoaded && appConfig.markers.map(marker => <Filter {...marker} />) }
+      { isLoaded && appConfig.markers.map((marker, key) => <Filter key={key} {...marker} />) }
     </>
   )
 }
