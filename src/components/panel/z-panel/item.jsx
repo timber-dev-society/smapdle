@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { useDispatch } from 'react-redux'
 
 import { Li } from '../__style__/menu.style'
-import { skins } from '../../map/markers/tokens/z-token'
+import { skins } from '../../z/z-token'
 import { setIsOverMarker, flyTo } from '../../../actions'
 
 const ListItem = styled(Li)`

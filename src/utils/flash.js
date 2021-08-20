@@ -42,7 +42,6 @@ const flashSlice = createSlice({
       })
     },
     removeFlash(state, action) {
-      console.log(action)
       return state.filter(flash => flash.id !== action.payload)
     }
   }

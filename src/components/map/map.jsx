@@ -30,6 +30,7 @@ const Map = () => {
     useEffect(() => {
         if (map.current) return; // initialize map only once
 
+
         // Init map position
         const lng = window.localStorage.getItem('lng') || -70.9
         const lat = window.localStorage.getItem('lat') || 42.35
@@ -42,10 +43,9 @@ const Map = () => {
             center: [ lng, lat ],
             zoom: zoom
         })
-
+        
         // save map in store
         dispatch(setMap(map.current))
-
 
         // attach basic controllers
         map.current.addControl(new mapboxgl.NavigationControl(), 'top-right')

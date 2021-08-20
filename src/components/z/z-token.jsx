@@ -5,23 +5,25 @@ import PropTypes from 'prop-types'
 import Emoji from 'a11y-react-emoji'
 import { FaSkull, FaEyeSlash, FaEye, FaCog, FaTrashAlt } from 'react-icons/fa'
 
-import { Container, Menu, Sublist, HorizontalList, HorizontalItem } from '../__style__/token.style'
-import { Wrapper } from '../__style__/marker.style'
-import { createMarker } from '../../../../utils/mapbox'
-import { toggleVisibility, kill, deleteToken, changeSkin } from '../../../../actions'
+import { Container, Menu, Sublist, HorizontalList, HorizontalItem } from '../map/markers/__style__/token.style'
+import { Wrapper } from '../map/markers/__style__/marker.style'
+import { createMarker } from '../../utils/mapbox'
+import { toggleVisibility, kill, deleteToken, changeSkin } from '../../actions'
 
 
 export const skins = ['🧟', '🧟‍♂️', '🧟‍♀️']
 const defaultVisibleAfter = 17.5
 
-const ZMarker = ({ uid, map, visibleAfter }) => {
+const ZMarker = ({ uid, visibleAfter }) => {
+  const { skin, hidden, position, isOver, isDead } = useSelector(state => state.markers.z[uid])
+  const map = useSelector(state => state.app.map)
+
   const dispatch = useDispatch()
   const [ el ] = useState(document.createElement('div'))
-  const [ isVisible, setIsVisible ] = useState(map.current.getZoom() > visibleAfter)
+  const [ isVisible, setIsVisible ] = useState(map.getZoom() > visibleAfter)
   const [ zMenu, toggleZMenu ] = useState(false)
   const [ zMenuSetting, setZMenuSetting ] = useState(false)
 
-  const { skin, hidden, position, isOver, isDead } = useSelector(state => state.markers.z[uid])
 
   const token = useRef(null)
 
@@ -31,19 +33,19 @@ const ZMarker = ({ uid, map, visibleAfter }) => {
   }
 
   useEffect(() => {
-    if (token.current) return;
+    if (token.current ) return;
 
     token.current = createMarker({
       el,
       position,
-      map: map.current,
+      map: map,
     })
 
     token.current.addControl(uid)
 
-    map.current.on('zoom', () => {
-      if (isVisible !== (map.current.getZoom() > visibleAfter)) {
-        setIsVisible(map.current.getZoom() > visibleAfter)
+    map.on('zoom', () => {
+      if (isVisible !== (map.getZoom() > visibleAfter)) {
+        setIsVisible(map.getZoom() > visibleAfter)
       }
     })
 
