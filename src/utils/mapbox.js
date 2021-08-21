@@ -1,5 +1,4 @@
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
-
 import { firestore } from './firebase'
 
 // convert Firebase position into lngLat mapbox
