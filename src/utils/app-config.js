@@ -1,23 +1,23 @@
-import ZToken from '../components/z/z-token'
-import PlayerToken from '../components/player/player-token'
-import IncidentToken from '../components/incident/incident-token'
+import ZMarker from '../components/z/marker'
+import PlayerMarker from '../components/player/marker'
+import IncidentMarker from '../components/incident/marker'
 
 const config = {
   markers: [
     {
       name: 'z',
       filter: (state) => state.markers.z,
-      Token: ZToken,
+      Marker: ZMarker,
     },
     {
       name: 'player',
       filter: (state) => state.markers.player,
-      Token: PlayerToken,
+      Marker: PlayerMarker,
     },
     {
       name: 'incident',
       filter: (state) => state.markers.incident,
-      Token: IncidentToken,
+      Marker: IncidentMarker,
     },
   ],
   map: {

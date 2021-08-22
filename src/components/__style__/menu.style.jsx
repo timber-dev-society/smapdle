@@ -30,7 +30,7 @@ export const SubMenu = styled.div`
   left: 100%;
   padding: 5px;
   position: absolute;
-  top: 38px;
+  top: -3px;
 `
 
 export const VList = styled.ul`
@@ -38,6 +38,8 @@ export const VList = styled.ul`
 `
 export const VItem = styled.li`
   display: ${(props) => props.visibleIf === false ? 'none' : 'block'};
+  position: relative;
+  padding: 3px;
 `
 export const HList = styled(VList)`
   display: flex;

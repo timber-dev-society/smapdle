@@ -1,11 +1,11 @@
 import { useSelector, shallowEqual } from 'react-redux'
 
-const Filter = ({ filter, Token }) => {
-  const tokens = useSelector(filter, shallowEqual)
+const Filter = ({ filter, Marker }) => {
+  const markers = useSelector(filter, shallowEqual)
 
   return (
     <>
-      { Object.keys(tokens).map(uid => (<Token key={uid} uid={uid} />)) }
+      { Object.keys(markers).map(uid => (<Marker key={uid} uid={uid} />)) }
     </>
   )
 }

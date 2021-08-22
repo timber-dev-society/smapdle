@@ -29,6 +29,7 @@ const useMap = ({ accessToken, style }) => {
       map.current.addControl(new mapboxgl.NavigationControl(), 'top-right')
 
       map.current.addControl(new mapboxgl.ScaleControl(), 'bottom-right')
+      map.current.doubleClickZoom.disable();
 
       // attach map listeners
       map.current.on('load', () => {

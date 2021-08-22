@@ -4,7 +4,7 @@ import { useSelector, shallowEqual } from 'react-redux'
 import PropTypes from 'prop-types'
 import Emoji from 'a11y-react-emoji'
 
-import useToken from '../hooks/token'
+import useMarker from '../hooks/marker'
 import { Container } from '../map/markers/__style__/token.style'
 import { Wrapper } from '../map/markers/__style__/marker.style'
 import Menu from './menu'
@@ -12,9 +12,9 @@ import { getSkin } from './skin'
 
 const defaultVisibleAfter = 17.5
 
-const Token = ({ uid, visibleAfter }) => {
+const Marker = ({ uid, visibleAfter }) => {
   const { skin, position, isHidden, isOver, isDead } = useSelector(state => state.markers.z[uid], shallowEqual)
-  const { el, map } = useToken({ position, uid })
+  const { el, map } = useMarker({ position, uid })
   const ref = useRef(null)
   const [ isMenuOpen, setMenuIsOpen ] = useState(false)
 
@@ -47,12 +47,12 @@ const Token = ({ uid, visibleAfter }) => {
   )
 }
 
-Token.propTypes = {
+Marker.propTypes = {
   visibleAfter: PropTypes.number,
 }
 
-Token.defaultProps = {
+Marker.defaultProps = {
   visibleAfter: defaultVisibleAfter,
 }
 
-export default memo(Token)
+export default memo(Marker)

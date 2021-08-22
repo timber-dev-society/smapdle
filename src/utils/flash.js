@@ -54,6 +54,14 @@ export const useFlashDispatch = createDispatchHook(FlashContext)
 export const useSelector = createSelectorHook(FlashContext)
 
 export const { setSuccess, setError, setInfo, setWarning, removeFlash } = flashSlice.actions
+
+window.errors = []
+export const flashErrorMsg = (content, error) => {
+  window.errors.push(error)
+  console.error(error)
+  flashStore.dispatch(setError(content))
+}
+
 export const FlashProvider = ({ children }) => (
   <Provider context={FlashContext} store={flashStore}>
     {children}

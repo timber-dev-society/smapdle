@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 
 import { createMarker } from '../../utils/mapbox'
 
-const useToken = ({ position, uid }) => {
+const useMarker = ({ position, uid }) => {
   const [ el ] = useState(document.createElement('div'))
   const map = useSelector(state => state.app.map)
   const token = useRef(null)
@@ -28,4 +28,4 @@ const useToken = ({ position, uid }) => {
   }
 }
 
-export default useToken
+export default useMarker

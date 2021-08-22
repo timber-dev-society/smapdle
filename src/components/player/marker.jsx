@@ -2,12 +2,12 @@ import { createPortal, shallowEqual } from 'react-dom'
 import Emoji from 'a11y-react-emoji'
 import { useSelector } from 'react-redux'
 
-import useToken from '../hooks/token'
+import useMarker from '../hooks/marker'
 import { Wrapper, Icon } from '../map/markers/__style__/marker.style'
 
-const Token = ({ uid }) => {
+const Marker = ({ uid }) => {
   const { color, position } = useSelector(state => state.markers.player[uid], shallowEqual)
-  const { el } = useToken({ position, uid })
+  const { el } = useMarker({ position, uid })
 
   return createPortal(
     <Wrapper>
@@ -17,4 +17,4 @@ const Token = ({ uid }) => {
   )
 }
 
-export default Token
+export default Marker

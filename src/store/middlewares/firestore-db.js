@@ -1,16 +1,19 @@
-import { firestore } from '../../utils/firebase'
+import { firestore, store } from '../../utils/firebase'
 import {
-  LOAD_MARKERS, CREATE_MARKER_AT_POSITION, TOGGLE_VISIBILITY, KILL, DELETE, CHANGE_SKIN,
+  LOAD_MARKERS, CREATE_MARKER_AT_POSITION, TOGGLE_VISIBILITY, KILL, DELETE, CHANGE_SKIN, SET_SIZE,
   updateMarker, addMarker, setIsLoaded, deleteMarker,
 } from '../../actions'
 import { getMousePosition } from '../../utils/mapbox'
-import { flashStore, setError } from '../../utils/flash'
+import { flashErrorMsg } from '../../utils/flash'
+import { createMiddleware } from '../../utils/app-func'
 
-const firestoreDb = store => next => async (action) => {
+const markerStore = store("markers")
 
-  switch (action.type) {
-    case LOAD_MARKERS:
-      if (store.getState().app.isLoaded) { break }
+const firestoreDb = createMiddleware({
+  name: 'Firestore',
+  middleware: {
+    [LOAD_MARKERS]: ({ state, dispatch }) => {
+      if (state.app.isLoaded) { return }
       // it seems we can use only the second system to load everthing
       // @TODO delete this code when add marker is implemented
       /*firestore.collection("users").doc(user.uid).get().then((doc) => {
@@ -26,117 +29,37 @@ const firestoreDb = store => next => async (action) => {
 
           switch (change.type) {
             case 'added':
-              store.dispatch(addMarker(marker))
+              dispatch(addMarker(marker))
               return
             case 'modified':
-              store.dispatch(updateMarker(marker))
+              dispatch(updateMarker(marker))
               return
             case 'removed':
-              store.dispatch(deleteMarker(marker))
+              dispatch(deleteMarker(marker))
               return
             default:
-              flashStore.dispatch(setError('This is crap'))
-              console.error('must not raised', change)
+              flashErrorMsg('This is crap', change)
               return
           }
         })
-        store.dispatch(setIsLoaded())
+        dispatch(setIsLoaded())
       })
-      break
-
-    case CREATE_MARKER_AT_POSITION:
-      {
-        const map = store.getState().app.map
-        const owner = store.getState().app.user.uid
-        const { lng, lat } = getMousePosition(action.payload, map)
-        const token = action.payload.token
-        const marker = {
-          position: { latitude: lat, longitude: lng },
-          active: true,
-          owner,
-          token,
-        }
-
-        firestore.collection("markers")
-                .add(marker)
-                .then(docRef => {
-                  console.log(docRef)
-                }).catch((error) => {
-                  flashStore.dispatch(setError('Something wrong append'))
-                  console.error("Error adding document: ", error);
-                });
-      }
-      break
-
-    case TOGGLE_VISIBILITY:
-      {
-        const { uid, isHidden } = action.payload
-        const tokenRef = firestore.collection("markers").doc(uid)
-
-        tokenRef.update({
-          isHidden,
-        }).then(() => {
-          console.log("Document successfully updated!");
-        })
-        .catch((error) => {
-          // The document probably doesn't exist.
-            flashStore.dispatch(setError('Something wrong append'))
-          console.error("Error updating document: ", error);
-        })
-      }
-      break;
-
-    case CHANGE_SKIN:
-      {
-        const { uid, skin } = action.payload
-        const tokenRef = firestore.collection("markers").doc(uid)
-
-        tokenRef.update({
-          skin,
-        }).then(() => {
-          console.log("Document successfully updated!");
-        })
-        .catch((error) => {
-          // The document probably doesn't exist.
-          flashStore.dispatch(setError('Something wrong append'))
-          console.error("Error updating document: ", error);
-        })
-      }
-      break;
-
-    case KILL:
-      {
-        const tokenRef = firestore.collection("markers").doc(action.payload)
-
-        tokenRef.update({
-          isDead: true,
-        }).then(() => {
-          console.log("Document successfully updated!");
-        })
-        .catch((error) => {
-          // The document probably doesn't exist.
-          flashStore.dispatch(setError('Something wrong append'))
-          console.error("Error updating document: ", error);
-        })
-      }
-      break;
-
-    case DELETE:
-      firestore.collection("markers").doc(action.payload).delete().then(() => {
-        console.log("Document successfully updated!");
+    },
+    [CREATE_MARKER_AT_POSITION]: ({ state, action }) => {
+      const { lng, lat } = getMousePosition(action.payload, state.app.map)
+      markerStore.create({
+        position: { latitude: lat, longitude: lng },
+        active: true,
+        owner: state.app.user.uid,
+        token: action.payload.token,
       })
-      .catch((error) => {
-        // The document probably doesn't exist.
-        flashStore.dispatch(setError('Something wrong append'))
-        console.error("Error updating document: ", error);
-      })
-      break;
-
-    default:
-      break
+    },
+    [TOGGLE_VISIBILITY]: ({ action }) => markerStore.update(action.payload),
+    [CHANGE_SKIN]: ({ action }) => markerStore.update(action.payload),
+    [SET_SIZE]: ({ action }) => markerStore.update(action.payload),
+    [KILL]: ({ action }) => markerStore.update({ uid: action.payload, isDead: true }),
+    [DELETE]: ({ action }) => markerStore.remove(action.payload),
   }
-
-  return next(action)
-}
+})
 
 export default firestoreDb
