@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 
 import { createMarker } from '../../utils/mapbox'
 
-const useMarker = ({ position, uid }) => {
+const useMarker = ({ position, uid, canMove }) => {
   const [ el ] = useState(document.createElement('div'))
   const map = useSelector(state => state.app.map)
   const token = useRef(null)
@@ -17,7 +17,9 @@ const useMarker = ({ position, uid }) => {
       map: map,
     })
 
-    token.current.addControl(uid)
+    if (canMove) {
+      token.current.addControl(uid)
+    }
 
   }, [ map, el, position, uid ])
 

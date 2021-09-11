@@ -1,8 +1,13 @@
 import ZMarker from '../components/z/marker'
 import PlayerMarker from '../components/player/marker'
 import IncidentMarker from '../components/incident/marker'
+import { READ, MOVE, EDIT, DELETE } from '../components/hooks/acl'
 
 const config = {
+  groups: [
+    { role: 'admin', rules: { z: [READ, MOVE, EDIT, DELETE], player: [READ, MOVE, EDIT, DELETE], incident: [READ, MOVE, EDIT, DELETE] }},
+    { role: 'player', rules: { z:[], player: [], incident: [] }},
+  ],
   markers: [
     {
       name: 'z',

@@ -2,6 +2,7 @@ import { createPortal } from 'react-dom'
 import { useState, useEffect } from 'react'
 import Emoji from 'a11y-react-emoji'
 import { useSelector } from 'react-redux'
+import isEqual from 'lodash.isequal'
 
 import useMarker from '../hooks/marker'
 import { Container } from '../map/markers/__style__/token.style'
@@ -10,7 +11,7 @@ import { getSkin } from './skin'
 import Menu from './menu'
 
 const Marker = ({ uid }) => {
-  const { skin, position, isHidden, ...marker } = useSelector(state => state.markers.incident[uid])
+  const { skin, position, isHidden, ...marker } = useSelector(state => state.markers.incident[uid], isEqual)
   const { el, token } = useMarker({ position, uid })
   const [ size, setSize ] = useState(marker.size || 0)
   const [ isMenuOpen, setMenuIsOpen ] = useState(false)
