@@ -21,7 +21,7 @@ const useMarker = ({ position, uid, canMove }) => {
       token.current.addControl(uid)
     }
 
-  }, [ map, el, position, uid ])
+  }, [ map, el, position, uid, canMove ])
 
   return {
     el,

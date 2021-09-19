@@ -9,6 +9,8 @@ export const setUser = createAction(SET_USER, ({ uid, email }) => ({
     date: new Date(),
   },
 }))
+export const SET_USER_INFO = Symbol('SET_USER_INFO_@_APP')
+export const setUserInfo = createAction(SET_USER_INFO)
 
 // APP EVENTS
 export const SET_IS_LOADED = Symbol('SET_IS_LOADED_@_APP')

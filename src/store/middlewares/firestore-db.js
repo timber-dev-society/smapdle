@@ -1,7 +1,7 @@
 import { firestore, store } from '../../utils/firebase'
 import {
   LOAD_MARKERS, CREATE_MARKER_AT_POSITION, TOGGLE_VISIBILITY, KILL, DELETE, CHANGE_SKIN, SET_SIZE,
-  updateMarker, addMarker, setIsLoaded, deleteMarker,
+  updateMarker, addMarker, setIsLoaded, deleteMarker, setUserInfo,
 } from '../../actions'
 import { getMousePosition } from '../../utils/mapbox'
 import { flashErrorMsg } from '../../utils/flash'
@@ -12,18 +12,16 @@ const markerStore = store("markers")
 const firestoreDb = createMiddleware({
   name: 'Firestore',
   middleware: {
-    [LOAD_MARKERS]: ({ state, dispatch }) => {
+    [LOAD_MARKERS]: async ({ state, dispatch }) => {
       if (state.app.isLoaded) { return }
-      // it seems we can use only the second system to load everthing
-      // @TODO delete this code when add marker is implemented
-      /*firestore.collection("users").doc(user.uid).get().then((doc) => {
-        console.log(doc, doc.data())
-      })
+
+      const user = await firestore.collection('users').doc(state.app.user.uid).get()
+      dispatch(setUserInfo(user.data()))
 
       /**
        * Add database listener
        */
-      firestore.collection("markers").where("active", '==', true).onSnapshot((snapshot) => {
+      firestore.collection('markers').where('active', '==', true).onSnapshot((snapshot) => {
         snapshot.docChanges().forEach((change) => {
           const marker = { uid: change.doc.id, ...change.doc.data() }
 

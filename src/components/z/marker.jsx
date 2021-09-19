@@ -15,8 +15,8 @@ import { getSkin } from './skin'
 const defaultVisibleAfter = 17.5
 
 const Marker = ({ uid, visibleAfter }) => {
-  const { skin, position, isHidden, isOver, isDead, owner, type } = useSelector(state => state.markers.z[uid], isEqual)
-  const { canMove, canEdit } = useAcl({ type, owner })
+  const { skin, position, isHidden, isOver, isDead, owner, token } = useSelector(state => state.markers.z[uid], isEqual)
+  const { canMove, canEdit } = useAcl({ type: `${token}`, owner })
 
   const { el, map } = useMarker({ position, uid, canMove: canMove })
   const ref = useRef(null)
