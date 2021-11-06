@@ -29,20 +29,17 @@ const useMap = ({ accessToken, style }) => {
       map.current.addControl(new mapboxgl.NavigationControl(), 'top-right')
 
       map.current.addControl(new mapboxgl.ScaleControl(), 'bottom-right')
-      map.current.doubleClickZoom.disable();
+      map.current.doubleClickZoom.disable()
 
       // attach map listeners
-      map.current.on('load', () => {
-
-        setIsLoaded(true)
-      })
+      map.current.on('load', () => setIsLoaded(true))
 
       map.current.on('zoomend', () => {
         window.localStorage.setItem('zoom', map.current.getZoom())
       })
 
       map.current.on('moveend', () => {
-        const { lng, lat } = map.current.getCenter();
+        const { lng, lat } = map.current.getCenter()
         window.localStorage.setItem('lng', lng)
         window.localStorage.setItem('lat', lat)
       })

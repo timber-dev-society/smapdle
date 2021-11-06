@@ -1,6 +1,9 @@
-import { useSelector } from 'react-redux'
-import { createSelector } from 'reselect'
+import { isEqual } from 'lodash'
+import { useEffect, useRef, useState } from 'react'
+import { shallowEqual, useSelector } from 'react-redux'
+import { createSelector, createSelectorCreator, defaultMemoize } from 'reselect'
 import styled from 'styled-components'
+import { positionToLngLat } from 'utils/mapbox'
 
 import Item from './item'
 
@@ -18,23 +21,53 @@ const List = styled.ul`
   width: 60px;
 `
 
-const zombieSelector = createSelector(
+const createDeepEqualSelector = createSelectorCreator(defaultMemoize, (prev, next) => Object.keys(prev || {}).length === Object.keys(next || {}).length) 
+
+const zombieSelector = createDeepEqualSelector(
   store => store.markers.z,
-  z => z
+  zMarkers => Object.keys(zMarkers).map(uid => ({ uid, position: zMarkers[uid].position }))
 )
 
+
+
 const ZPanel = () => {
-  const isLoaded = useSelector(state => state.app.isLoaded)
+  const ref = useRef()
+  const map = useSelector(state => state.app.map, isEqual)
+  const [bounds, setBounds] = useState(map.getBounds())
   const zMarkers = useSelector(zombieSelector)
                               //.map(marker => (<Item key={marker.uid} {...marker} />))
+
+
+  useEffect(() => {
+    if (ref.current) { return }
+
+    map.on('zoomend', () => {
+      setBounds(map.getBounds())
+    })
+
+    map.on('moveend', () => {
+      setBounds(map.getBounds())
+    })
+
+    ref.current = true
+  })
 
   return (
     <Wrapper>
       <List>
-        { isLoaded && Object.keys(zMarkers).map(key => <Item key={key} {...zMarkers[key]} />)}
+        { zMarkers.filter(({ position }) => bounds.contains(positionToLngLat(position))).map(({ uid }) => <Item key={uid} uid={uid} />) }
       </List>
     </Wrapper>
   )
 }
 
-export default ZPanel
+const ZPanelContainer = () => {
+  const isLoaded = useSelector(state => state.app.isLoaded)
+  return (
+    <>
+      { isLoaded && <ZPanel /> }
+    </>
+  )
+}
+
+export default ZPanelContainer
