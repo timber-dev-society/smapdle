@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es6",
+    "baseUrl": "./src",
+    "paths": {
+      "@reducer": [ "./store/reducer/*" ],
+      "@action": [ "./action" ],
+      "@hooks": [ "./hooks/*" ]
+    }
+  },
+  "exclude": ["node_modules"]
+}

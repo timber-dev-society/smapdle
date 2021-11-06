@@ -1,4 +1,5 @@
 import { useSelector } from 'react-redux'
+import { createSelector } from 'reselect'
 import styled from 'styled-components'
 
 import Item from './item'
@@ -13,12 +14,18 @@ const Wrapper = styled.div`
 `
 
 const List = styled.ul`
-  padding: 10px 20px;
+  padding: 10px 10px;
+  width: 60px;
 `
+
+const zombieSelector = createSelector(
+  store => store.markers.z,
+  z => z
+)
 
 const ZPanel = () => {
   const isLoaded = useSelector(state => state.app.isLoaded)
-  const zMarkers = useSelector(state => state.markers.z)
+  const zMarkers = useSelector(zombieSelector)
                               //.map(marker => (<Item key={marker.uid} {...marker} />))
 
   return (

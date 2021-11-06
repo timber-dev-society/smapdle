@@ -4,24 +4,34 @@ import { useDispatch } from 'react-redux'
 
 import { Li } from '../__style__/menu.style'
 import { getSkin } from '../../z/skin'
-import { setIsOverMarker, flyTo } from '../../../actions'
+import { setIsOverMarker, flyTo, toggleVisibility } from '../../../actions'
+import { FaEye, FaEyeSlash } from 'react-icons/fa'
 
 const ListItem = styled(Li)`
   cursor: pointer;
+  display: flex;
+  justify-content: space-between;
 `
 
-const Item = ({ uid, token, skin }) => {
+const Item = ({ uid, token, skin, isDead, isHidden }) => {
   const dispatch = useDispatch()
   const handleOver = (isOver) => dispatch(setIsOverMarker({
     uid,
     token,
     isOver,
   }))
-  const handleClick = () => dispatch(flyTo({ token, uid}))
+  const handleFlyTo = () => dispatch(flyTo({ token, uid}))
 
   return (
-    <ListItem onClick={handleClick} onMouseOver={() => handleOver(true)} onMouseLeave={() => handleOver(false)}>
-      <Emoji symbol={getSkin(skin)} label="z" />
+    <ListItem onMouseOver={() => handleOver(true)} onMouseLeave={() => handleOver(false)}>
+      <div onClick={handleFlyTo}>
+        { !isDead && <Emoji symbol={getSkin(skin)} label="z" /> }
+        { isDead && <Emoji symbol="💀" label="z" /> }
+      </div>
+
+      <div onClick={() => dispatch(toggleVisibility({uid, isHidden: !isHidden}))}>
+      { isHidden ? <FaEyeSlash /> : <FaEye /> }
+      </div>
     </ListItem>
   )
 }
