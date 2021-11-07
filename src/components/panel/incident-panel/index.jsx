@@ -1,35 +1,35 @@
 import { useSelector } from 'react-redux'
 import { createSelectorCreator, defaultMemoize } from 'reselect'
 
-import { getSkin } from 'components/z/skin'
 import useAcl from 'components/hooks/acl'
 import BaseContainer, { BasePanel } from '../base-panel'
+import { getSkin } from 'components/incident/skin'
 
 const createDeepEqualSelector = createSelectorCreator(defaultMemoize, (prev, next) => Object.keys(prev || {}).length === Object.keys(next || {}).length) 
 
-const zombieSelector = createDeepEqualSelector(
-  store => store.markers.z,
-  zMarkers => Object.keys(zMarkers).map(uid => ({ uid, position: zMarkers[uid].position }))
+const incidentSelector = createDeepEqualSelector(
+  store => store.markers.incident,
+  incidentMarkers => Object.keys(incidentMarkers).map(uid => ({ uid, position: incidentMarkers[uid].position }))
 )
 
-const ZPanel = () => {
-  const markers = useSelector(zombieSelector)
-  const { canRead } = useAcl({ type: `zpanel`, owner: false })
+const IncidentPanel = () => {
+  const markers = useSelector(incidentSelector)
+  const { canRead } = useAcl({ type: `incidentpanel`, owner: false })
   const props = {
     canRead,
     getSkin,
     markers,
-    markerType: 'z',
+    markerType: 'incident',
   }
 
   return (
-    <BasePanel style={{ bottom: 50, left: 50 }} {...props} />
+    <BasePanel style={{ bottom: 50, left: 150 }} {...props} />
   )
 }
 
 const Container = () => (
   <BaseContainer>
-    <ZPanel />
+    <IncidentPanel />
   </BaseContainer>
 )
 

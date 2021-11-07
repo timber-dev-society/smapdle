@@ -5,7 +5,7 @@ import firebase from '../utils/firebase'
 import config from '../utils/app-config'
 import LoginForm from './login-form'
 import Map from './map'
-import Panel, { ZPanel } from './panel'
+import Panel, { IncidentPanel, ZPanel } from './panel'
 import { setUser } from '../actions'
 
 const App = () => {
@@ -29,6 +29,7 @@ const App = () => {
             <Map />
             <Panel />
             <ZPanel />
+            <IncidentPanel />
           </>
         ) }
       </IfFirebaseAuthed>

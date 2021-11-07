@@ -3,15 +3,32 @@ import styled from 'styled-components'
 export const Wrapper = styled.div`
   background-color: white;
   border-radius: 5px;
-  bottom: 50px;
   box-sizing: border-box;
-  position: absolute;
-  left: 50px;
+  position: absolute;  
 `
 
 export const List = styled.ul`
   padding: 10px 10px;
   width: 60px;
+  max-height: 250px;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar-track
+  {
+    background-color: #fff;
+  }
+
+  &::-webkit-scrollbar
+  {
+    width: 5px;
+    background-color: #fff;
+  }
+
+  &::-webkit-scrollbar-thumb
+  {
+    background-color: #000;
+    border: 2px solid #555;
+  }
 `
 
 export const Box = styled.div`
