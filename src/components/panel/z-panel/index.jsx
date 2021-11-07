@@ -1,3 +1,4 @@
+import useAcl from 'components/hooks/acl'
 import { isEqual } from 'lodash'
 import { useEffect, useRef, useState } from 'react'
 import { shallowEqual, useSelector } from 'react-redux'
@@ -35,6 +36,7 @@ const ZPanel = () => {
   const map = useSelector(state => state.app.map, isEqual)
   const [bounds, setBounds] = useState(map.getBounds())
   const zMarkers = useSelector(zombieSelector)
+  const { canRead } = useAcl({ type: `zpanel`, owner: false })
                               //.map(marker => (<Item key={marker.uid} {...marker} />))
 
 
@@ -54,15 +56,18 @@ const ZPanel = () => {
 
   return (
     <Wrapper>
-      <List>
-        { zMarkers.filter(({ position }) => bounds.contains(positionToLngLat(position))).map(({ uid }) => <Item key={uid} uid={uid} />) }
-      </List>
+      { canRead &&
+        <List>
+          { zMarkers.filter(({ position }) => bounds.contains(positionToLngLat(position))).map(({ uid }) => <Item key={uid} uid={uid} />) }
+        </List>
+      }
     </Wrapper>
   )
 }
 
 const ZPanelContainer = () => {
   const isLoaded = useSelector(state => state.app.isLoaded)
+  
   return (
     <>
       { isLoaded && <ZPanel /> }
