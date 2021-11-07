@@ -5,6 +5,7 @@ import { useState } from 'react'
 import Trash from './trash'
 import Menu from './menu'
 import { Box, DragContainer } from '../__style__/admin-panel.style'
+import useAcl from 'components/hooks/acl'
 
 const AdminPanel = () => {
   const [ isDragging, setIsDragging ] = useState(false)

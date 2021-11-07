@@ -5,8 +5,8 @@ import { READ, NOTHING, ALL } from '../components/hooks/acl'
 
 const config = {
   groups: [
-    { role: 'admin', rules: { z: ALL, player: ALL, incident: ALL, zpanel: ALL, incidentpanel: ALL }},
-    { role: 'player', rules: { z: NOTHING, player: READ, incident: NOTHING, zpanel: NOTHING, incidentpanel: NOTHING }},
+    { role: 'admin', rules: { z: ALL, player: ALL, incident: ALL, panels: ALL }},
+    { role: 'player', rules: { z: NOTHING, player: READ, incident: NOTHING, panels: NOTHING }},
   ],
   markers: [
     {

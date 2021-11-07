@@ -14,9 +14,7 @@ const zombieSelector = createDeepEqualSelector(
 
 const ZPanel = () => {
   const markers = useSelector(zombieSelector)
-  const { canRead } = useAcl({ type: `zpanel`, owner: false })
   const props = {
-    canRead,
     getSkin,
     markers,
     markerType: 'z',
@@ -27,10 +25,4 @@ const ZPanel = () => {
   )
 }
 
-const Container = () => (
-  <BaseContainer>
-    <ZPanel />
-  </BaseContainer>
-)
-
-export default Container
+export default ZPanel

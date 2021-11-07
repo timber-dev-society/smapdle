@@ -14,9 +14,7 @@ const incidentSelector = createDeepEqualSelector(
 
 const IncidentPanel = () => {
   const markers = useSelector(incidentSelector)
-  const { canRead } = useAcl({ type: `incidentpanel`, owner: false })
   const props = {
-    canRead,
     getSkin,
     markers,
     markerType: 'incident',
@@ -27,10 +25,4 @@ const IncidentPanel = () => {
   )
 }
 
-const Container = () => (
-  <BaseContainer>
-    <IncidentPanel />
-  </BaseContainer>
-)
-
-export default Container
+export default IncidentPanel

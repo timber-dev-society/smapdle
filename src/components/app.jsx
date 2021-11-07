@@ -7,6 +7,7 @@ import LoginForm from './login-form'
 import Map from './map'
 import Panel, { IncidentPanel, ZPanel } from './panel'
 import { setUser } from '../actions'
+import { PanelContainer } from './panel/base-panel'
 
 const App = () => {
   const dispatch = useDispatch()
@@ -27,9 +28,11 @@ const App = () => {
         { () => (
           <>
             <Map />
-            <Panel />
-            <ZPanel />
-            <IncidentPanel />
+            <PanelContainer>
+              <Panel />
+              <ZPanel />
+              <IncidentPanel />
+            </PanelContainer>            
           </>
         ) }
       </IfFirebaseAuthed>
