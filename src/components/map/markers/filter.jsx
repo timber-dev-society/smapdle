@@ -1,7 +1,7 @@
 import { useSelector, shallowEqual } from 'react-redux'
 
 const Filter = ({ filter, Marker }) => {
-  const markers = useSelector(filter, shallowEqual)
+  const markers = useSelector(filter)
 
   return (
     <>

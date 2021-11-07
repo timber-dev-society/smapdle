@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux'
 
-import { createMarker } from '../../utils/mapbox'
+import { createMarker, positionToLngLat } from '../../utils/mapbox'
 
 const useMarker = ({ position, uid, canMove }) => {
   const [ el ] = useState(document.createElement('div'))
@@ -9,17 +9,19 @@ const useMarker = ({ position, uid, canMove }) => {
   const token = useRef(null)
 
   useEffect(() => {
-    if (token.current) return;
+    if (!token.current) {
+      token.current = createMarker({
+        el,
+        position,
+        map: map,
+      })
 
-    token.current = createMarker({
-      el,
-      position,
-      map: map,
-    })
-
-    if (canMove) {
-      token.current.addControl(uid)
+      if (canMove) {
+        token.current.addControl(uid)
+      }
     }
+
+    token.current.item.setLngLat(positionToLngLat(position))
 
   }, [ map, el, position, uid, canMove ])
 

@@ -30,6 +30,7 @@ const firestoreDb = createMiddleware({
               dispatch(addMarker(marker))
               return
             case 'modified':
+              console.log('update', marker)
               dispatch(updateMarker(marker))
               return
             case 'removed':

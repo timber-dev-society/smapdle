@@ -16,7 +16,7 @@ export const createMarker = ({ el, map, position }) => {
       const tokenRef = firestore.collection('markers').doc(uid)
 
       marker.setDraggable(true)
-      marker.on('dragend', (event) => {
+      marker.on('dragend', () => {
         const { lng, lat } = marker.getLngLat()
         tokenRef.update({
           position: {

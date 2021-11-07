@@ -13,6 +13,7 @@ const initialState = {
 
 const defaultMarker = {
   skin: 1,
+  v: 0,
   isHidden: true,
   isOver: false,
   isDead: false,
@@ -35,6 +36,7 @@ const markerReducer = createReducer(initialState, {
     state[token][uid] = {
       ...state[token][uid],
       ...action.payload,
+      v: state[token][uid].v + 1,
     }
 
     return state

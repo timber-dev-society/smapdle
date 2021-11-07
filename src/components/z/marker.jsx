@@ -18,7 +18,7 @@ const Marker = ({ uid, visibleAfter }) => {
   const { skin, position, isHidden, isOver, isDead, owner, token } = useSelector(state => state.markers.z[uid], isEqual)
   const { canRead, canMove, canEdit } = useAcl({ type: `${token}`, owner })
 
-  const { el, map } = useMarker({ position, uid, canMove: canMove })
+  const { el, map } = useMarker({ position, uid, canMove })
   const ref = useRef(null)
   const [ isMenuOpen, setMenuIsOpen ] = useState(false)
 
