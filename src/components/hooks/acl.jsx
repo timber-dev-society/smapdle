@@ -9,13 +9,15 @@ const selectUserValues = createSelector(
   user => ([ user.group, user.uid ])
 )
 
-export const READ = Symbol('GRANTED_TO_READ')
-export const MOVE = Symbol('GRANTED_TO_MOVE')
-export const EDIT = Symbol('GRANTED_TO_EDIT')
-export const DELETE = Symbol('GRANTED_TO_DELETE')
+export const NOTHING = 0 // 0000
+export const READ = 1    // 0001
+export const MOVE = 2    // 0010
+export const EDIT = 4    // 0100
+export const DELETE = 8  // 1000
+export const ALL = 15    // 1111
 
 const memoIsGrantedTo = ({ isOwner, rules }) => (accessType) => {
-  return isOwner || rules.includes(accessType)
+  return isOwner || !!(rules & accessType)
 }
  
 const useAcl = (marker) => {
