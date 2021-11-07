@@ -5,22 +5,9 @@ import { shallowEqual, useSelector } from 'react-redux'
 import { createSelector, createSelectorCreator, defaultMemoize } from 'reselect'
 import styled from 'styled-components'
 import { positionToLngLat } from 'utils/mapbox'
+import { List, Wrapper } from '../__style__/admin-panel.style'
 
 import Item from './item'
-
-const Wrapper = styled.div`
-  background-color: white;
-  border-radius: 5px;
-  bottom: 50px;
-  box-sizing: border-box;
-  position: absolute;
-  left: 50px;
-`
-
-const List = styled.ul`
-  padding: 10px 10px;
-  width: 60px;
-`
 
 const createDeepEqualSelector = createSelectorCreator(defaultMemoize, (prev, next) => Object.keys(prev || {}).length === Object.keys(next || {}).length) 
 
@@ -28,8 +15,6 @@ const zombieSelector = createDeepEqualSelector(
   store => store.markers.z,
   zMarkers => Object.keys(zMarkers).map(uid => ({ uid, position: zMarkers[uid].position }))
 )
-
-
 
 const ZPanel = () => {
   const ref = useRef()

@@ -1,11 +1,12 @@
 import { render } from 'react-dom'
 import { useState } from 'react'
 
-import { Box, DragContainer } from './__style__/panel.style'
-import Menu from './menu'
-import Trash from './trash'
 
-const Panel = () => {
+import Trash from './trash'
+import Menu from './menu'
+import { Box, DragContainer } from '../__style__/admin-panel.style'
+
+const AdminPanel = () => {
   const [ isDragging, setIsDragging ] = useState(false)
 
   const handleDragStart = (event, type, token) => {
@@ -32,4 +33,4 @@ const Panel = () => {
   )
 }
 
-export default Panel
+export default AdminPanel

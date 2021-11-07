@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types'
 import Emoji from "a11y-react-emoji"
 
-import { Icon } from './__style__/panel.style'
-import { Ul, Li } from './__style__/menu.style'
+import { Icon } from '../__style__/admin-panel.style'
+import { Ul, Li } from '../__style__/menu.style'
 
 const Menu = ({ handleDragStart, handleDragEnd }) => (
   <Ul>

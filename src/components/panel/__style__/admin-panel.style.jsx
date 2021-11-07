@@ -1,5 +1,19 @@
 import styled from 'styled-components'
 
+export const Wrapper = styled.div`
+  background-color: white;
+  border-radius: 5px;
+  bottom: 50px;
+  box-sizing: border-box;
+  position: absolute;
+  left: 50px;
+`
+
+export const List = styled.ul`
+  padding: 10px 10px;
+  width: 60px;
+`
+
 export const Box = styled.div`
   box-sizing: border-box;
   height: 140px;
