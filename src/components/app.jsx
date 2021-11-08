@@ -1,13 +1,12 @@
 import { FirebaseAuthProvider, IfFirebaseUnAuthed, FirebaseAuthConsumer, IfFirebaseAuthed } from '@react-firebase/auth'
 import { useDispatch } from 'react-redux'
 
-import firebase from '../utils/firebase'
-import config from '../utils/app-config'
+import firebase from 'utils/firebase'
+import config from 'utils/app-config'
 import LoginForm from './login-form'
 import Map from './map'
-import Panel, { IncidentPanel, ZPanel } from './panel'
-import { setUser } from '../actions'
-import { PanelContainer } from './panel/base-panel'
+import { PanelContainer, AdminPanel, IncidentPanel, ZPanel } from './panel'
+import { setUser } from 'actions'
 
 const App = () => {
   const dispatch = useDispatch()
@@ -15,7 +14,7 @@ const App = () => {
   return (
     <FirebaseAuthProvider {...config.firebase} firebase={firebase}>
       <FirebaseAuthConsumer>
-        {({ isSignedIn, user, providerId }) => {
+        {({ isSignedIn, user }) => {
           if (isSignedIn && user.uid !== undefined) {
             dispatch(setUser(user))
           }
@@ -29,7 +28,7 @@ const App = () => {
           <>
             <Map />
             <PanelContainer>
-              <Panel />
+              <AdminPanel />
               <ZPanel />
               <IncidentPanel />
             </PanelContainer>            

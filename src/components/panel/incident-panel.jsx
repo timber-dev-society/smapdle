@@ -1,8 +1,7 @@
 import { useSelector } from 'react-redux'
 import { createSelectorCreator, defaultMemoize } from 'reselect'
 
-import useAcl from 'components/hooks/acl'
-import BaseContainer, { BasePanel } from '../base-panel'
+import { BasePanel } from './base/panel'
 import { getSkin } from 'components/incident/skin'
 
 const createDeepEqualSelector = createSelectorCreator(defaultMemoize, (prev, next) => Object.keys(prev || {}).length === Object.keys(next || {}).length) 
@@ -12,7 +11,7 @@ const incidentSelector = createDeepEqualSelector(
   incidentMarkers => Object.keys(incidentMarkers).map(uid => ({ uid, position: incidentMarkers[uid].position }))
 )
 
-const IncidentPanel = () => {
+export const IncidentPanel = () => {
   const markers = useSelector(incidentSelector)
   const props = {
     getSkin,
@@ -21,8 +20,6 @@ const IncidentPanel = () => {
   }
 
   return (
-    <BasePanel style={{ bottom: 50, left: 150 }} {...props} />
+    <BasePanel style={{ bottom: 50, left: 180 }} {...props} />
   )
 }
-
-export default IncidentPanel

@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 
 import { positionToLngLat } from 'utils/mapbox'
-import Item from '../base-item'
+import Item from './item'
 import { List, Wrapper } from '../__style__/admin-panel.style'
 
 export const BasePanel = ({ style, markers, markerType, getSkin }) => {
@@ -36,16 +36,6 @@ export const BasePanel = ({ style, markers, markerType, getSkin }) => {
   )
 }
 
-export const PanelContainer = ({ children }) => {
-  const isLoaded = useSelector(state => state.app.isLoaded)
-  
-  return (
-    <>
-      { isLoaded && <BaseContainer>{children}</BaseContainer>}
-    </>
-  )
-}
-
 const BaseContainer = ({ children }) => {
   const { canRead } = useAcl({ type: `panels`, owner: false })
   
@@ -56,4 +46,12 @@ const BaseContainer = ({ children }) => {
   )
 }
 
-export default BaseContainer
+export const PanelContainer = ({ children }) => {
+  const isLoaded = useSelector(state => state.app.isLoaded)
+  
+  return (
+    <>
+      { isLoaded && <BaseContainer>{children}</BaseContainer>}
+    </>
+  )
+}

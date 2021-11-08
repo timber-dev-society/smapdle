@@ -1,7 +1,5 @@
-import AdminPanel from './admin-panel'
-import IncidentPanelComponent from './incident-panel'
-import ZPanelComponent from './z-panel'
+export { AdminPanel } from './admin-panel'
+export { IncidentPanel } from './incident-panel'
+export { ZPanel } from './z-panel'
+export { PanelContainer } from './base/panel'
 
-export const ZPanel = ZPanelComponent
-export const IncidentPanel = IncidentPanelComponent
-export default AdminPanel

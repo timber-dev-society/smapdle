@@ -9,7 +9,7 @@ export const Wrapper = styled.div`
 
 export const List = styled.ul`
   padding: 10px 10px;
-  width: 60px;
+  width: 85px;
   max-height: 250px;
   overflow-y: auto;
 

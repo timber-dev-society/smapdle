@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { Li } from '../__style__/menu.style'
-import { setIsOverMarker, flyTo, toggleVisibility } from '../../../actions'
+import { setIsOverMarker, flyTo, toggleVisibility, deleteToken } from '../../../actions'
 import { FaEye, FaEyeSlash } from 'react-icons/fa'
 import { isEqual } from 'lodash'
 
@@ -31,7 +31,10 @@ const Item = ({ uid, type, getSkin }) => {
       </div>
 
       <div onClick={() => dispatch(toggleVisibility({uid, isHidden: !isHidden}))}>
-      { isHidden ? <FaEyeSlash /> : <FaEye /> }
+        { isHidden ? <FaEyeSlash /> : <FaEye /> }
+      </div>
+      <div onClick={() => dispatch(deleteToken(uid))}>
+        <Emoji symbol="❌" label="delete" />
       </div>
     </ListItem>
   )

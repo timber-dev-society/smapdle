@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { Li } from '../__style__/menu.style'
 import { getSkin } from '../../z/skin'
-import { setIsOverMarker, flyTo, toggleVisibility } from '../../../actions'
+import { setIsOverMarker, flyTo, toggleVisibility, deleteToken } from '../../../actions'
 import { FaEye, FaEyeSlash } from 'react-icons/fa'
 import { isEqual } from 'lodash'
 
@@ -32,7 +32,7 @@ const Item = ({ uid }) => {
       </div>
 
       <div onClick={() => dispatch(toggleVisibility({uid, isHidden: !isHidden}))}>
-      { isHidden ? <FaEyeSlash /> : <FaEye /> }
+        { isHidden ? <FaEyeSlash /> : <FaEye /> }
       </div>
     </ListItem>
   )

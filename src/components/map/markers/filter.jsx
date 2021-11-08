@@ -1,4 +1,4 @@
-import { useSelector, shallowEqual } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 const Filter = ({ filter, Marker }) => {
   const markers = useSelector(filter)
