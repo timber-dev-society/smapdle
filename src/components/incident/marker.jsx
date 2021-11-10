@@ -1,16 +1,17 @@
 import { createPortal } from 'react-dom'
 import PropTypes from 'prop-types'
-import { useState, useEffect, useRef, memo } from 'react'
+import { useState, memo } from 'react'
 import Emoji from 'a11y-react-emoji'
 import { useSelector } from 'react-redux'
 import isEqual from 'lodash.isequal'
 
-import useMarker from '../hooks/marker'
-import { Container } from '../map/markers/__style__/token.style'
-import { Wrapper } from '../map/markers/__style__/marker.style'
+import useMarker from 'components/hooks/marker'
+import useAcl from 'components/hooks/acl'
+import useIsVisible from 'components/hooks/marker/is-visible'
+import { Container } from 'components/map/markers/__style__/token.style'
+import { Wrapper } from 'components/map/markers/__style__/marker.style'
 import { getSkin } from './skin'
 import Menu from './menu'
-import useAcl from 'components/hooks/acl'
 
 
 const defaultVisibleAfter = 17.5
@@ -25,23 +26,10 @@ const Marker = ({ uid, visibleAfter }) => {
 
   const { canRead, canMove, canEdit } = useAcl({ type: `${mToken}`, owner })
 
-  const { el, token, map } = useMarker({ position, uid, canMove })
+  const { el, map } = useMarker({ position, uid, canMove })
   const [ size, setSize ] = useState(mSize || 0)
   const [ isMenuOpen, setMenuIsOpen ] = useState(false)
-  const ref = useRef(null)
-  const [ isVisible, setIsVisible ] = useState(map.getZoom() > visibleAfter)
-
-  useEffect(() => {
-    token.current.item.setDraggable(!isMenuOpen)
-
-    if (ref.current) return;
-
-    map.on('zoom', () => {
-      if (isVisible !== (map.getZoom() > visibleAfter)) {
-        setIsVisible(map.getZoom() > visibleAfter)
-      }
-    })
-  })
+  const isVisible = useIsVisible(map, visibleAfter)
   
 
   return createPortal(

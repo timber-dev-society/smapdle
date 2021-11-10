@@ -1,12 +1,13 @@
-import ZMarker from '../components/z/marker'
-import PlayerMarker from '../components/player/marker'
-import IncidentMarker from '../components/incident/marker'
-import { READ, NOTHING, ALL } from '../components/hooks/acl'
+import ZMarker from 'components/z/marker'
+import PlayerMarker from 'components/player/marker'
+import IncidentMarker from 'components/incident/marker'
+import VehiculeMarker from 'components/vehicule/marker'
+import { READ, NOTHING, ALL } from 'components/hooks/acl'
 
 const config = {
   groups: [
-    { role: 'admin', rules: { z: ALL, player: ALL, incident: ALL, panels: ALL }},
-    { role: 'player', rules: { z: NOTHING, player: READ, incident: NOTHING, panels: NOTHING }},
+    { role: 'admin', rules: { z: ALL, player: ALL, incident: ALL, vehicule: ALL, panels: ALL }},
+    { role: 'player', rules: { z: NOTHING, player: READ, incident: NOTHING, vehicule: NOTHING, panels: NOTHING }},
   ],
   markers: [
     {
@@ -23,6 +24,11 @@ const config = {
       name: 'incident',
       filter: (state) => state.markers.incident,
       Marker: IncidentMarker,
+    },
+    {
+      name: 'vehicule',
+      filter: (state) => state.markers.vehicule,
+      Marker: VehiculeMarker,
     },
   ],
   map: {

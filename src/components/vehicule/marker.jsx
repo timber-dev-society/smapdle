@@ -16,29 +16,29 @@ import { getSkin } from './skin'
 const defaultVisibleAfter = 17.5
 
 const Marker = ({ uid, visibleAfter }) => {
-  const { skin, position, isHidden, isOver, isDead, owner, token } = useSelector(state => state.markers.z[uid], isEqual)
-  const { canRead, canMove, canEdit } = useAcl({ type: `${token}`, owner })
+  const { skin, position, isOver, owner, token } = useSelector(state => state.markers.vehicule[uid], isEqual)
+  const { canMove, canEdit } = useAcl({ type: `${token}`, owner })
 
-  const { el, map } = useMarker({ position, uid, canMove })
+  const { el, map } = useMarker({ position, uid, canMove: canMove })
   const isVisible = useIsVisible(map, visibleAfter)
   const [ isMenuOpen, setMenuIsOpen ] = useState(false)
 
   return createPortal(
     <Container className={`${isOver ? 'focus' : ''}`}>
       { isVisible &&
-        <Wrapper onClick={() => setMenuIsOpen(!isMenuOpen)} style={{ fontSize:'24px', display: `${isHidden && !canRead ? 'none' : 'block'}`,opacity:`${isHidden ? 0.5 : 1}` }}>
-          { !isDead && <Emoji symbol={getSkin(skin)} label="z" /> }
-          { isDead && <Emoji symbol="💀" label="z" /> }
+        <Wrapper onClick={() => setMenuIsOpen(!isMenuOpen)} style={{ fontSize:'110px' }}>
+          <Emoji symbol={getSkin(skin)} label="vehicule" />
         </Wrapper>
       }
 
-      { canEdit && isMenuOpen && <Menu setMenuIsOpen={setMenuIsOpen} uid={uid} skin={skin} isHidden={isHidden} isDead={isDead} /> }
+      { canEdit && isMenuOpen && <Menu setMenuIsOpen={setMenuIsOpen} uid={uid} skin={skin} /> }
     </Container>,
     el
   )
 }
 
 Marker.propTypes = {
+  uid: PropTypes.string.isRequired,
   visibleAfter: PropTypes.number,
 }
 
