@@ -10,8 +10,8 @@ import useAcl from 'components/hooks/acl'
 import useIsVisible from 'components/hooks/marker/is-visible'
 import { Container } from 'components/map/markers/__style__/token.style'
 import { Wrapper } from 'components/map/markers/__style__/marker.style'
-import Menu from './menu'
 import { getSkin } from './skin'
+import Menu from './menu'
 
 const defaultVisibleAfter = 17.5
 
@@ -39,6 +39,7 @@ const Marker = ({ uid, visibleAfter }) => {
 }
 
 Marker.propTypes = {
+  uid: PropTypes.string.isRequired,
   visibleAfter: PropTypes.number,
 }
 

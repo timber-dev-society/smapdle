@@ -46,6 +46,7 @@ const Marker = ({ uid, visibleAfter }) => {
 }
 
 Marker.propTypes = {
+  uid: PropTypes.string.isRequired,
   visibleAfter: PropTypes.number,
 }
 
