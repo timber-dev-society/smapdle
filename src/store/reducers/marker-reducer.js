@@ -5,7 +5,7 @@ import { UPDATE_MARKER, ADD_MARKER, SET_IS_OVER_MARKER, DELETE_MARKER } from '..
 const initialState = {
   z: {},
   player: {},
-  vehicule: {},
+  vehicle: {},
   incident: {},
   car: {},
   boat:  {},

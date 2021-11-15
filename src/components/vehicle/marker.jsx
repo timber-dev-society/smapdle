@@ -16,7 +16,7 @@ import { getSkin } from './skin'
 const defaultVisibleAfter = 17.5
 
 const Marker = ({ uid, visibleAfter }) => {
-  const { skin, position, isOver, owner, token } = useSelector(state => state.markers.vehicule[uid], isEqual)
+  const { skin, position, isOver, owner, token } = useSelector(state => state.markers.vehicle[uid], isEqual)
   const { canMove, canEdit } = useAcl({ type: `${token}`, owner })
 
   const { el, map } = useMarker({ position, uid, canMove: canMove })
@@ -27,7 +27,7 @@ const Marker = ({ uid, visibleAfter }) => {
     <Container className={`${isOver ? 'focus' : ''}`}>
       { isVisible &&
         <Wrapper onClick={() => setMenuIsOpen(!isMenuOpen)} style={{ fontSize:'110px' }}>
-          <Emoji symbol={getSkin(skin)} label="vehicule" />
+          <Emoji symbol={getSkin(skin)} label="vehicle" />
         </Wrapper>
       }
 

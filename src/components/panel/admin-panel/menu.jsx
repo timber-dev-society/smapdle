@@ -12,7 +12,7 @@ const Menu = ({ handleDragStart, handleDragEnd }) => (
       </Icon>
     </Li>
     <Li>
-      <Icon draggable onDragStart={(e) => handleDragStart(e, 'vehicule')} onDragEnd={() => handleDragEnd()}>
+      <Icon draggable onDragStart={(e) => handleDragStart(e, 'vehicle')} onDragEnd={() => handleDragEnd()}>
         <Emoji symbol="🚗" label="car" />
       </Icon>
     </Li>
