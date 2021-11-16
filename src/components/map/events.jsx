@@ -6,6 +6,20 @@ const Events = ({ map }) => {
     if (!map.current) { return }
 
     if (config.map.with3DBuilding) { active3DLayer(map.current) }
+
+    map.current.addSource('movement-data', {
+      type: "geojson",
+      data: null,
+    })
+    map.current.addLayer({
+      id: 'movement-circle',
+      type: 'fill',
+      source: 'movement-data',
+      paint: {
+        'fill-color': 'yellow',
+        'fill-opacity': 0.2,
+      },
+    })
   })
 
   return (<></>)
