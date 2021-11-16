@@ -1,6 +1,6 @@
 import { firestore, store } from '../../utils/firebase'
 import {
-  LOAD_MARKERS, CREATE_MARKER_AT_POSITION, TOGGLE_VISIBILITY, KILL, DELETE, CHANGE_SKIN, SET_SIZE,
+  LOAD_MARKERS, CREATE_MARKER_AT_POSITION, TOGGLE_VISIBILITY, KILL, DELETE, CHANGE_SKIN, SET_SIZE, CHANGE_WEAPON,
   updateMarker, addMarker, setIsLoaded, deleteMarker, setUserInfo,
 } from '../../actions'
 import { getMousePosition } from '../../utils/mapbox'
@@ -55,6 +55,7 @@ const firestoreDb = createMiddleware({
     },
     [TOGGLE_VISIBILITY]: ({ action }) => markerStore.update(action.payload),
     [CHANGE_SKIN]: ({ action }) => markerStore.update(action.payload),
+    [CHANGE_WEAPON]: ({ action }) => markerStore.update(action.payload),
     [SET_SIZE]: ({ action }) => markerStore.update(action.payload),
     [KILL]: ({ action }) => markerStore.update({ uid: action.payload, isDead: true }),
     [DELETE]: ({ action }) => markerStore.remove(action.payload),

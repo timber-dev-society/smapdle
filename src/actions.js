@@ -62,5 +62,8 @@ export const deleteToken = createAction(DELETE)
 export const CHANGE_SKIN = Symbol('CHANGE_SKIN')
 export const changeSkin = createAction(CHANGE_SKIN)
 
+export const CHANGE_WEAPON = Symbol('CHANGE_WEAPON')
+export const changeWeapon = createAction(CHANGE_WEAPON)
+
 export const SET_SIZE = Symbol('SET_SIZE')
 export const saveSize = createAction(SET_SIZE)

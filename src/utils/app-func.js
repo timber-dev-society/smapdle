@@ -5,7 +5,7 @@ export const buildGetSkin = (skins) => (skinId) => {
     return skins[skinId - 1]
   }
 
-  return skins
+  return skins[0]
 }
 
 
