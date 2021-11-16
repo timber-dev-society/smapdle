@@ -8,9 +8,10 @@ import isEqual from 'lodash.isequal'
 import useMarker from 'components/hooks/marker'
 import useAcl from 'components/hooks/acl'
 import useIsVisible from 'components/hooks/marker/is-visible'
+import useMovement from 'components/hooks/marker/movement'
 import { Container } from 'components/map/markers/__style__/token.style'
 import { Wrapper } from 'components/map/markers/__style__/marker.style'
-import { getSkin } from './skin'
+import { getSkin, getSpeed } from './skin'
 import Menu from './menu'
 
 const defaultVisibleAfter = 17.5
@@ -19,9 +20,11 @@ const Marker = ({ uid, visibleAfter }) => {
   const { skin, position, isHidden, isOver, isDead, owner, token } = useSelector(state => state.markers.z[uid], isEqual)
   const { canRead, canMove, canEdit } = useAcl({ type: `${token}`, owner })
 
-  const { el, map } = useMarker({ position, uid, canMove })
+  const { el, token: tokenRef, map } = useMarker({ position, uid, canMove })
   const isVisible = useIsVisible(map, visibleAfter)
   const [ isMenuOpen, setMenuIsOpen ] = useState(false)
+
+  useMovement(tokenRef, map, getSpeed(skin))
 
   return createPortal(
     <Container className={`${isOver ? 'focus' : ''}`}>

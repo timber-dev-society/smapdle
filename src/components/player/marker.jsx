@@ -1,15 +1,15 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState } from 'react'
 import { createPortal } from 'react-dom'
 import Emoji from 'a11y-react-emoji'
 import { useSelector } from 'react-redux'
 import isEqual from 'lodash.isequal'
 
-import useMarker from '../hooks/marker'
-import useAcl from '../hooks/acl'
-import { Wrapper, Icon } from '../map/markers/__style__/marker.style'
+import useMarker from 'components/hooks/marker'
+import useAcl from 'components/hooks/acl'
+import useMovement from 'components/hooks/marker/movement'
+import { Wrapper, Icon } from 'components/map/markers/__style__/marker.style'
 import { getSkin, getWeapon } from './skin'
 import Menu from './menu'
-import useMovement from 'components/hooks/marker/movement'
 
 const Marker = ({ uid }) => {
   const { color, position, skin, weapon, owner, token, speed } = useSelector(state => state.markers.player[uid], isEqual)
