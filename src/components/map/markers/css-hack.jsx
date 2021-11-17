@@ -13,10 +13,16 @@ const getFontSize = (zoom) => {
   return size > 0 ? size : 0
 }
 const GlobalStyle = createGlobalStyle`
+.zoom {
+  --zoom: ${props => props.zoom};
+}
 .p-token {
   --p-token-size: ${props => props.zoom - 3}px;
   --p-token-font-size: ${props => getFontSize(props.zoom)}px;
-  --zoom: ${props => props.zoom}px;
+}
+.i-token {
+  --i-token-size: ${props => props.zoom - 3}px;
+  --i-token-font-size: ${props => getFontSize(props.zoom)}px;
 }
 `
 

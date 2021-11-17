@@ -23,7 +23,7 @@ const Marker = ({ uid }) => {
     <Container className={`${isOver ? 'focus' : ''}`}>
       { 
         canRead && 
-        <Wrapper onClick={() => setMenuIsOpen(!isMenuOpen)}>
+        <Wrapper className={`i-token i-size-${size}`} onClick={() => setMenuIsOpen(!isMenuOpen)}>
           <Emoji symbol={getSkin(skin)} label="login" />
         </Wrapper> 
       }

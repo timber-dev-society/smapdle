@@ -22,4 +22,40 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+
+  &.i-token {
+    height: var(--i-token-size);
+    font-size: var(--i-token-font-size);
+
+    &.i-size-1 {
+      font-size: calc(var(--i-token-font-size) * 2);
+    }
+    &.i-size-2 {
+      font-size: calc(var(--i-token-font-size) * 1.5);
+    }
+    &.i-size-3 {
+      font-size: calc(var(--i-token-font-size) * 2);
+    }
+    &.i-size-3 {
+      font-size: calc(var(--i-token-font-size) * 2);
+    }
+    &.i-size-4 {
+      font-size: calc(var(--i-token-font-size) * 2);
+    }
+    &.i-size-5 {
+      font-size: calc(var(--i-token-font-size) * 2);
+    }
+    &.i-size-6 {
+      font-size: calc(var(--i-token-font-size) * 2);
+    }
+    &.i-size-7 {
+      font-size: calc(var(--i-token-font-size) * 2);
+    }
+    &.i-size-8 {
+      font-size: calc(var(--i-token-font-size) * 2);
+    }
+    &.i-size-9 {
+      font-size: calc(var(--i-token-font-size) * 2);
+    }
+  }
 `
