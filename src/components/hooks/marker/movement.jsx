@@ -6,7 +6,7 @@ const options = {
   units: 'meters',
 }
 
-const useMovement = (token, map, speed = 10) => {
+export const useMovement = (token, map, speed = 10) => {
   const ref = useRef(null)
   
   useEffect(() => {

@@ -4,28 +4,31 @@ import Emoji from 'a11y-react-emoji'
 import { useSelector } from 'react-redux'
 import isEqual from 'lodash.isequal'
 
-import useMarker from 'components/hooks/marker'
+import useMarker, { useSizeable } from 'components/hooks/marker'
 import useAcl from 'components/hooks/acl'
-import { Wrapper, Icon } from 'components/map/markers/__style__/marker.style'
+import { Wrapper } from 'components/map/markers/__style__/marker.style'
 import { getSkin } from './skin'
 import Menu from './menu'
+import { Container } from 'components/map/markers/__style__/token.style'
 
 const Marker = ({ uid }) => {
-  const { position, skin } = useSelector(state => state.markers.player[uid], isEqual)
+  const { position, skin, isOver, size: mSize } = useSelector(state => state.markers.indicator[uid], isEqual)
   const { canRead, canMove, canEdit } = useAcl({ type: 'indicator' })
   const { el } = useMarker({ position, uid, canMove })
   const [ isMenuOpen, setMenuIsOpen ] = useState(false)
 
+  const [ size, setSize ] = useSizeable(mSize)
+
   return createPortal(
-    <Wrapper>
+    <Container className={`${isOver ? 'focus' : ''}`}>
       { 
         canRead && 
-        <Icon onClick={() => setMenuIsOpen(!isMenuOpen)}>
+        <Wrapper onClick={() => setMenuIsOpen(!isMenuOpen)}>
           <Emoji symbol={getSkin(skin)} label="login" />
-        </Icon> 
+        </Wrapper> 
       }
-      { canEdit && isMenuOpen && <Menu setMenuIsOpen={setMenuIsOpen} uid={uid} /> }
-    </Wrapper>,
+      { canEdit && isMenuOpen && <Menu setMenuIsOpen={setMenuIsOpen} uid={uid} size={size} setSize={setSize} /> }
+    </Container>,
     el
   )
 }

@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux'
 
-import { createMarker, positionToLngLat } from '../../utils/mapbox'
+import { createMarker, positionToLngLat } from 'utils/mapbox'
 
 const useMarker = ({ position, uid, canMove }) => {
   const [ el ] = useState(document.createElement('div'))
@@ -33,3 +33,7 @@ const useMarker = ({ position, uid, canMove }) => {
 }
 
 export default useMarker
+
+export { useIsVisible } from './is-visible'
+export { useMovement } from './movement'
+export { useSizeable } from './sizeable'

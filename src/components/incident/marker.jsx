@@ -5,9 +5,8 @@ import Emoji from 'a11y-react-emoji'
 import { useSelector } from 'react-redux'
 import isEqual from 'lodash.isequal'
 
-import useMarker from 'components/hooks/marker'
+import useMarker, { useIsVisible, useSizeable } from 'components/hooks/marker'
 import useAcl from 'components/hooks/acl'
-import useIsVisible from 'components/hooks/marker/is-visible'
 import { Container } from 'components/map/markers/__style__/token.style'
 import { Wrapper } from 'components/map/markers/__style__/marker.style'
 import { getSkin } from './skin'
@@ -27,7 +26,7 @@ const Marker = ({ uid, visibleAfter }) => {
   const { canRead, canMove, canEdit } = useAcl({ type: `${mToken}`, owner })
 
   const { el, map } = useMarker({ position, uid, canMove })
-  const [ size, setSize ] = useState(mSize || 0)
+  const [ size, setSize ] = useSizeable(mSize)
   const [ isMenuOpen, setMenuIsOpen ] = useState(false)
   const isVisible = useIsVisible(map, visibleAfter)
   

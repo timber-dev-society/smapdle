@@ -7,8 +7,7 @@ const initialState = {
   player: {},
   vehicle: {},
   incident: {},
-  car: {},
-  boat:  {},
+  indicator: {},
 }
 
 const defaultMarker = {

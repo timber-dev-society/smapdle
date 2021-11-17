@@ -2,6 +2,7 @@ import ZMarker from 'components/z/marker'
 import PlayerMarker from 'components/player/marker'
 import IncidentMarker from 'components/incident/marker'
 import VehicleMarker from 'components/vehicle/marker'
+import IndicatorMarker from 'components/indicator/marker'
 import { READ, MOVE, NOTHING, ALL } from 'components/hooks/acl'
 
 const config = {
@@ -15,6 +16,11 @@ const config = {
       filter: (state) => state.markers.z,
       Marker: ZMarker,
       visibleAfter: 18,
+    },
+    {
+      name: 'indicator',
+      filter: (state) => state.markers.indicator,
+      Marker: IndicatorMarker,
     },
     {
       name: 'player',

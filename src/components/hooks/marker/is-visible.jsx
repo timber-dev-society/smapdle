@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 
-const useIsVisible = (map, visibleAfter) => {
+export const useIsVisible = (map, visibleAfter) => {
 
   const ref = useRef(null)
   const [ isVisible, setIsVisible ] = useState(map.getZoom() > visibleAfter)
