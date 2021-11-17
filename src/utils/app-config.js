@@ -14,6 +14,7 @@ const config = {
       name: 'z',
       filter: (state) => state.markers.z,
       Marker: ZMarker,
+      visibleAfter: 18,
     },
     {
       name: 'player',
@@ -29,6 +30,7 @@ const config = {
       name: 'vehicle',
       filter: (state) => state.markers.vehicle,
       Marker: VehicleMarker,
+      visibleAfter: 15,
     },
   ],
   map: {

@@ -27,7 +27,6 @@ const Marker = ({ uid }) => {
     left: 15,
   }
 
-
   return createPortal(
     <Wrapper>
       { 
