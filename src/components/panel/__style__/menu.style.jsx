@@ -5,7 +5,6 @@ export const Ul = styled.ul`
   background-color: white;
   box-sizing: border-box;
   display: block;
-  height: 100%;
   padding: 10px 20px;
   width: 100%;
 `

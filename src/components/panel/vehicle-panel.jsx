@@ -20,6 +20,6 @@ export const VehiclePanel = () => {
   }
 
   return (
-    <BasePanel style={{ bottom: 50, left: 310 }} {...props} />
+    <BasePanel style={{ left: 440 }} {...props} />
   )
 }

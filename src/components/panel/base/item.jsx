@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { Li } from '../__style__/menu.style'
 import { setIsOverMarker, flyTo, toggleVisibility, deleteToken } from '../../../actions'
-import { FaEye, FaEyeSlash } from 'react-icons/fa'
+import { FaEye, FaEyeSlash, FaTrash } from 'react-icons/fa'
 import { isEqual } from 'lodash'
 
 const ListItem = styled(Li)`
@@ -34,7 +34,7 @@ const Item = ({ uid, type, getSkin }) => {
         { isHidden ? <FaEyeSlash /> : <FaEye /> }
       </div>
       <div onClick={() => dispatch(deleteToken(uid))}>
-        <Emoji symbol="❌" label="delete" />
+        <FaTrash />
       </div>
     </ListItem>
   )

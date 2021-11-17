@@ -20,6 +20,6 @@ export const ZPanel = () => {
   }
 
   return (
-    <BasePanel style={{ bottom: 50, left: 50 }} {...props} />
+    <BasePanel style={{ left: 180 }} {...props} />
   )
 }

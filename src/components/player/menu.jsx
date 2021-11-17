@@ -48,7 +48,7 @@ const Component = ({ setMenuIsOpen, uid }) => {
           <SubMenu visibleIf={isWeaponSelectOpen}>
             <HList>
               { weapons.map((Weapon, id) => (
-                <HItem onClick={() => subHandler(() => changeWeapon({ uid, weapon: id + 1 }))}>
+                <HItem key={id} onClick={() => subHandler(() => changeWeapon({ uid, weapon: id + 1 }))}>
                   <Weapon />
                 </HItem>
               )) }

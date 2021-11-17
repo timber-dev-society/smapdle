@@ -3,6 +3,7 @@ import styled from 'styled-components'
 export const Wrapper = styled.div`
   background-color: white;
   border-radius: 5px;
+  bottom: 50px;
   box-sizing: border-box;
   position: absolute;  
 `
@@ -33,7 +34,6 @@ export const List = styled.ul`
 
 export const Box = styled.div`
   box-sizing: border-box;
-  height: 140px;
   left: 50px;
   position: absolute;
   top: 50px;

@@ -20,6 +20,6 @@ export const IncidentPanel = () => {
   }
 
   return (
-    <BasePanel style={{ bottom: 50, left: 180 }} {...props} />
+    <BasePanel style={{ left: 310 }} {...props} />
   )
 }
