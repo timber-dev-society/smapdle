@@ -8,7 +8,7 @@ import { Menu, VList, VItem, HList, HItem, SubMenu } from '../__style__/menu.sty
 import { toggleVisibility, deleteToken, changeSkin, saveSize } from '../../actions'
 import { skins } from './skin'
 
-const Component = ({ setMenuIsOpen, uid, skin, isHidden, size, setSize }) => {
+const Component = ({ setMenuIsOpen, uid, isHidden, size, setSize }) => {
 
   const dispatch = useDispatch()
   const [ isSettingOpen, setIsSettingOpen ] = useState(false)
