@@ -11,7 +11,7 @@ import useIsVisible from 'components/hooks/marker/is-visible'
 import { Container } from 'components/map/markers/__style__/token.style'
 import { Wrapper } from 'components/map/markers/__style__/marker.style'
 import Menu from './menu'
-import { getSkin } from './skin'
+import { getSkin, getSkinSize } from './skin'
 
 const defaultVisibleAfter = 17.5
 
@@ -26,7 +26,7 @@ const Marker = ({ uid, visibleAfter }) => {
   return createPortal(
     <Container className={`${isOver ? 'focus' : ''}`}>
       { isVisible &&
-        <Wrapper className="zoom v-token" onClick={() => setMenuIsOpen(!isMenuOpen)}>
+        <Wrapper className={`zoom v-token ${getSkinSize(skin)}`} onClick={() => setMenuIsOpen(!isMenuOpen)}>
           <Emoji symbol={getSkin(skin)} label="vehicle" />
         </Wrapper>
       }

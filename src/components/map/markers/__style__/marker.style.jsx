@@ -32,6 +32,13 @@ export const Wrapper = styled.div`
 
   &.v-token {
     font-size: var(--vehicle-size);
+
+    &.small {
+      font-size: calc(var(--vehicle-size) / 2);
+    }
+    &.big {
+      font-size: calc(var(--vehicle-size) * 2);
+    }
   }
 
   &.p-token {
