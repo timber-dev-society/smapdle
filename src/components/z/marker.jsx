@@ -29,7 +29,7 @@ const Marker = ({ uid, visibleAfter }) => {
   return createPortal(
     <Container className={`${isOver ? 'focus' : ''}`}>
       { isVisible &&
-        <Wrapper onClick={() => setMenuIsOpen(!isMenuOpen)} style={{ fontSize:'24px', display: `${isHidden && !canRead ? 'none' : 'block'}`,opacity:`${isHidden ? 0.5 : 1}` }}>
+        <Wrapper className="zoom p-token" onClick={() => setMenuIsOpen(!isMenuOpen)} style={{ display: `${isHidden && !canRead ? 'none' : 'block'}`,opacity:`${isHidden ? 0.5 : 1}` }}>
           { !isDead && <Emoji symbol={getSkin(skin)} label="z" /> }
           { isDead && <Emoji symbol="💀" label="z" /> }
         </Wrapper>

@@ -7,25 +7,29 @@ const Events = ({ map }) => {
 
     if (config.map.with3DBuilding) { active3DLayer(map.current) }
 
-    map.current.addSource('movement-data', {
-      type: "geojson",
-      data: null,
-    })
-    map.current.addLayer({
-      id: 'movement-circle',
-      type: 'fill',
-      source: 'movement-data',
-      paint: {
-        'fill-color': 'yellow',
-        'fill-opacity': 0.2,
-      },
-    })
+    activeMovementLayer(map.current)
   })
 
   return (<></>)
 }
 
 export default Events
+
+const activeMovementLayer = (map) => {
+  map.addSource('movement-data', {
+    type: "geojson",
+    data: null,
+  })
+  map.addLayer({
+    id: 'movement-circle',
+    type: 'fill',
+    source: 'movement-data',
+    paint: {
+      'fill-color': 'yellow',
+      'fill-opacity': 0.2,
+    },
+  })
+}
 
 const active3DLayer = (map) => {
   const layers = map.getStyle().layers;

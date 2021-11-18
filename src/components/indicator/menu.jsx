@@ -66,8 +66,8 @@ const Component = ({ setMenuIsOpen, uid, size, setSize }) => {
           <FaExpandAlt />
           <SubMenu onClick={e => e.stopPropagation()} visibleIf={isOpen.size}>
             <HList>
-              <HItem><button disabled={size > 10} onClick={() => setSize(size + 1)}><FaPlus /></button></HItem>
-              <HItem><button disabled={size < 0} onClick={() => setSize(size - 1)}><FaMinus /></button></HItem>
+              <HItem><button disabled={size >= 15} onClick={() => setSize(size + 1)}><FaPlus /></button></HItem>
+              <HItem><button disabled={size <= 0} onClick={() => setSize(size - 1)}><FaMinus /></button></HItem>
               <HItem><button onClick={() => handle(() => saveSize({uid, size}))}><FaCheck /></button></HItem>
             </HList>
           </SubMenu>

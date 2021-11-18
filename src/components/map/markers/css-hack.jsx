@@ -1,28 +1,21 @@
 import { useState } from 'react'
 import { createGlobalStyle } from 'styled-components'
 
-// const getSize = (zoom) => {
-//   const size = zoom + (zoom / 4.4)
-//
-//   return size > 25 ? size : 25
-// }
-
-const getFontSize = (zoom) => {
-  const size = zoom - 7
-
-  return size > 0 ? size : 0
+const computeMetresPerPixelRatio = (zoom) => {
+  return 156543.03392 * Math.cos(40 * Math.PI / 180) / Math.pow(2, zoom)
 }
+
 const GlobalStyle = createGlobalStyle`
 .zoom {
   --zoom: ${props => props.zoom};
-}
-.p-token {
-  --p-token-size: ${props => props.zoom - 3}px;
-  --p-token-font-size: ${props => getFontSize(props.zoom)}px;
-}
-.i-token {
-  --i-token-size: ${props => props.zoom - 3}px;
-  --i-token-font-size: ${props => getFontSize(props.zoom)}px;
+  --ratio: ${props => computeMetresPerPixelRatio(props.zoom)};
+
+  --cac-zone-size: calc(calc(4px / var(--ratio)) * 2);
+  --corpse-size: calc(calc(1.2px / var(--ratio)) * 2);
+  --weapon-size: calc(calc(0.9px / var(--ratio)) * 2);
+  --vehicle-size: calc(calc(7px / var(--ratio)) * 2);
+
+  --token-size: calc(calc(2px / var(--ratio)) * 2);
 }
 `
 

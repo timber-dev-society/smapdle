@@ -20,20 +20,13 @@ const Marker = ({ uid }) => {
 
   useMovement(tokenRef, map, speed)
 
-  const weaponStyle = {
-    position: 'absolute',
-    top: 25,
-    fontSize: 20,
-    left: 15,
-  }
-
   return createPortal(
     <Wrapper>
       { 
         canRead && 
-        <Icon onClick={() => setMenuIsOpen(!isMenuOpen)} style={{ borderColor: color }} className="p-token">
+        <Icon onClick={() => setMenuIsOpen(!isMenuOpen)} style={{ borderColor: color }} className="zoom p-token">
           <Emoji symbol={getSkin(skin)} label="login" />
-          <Weapon style={weaponStyle} />
+          <Weapon className="weapon" />
         </Icon> 
       }
       { canEdit && isMenuOpen && <Menu setMenuIsOpen={setMenuIsOpen} uid={uid} /> }

@@ -1,7 +1,7 @@
 import styled from "styled-components"
 
 export const Icon = styled.div`
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.6);
   border: 4px solid white;
   border-radius: 50% 50% 50% 50%;
 
@@ -10,10 +10,17 @@ export const Icon = styled.div`
   text-align: center;
 
   &.p-token {
-    height: var(--p-token-size);
-    font-size: var(--p-token-font-size);
-    line-height: var(--p-token-size);
-    width: var(--p-token-size);
+    height: var(--cac-zone-size);
+    font-size: var(--corpse-size);
+    line-height: var(--cac-zone-size);
+    width: var(--cac-zone-size);
+  }
+  .weapon {
+    position: absolute;
+    bottom: calc(var(--cac-zone-size) / 4);
+    height: var(--weapon-size);
+    width: var(--weapon-size);
+    right: calc(var(--cac-zone-size) / 4);
   }
 `
 
@@ -23,39 +30,62 @@ export const Wrapper = styled.div`
   flex-direction: column;
   justify-content: space-around;
 
-  &.i-token {
-    height: var(--i-token-size);
-    font-size: var(--i-token-font-size);
+  &.v-token {
+    font-size: var(--vehicle-size);
+  }
 
-    &.i-size-1 {
-      font-size: calc(var(--i-token-font-size) * 2);
+  &.p-token {
+    font-size: var(--corpse-size);
+    line-height: var(--corpse-size);
+  }
+
+  &.indicator-token {
+    font-size: calc(var(--token-size) * 0.5);
+
+    &.size-1 {
+      font-size: var(--token-size);
     }
-    &.i-size-2 {
-      font-size: calc(var(--i-token-font-size) * 1.5);
+    &.size-2 {
+      font-size: calc(var(--token-size) * 1.5);
     }
-    &.i-size-3 {
-      font-size: calc(var(--i-token-font-size) * 2);
+    &.size-3 {
+      font-size: calc(var(--token-size) * 2);
     }
-    &.i-size-3 {
-      font-size: calc(var(--i-token-font-size) * 2);
+    &.size-4 {
+      font-size: calc(var(--token-size) * 2.5);
     }
-    &.i-size-4 {
-      font-size: calc(var(--i-token-font-size) * 2);
+    &.size-5 {
+      font-size: calc(var(--token-size) * 3);
     }
-    &.i-size-5 {
-      font-size: calc(var(--i-token-font-size) * 2);
+    &.size-6 {
+      font-size: calc(var(--token-size) * 3.5);
     }
-    &.i-size-6 {
-      font-size: calc(var(--i-token-font-size) * 2);
+    &.size-7 {
+      font-size: calc(var(--token-size) * 4);
     }
-    &.i-size-7 {
-      font-size: calc(var(--i-token-font-size) * 2);
+    &.size-8 {
+      font-size: calc(var(--token-size) * 4.5);
     }
-    &.i-size-8 {
-      font-size: calc(var(--i-token-font-size) * 2);
+    &.size-9 {
+      font-size: calc(var(--token-size) * 5);
     }
-    &.i-size-9 {
-      font-size: calc(var(--i-token-font-size) * 2);
+    &.size-10 {
+      font-size: calc(var(--token-size) * 5.5);
+    }
+    &.size-11 {
+      font-size: calc(var(--token-size) * 6);
+    }
+    &.size-12 {
+      font-size: calc(var(--token-size) * 6.5);
+    }
+    &.size-13{
+      font-size: calc(var(--token-size) * 7);
+    }
+    &.size-14 {
+      font-size: calc(var(--token-size) * 7.5);
+    }
+    &.size-15 {
+      font-size: calc(var(--token-size) * 8);
     }
   }
 `

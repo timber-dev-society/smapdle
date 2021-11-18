@@ -12,13 +12,7 @@ import { Wrapper } from 'components/map/markers/__style__/marker.style'
 import { getSkin } from './skin'
 import Menu from './menu'
 
-
 const defaultVisibleAfter = 17.5
-
-const getFontSize = (isMenuOpen, size, mSize) => {
-  if (isMenuOpen) return 20 + size
-  return 20 + (mSize || 0)
-}
 
 const Marker = ({ uid, visibleAfter }) => {
   const { skin, position, isHidden, owner, size: mSize, token: mToken } = useSelector(state => state.markers.incident[uid], isEqual)
@@ -34,8 +28,8 @@ const Marker = ({ uid, visibleAfter }) => {
   return createPortal(
     <Container>
       { isVisible &&
-        <Wrapper onClick={() => setMenuIsOpen(!isMenuOpen)} >
-          <Emoji style={{ fontSize: getFontSize(isMenuOpen, size, mSize), display: `${isHidden && !canRead ? 'none' : 'block'}`,opacity:`${isHidden ? 0.5 : 1}` }} symbol={getSkin(skin)} label="login" />
+        <Wrapper className={`zoom indicator-token size-${size}`} onClick={() => setMenuIsOpen(!isMenuOpen)} >
+          <Emoji style={{ display: `${isHidden && !canRead ? 'none' : 'block'}`,opacity:`${isHidden ? 0.5 : 1}` }} symbol={getSkin(skin)} label="login" />
         </Wrapper>
       }
       { canEdit && isMenuOpen && <Menu setMenuIsOpen={setMenuIsOpen} uid={uid} skin={skin} isHidden={isHidden} size={size} setSize={setSize} /> }

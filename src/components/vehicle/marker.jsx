@@ -26,7 +26,7 @@ const Marker = ({ uid, visibleAfter }) => {
   return createPortal(
     <Container className={`${isOver ? 'focus' : ''}`}>
       { isVisible &&
-        <Wrapper onClick={() => setMenuIsOpen(!isMenuOpen)} style={{ fontSize:'110px' }}>
+        <Wrapper className="zoom v-token" onClick={() => setMenuIsOpen(!isMenuOpen)}>
           <Emoji symbol={getSkin(skin)} label="vehicle" />
         </Wrapper>
       }
