@@ -9,7 +9,7 @@ import { positionToLngLat } from 'utils/mapbox'
 import Item from './item'
 import { List, Wrapper } from '../__style__/admin-panel.style'
 
-export const BasePanel = ({ style, markers, markerType, getSkin, ItemRenderer }) => {
+export const BasePanel = ({ style, markers, markerType, getSkin, isHiddable }) => {
   const ref = useRef()
   const map = useSelector(state => state.app.map, isEqual)
   const [bounds, setBounds] = useState(map.getBounds())
@@ -30,8 +30,8 @@ export const BasePanel = ({ style, markers, markerType, getSkin, ItemRenderer })
 
   return (
     <Wrapper style={style}>
-      <List>
-        { markers.filter(({ position }) => bounds.contains(positionToLngLat(position))).map(({ uid }) => <ItemRenderer key={uid} uid={uid} type={markerType} getSkin={getSkin} />) }
+      <List className={isHiddable && 'is-hiddable-item'}>
+        { markers.filter(({ position }) => bounds.contains(positionToLngLat(position))).map(({ uid }) => <Item key={uid} uid={uid} type={markerType} getSkin={getSkin} isHiddable={isHiddable} />) }
       </List>
     </Wrapper>
   )
@@ -42,11 +42,11 @@ BasePanel.propTypes = {
   markers: PropTypes.array.isRequired,
   markerType: PropTypes.string.isRequired,
   getSkin: PropTypes.func.isRequired,
-  ItemRenderer: PropTypes.func,
+  isHiddable: PropTypes.bool,
 }
 
 BasePanel.defaultProps = {
-  ItemRenderer: Item,
+  isHiddable: false,
 }
 
 const BaseContainer = ({ children }) => {

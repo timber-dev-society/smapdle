@@ -17,9 +17,10 @@ export const IncidentPanel = () => {
     getSkin,
     markers,
     markerType: 'incident',
+    isHiddable: true,
   }
 
   return (
-    <BasePanel style={{ left: 310 }} {...props} />
+    <BasePanel style={{ left: 360 }} {...props} />
   )
 }

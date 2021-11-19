@@ -17,9 +17,10 @@ export const ZPanel = () => {
     getSkin,
     markers,
     markerType: 'z',
+    isHiddable: true,
   }
 
   return (
-    <BasePanel style={{ left: 180 }} {...props} />
+    <BasePanel style={{ left: 240 }} {...props} />
   )
 }

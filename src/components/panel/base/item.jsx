@@ -13,7 +13,7 @@ const ListItem = styled(Li)`
   justify-content: space-between;
 `
 
-const Item = ({ uid, type, getSkin }) => {
+const Item = ({ uid, type, getSkin, isHiddable }) => {
   const { skin, isHidden, isDead, token } = useSelector(state => state.markers[type][uid], isEqual)
   const dispatch = useDispatch()
   const handleOver = (isOver) => dispatch(setIsOverMarker({
@@ -30,9 +30,10 @@ const Item = ({ uid, type, getSkin }) => {
         { isDead && <Emoji symbol="💀" label="z" /> }
       </div>
 
-      <div onClick={() => dispatch(toggleVisibility({uid, isHidden: !isHidden}))}>
+      { isHiddable && <div onClick={() => dispatch(toggleVisibility({uid, isHidden: !isHidden}))}>
         { isHidden ? <FaEyeSlash /> : <FaEye /> }
-      </div>
+      </div> }
+      
       <div onClick={() => dispatch(deleteToken(uid))}>
         <FaTrash />
       </div>

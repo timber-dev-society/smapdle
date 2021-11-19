@@ -5,14 +5,18 @@ export const Wrapper = styled.div`
   border-radius: 5px;
   bottom: 50px;
   box-sizing: border-box;
-  position: absolute;  
+  position: absolute;
 `
 
 export const List = styled.ul`
   padding: 10px 10px;
-  width: 85px;
+  width: 60px;
   max-height: 250px;
   overflow-y: auto;
+
+  &.is-hiddable-item {
+    width: 85px;
+  }
 
   &::-webkit-scrollbar-track
   {
