@@ -65,10 +65,17 @@ BaseContainer.propTypes = {
 
 export const PanelContainer = ({ children }) => {
   const isLoaded = useSelector(state => state.app.isLoaded)
+  const userPanels = children.filter(({ type }) => type.name === 'UserPanel')
+  const adminPanels = children.filter(({ type }) => type.name === 'AdminPanel')
   
   return (
     <>
-      { isLoaded && <BaseContainer>{children}</BaseContainer>}
+      { isLoaded && (
+        <>
+          { userPanels }
+          <BaseContainer>{ adminPanels }</BaseContainer>
+        </>
+      )}
     </>
   )
 }
@@ -76,3 +83,6 @@ export const PanelContainer = ({ children }) => {
 PanelContainer.propTypes = {
   children: PropTypes.node.isRequired,
 }
+
+export const AdminPanel = ({ children }) => (<>{children}</>)
+export const UserPanel = ({ children }) => (<>{children}</>)

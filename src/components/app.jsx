@@ -5,7 +5,8 @@ import firebase from 'utils/firebase'
 import config from 'utils/app-config'
 import LoginForm from './login-form'
 import Map from './map'
-import { PanelContainer, AdminPanel, IncidentPanel, IndicatorPanel, ZPanel, VehiclePanel } from './panel'
+import { ToolsPanel, IncidentPanel, IndicatorPanel, ZPanel, VehiclePanel } from './panel'
+import { PanelContainer, AdminPanel, UserPanel } from './panel/base/panel'
 import { setUser } from 'actions'
 
 const App = () => {
@@ -28,11 +29,11 @@ const App = () => {
           <>
             <Map />
             <PanelContainer>
-              <AdminPanel />
-              <ZPanel />
-              <IndicatorPanel />
-              <IncidentPanel />
-              <VehiclePanel />
+              <UserPanel><ToolsPanel /></UserPanel>
+              <UserPanel><IndicatorPanel /></UserPanel>
+              <UserPanel><VehiclePanel /></UserPanel>
+              <AdminPanel><IncidentPanel /></AdminPanel>
+              <AdminPanel><ZPanel /></AdminPanel>
             </PanelContainer>            
           </>
         ) }

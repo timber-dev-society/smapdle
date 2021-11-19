@@ -6,7 +6,7 @@ import Trash from './trash'
 import Menu from './menu'
 import { Box, DragContainer } from '../__style__/admin-panel.style'
 
-export const AdminPanel = () => {
+export const ToolsPanel = () => {
   const [ isDragging, setIsDragging ] = useState(false)
 
   const handleDragStart = (event, type, token) => {
