@@ -24,7 +24,7 @@ export const setMap = createAction(SET_MAP)
 export const ADD_MARKER = Symbol('ADD_MARKER_@_MARKER')
 export const addMarker = createAction(ADD_MARKER)
 
-export const CREATE_MARKER_AT_POSITION = Symbol('CREATE_MARKER_AT_POSITION')
+export const CREATE_MARKER_AT_POSITION = 'CREATE_MARKER_AT_POSITION'
 export const createMarkerAtPositon = createAction(CREATE_MARKER_AT_POSITION, ({ clientX, clientY, dataTransfer }) => ({
   payload: {
     token: dataTransfer.getData('text/plain'),
@@ -32,6 +32,10 @@ export const createMarkerAtPositon = createAction(CREATE_MARKER_AT_POSITION, ({ 
     clientY,
   },
 }))
+export const dndCreateMarker = createAction(CREATE_MARKER_AT_POSITION, (token) => ({ payload: { token: token } })) 
+
+export const MOVE_PLAYER_MARKER = 'MOVE_PLAYER_MARKER'
+export const dndMovePlayerMarker = createAction(MOVE_PLAYER_MARKER, (uid) => ({ payload: { uid: uid } }))
 
 export const LOAD_MARKERS = Symbol('LOAD_MARKERS')
 export const loadMarkers = createAction(LOAD_MARKERS)

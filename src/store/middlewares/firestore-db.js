@@ -1,7 +1,7 @@
 import { firestore, store } from '../../utils/firebase'
 import {
   LOAD_MARKERS, CREATE_MARKER_AT_POSITION, TOGGLE_VISIBILITY, KILL, DELETE, CHANGE_SKIN, SET_SIZE, CHANGE_WEAPON,
-  updateMarker, addMarker, setIsLoaded, deleteMarker, setUserInfo,
+  updateMarker, addMarker, setIsLoaded, deleteMarker, setUserInfo, MOVE_PLAYER_MARKER,
 } from '../../actions'
 import { getMousePosition } from '../../utils/mapbox'
 import { flashErrorMsg } from '../../utils/flash'
@@ -51,6 +51,14 @@ const firestoreDb = createMiddleware({
         active: true,
         owner: state.app.user.uid,
         token: action.payload.token,
+      })
+    },
+    [MOVE_PLAYER_MARKER]: ({ state, action }) => {
+      const { lng, lat } = getMousePosition(action.payload, state.app.map)
+      console.log('move', lng, lat, action.payload.uid)
+      markerStore.update({
+        position: { latitude: lat, longitude: lng },
+        uid: action.payload.uid,
       })
     },
     [TOGGLE_VISIBILITY]: ({ action }) => markerStore.update(action.payload),

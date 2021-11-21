@@ -5,6 +5,8 @@ import { useState } from 'react'
 import Trash from './trash'
 import Menu from './menu'
 import { Box, DragContainer } from '../__style__/admin-panel.style'
+import { json } from 'utils/app-func'
+import { dndCreateMarker } from 'actions'
 
 export const ToolsPanel = () => {
   const [ isDragging, setIsDragging ] = useState(false)
@@ -16,7 +18,7 @@ export const ToolsPanel = () => {
     render(<DragContainer>{token}</DragContainer>, dragImage)
 
     event.dataTransfer.effectAllowed = 'copy'
-    event.dataTransfer.setData('text/plain', type)
+    event.dataTransfer.setData('text/plain', json`${dndCreateMarker(type)}`)
 
     setIsDragging(true)
   }

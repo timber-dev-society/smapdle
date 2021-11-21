@@ -8,7 +8,6 @@ export const buildGetSkin = (skins) => (skinId) => {
   return skins[0]
 }
 
-
 export const createMiddleware = ({ name, middleware }) => store => next => async (action) => {
 
   if (middleware.hasOwnProperty(action.type)) {
@@ -21,3 +20,5 @@ export const createMiddleware = ({ name, middleware }) => store => next => async
 
   return next(action)
 }
+
+export const json = (_, oJson) => JSON.stringify(oJson, null, 2)

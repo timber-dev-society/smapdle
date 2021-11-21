@@ -18,9 +18,20 @@ const Map = () => {
     const dispatch = useDispatch()
 
     const handleDrop = (event) => {
-       event.stopPropagation()
-       event.preventDefault()
-       dispatch(createMarkerAtPositon(event))
+      const { clientX, clientY, dataTransfer } = event
+      const { type, payload } = JSON.parse(dataTransfer.getData('text/plain'))
+
+      event.stopPropagation()
+      event.preventDefault()
+
+      dispatch({ 
+        type, 
+        payload: {
+          ...payload,
+          clientX,
+          clientY,
+        }
+      })
     }
 
     useEffect(() => {
