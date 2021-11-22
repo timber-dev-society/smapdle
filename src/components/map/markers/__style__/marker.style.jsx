@@ -42,6 +42,8 @@ export const Wrapper = styled.div`
   }
 
   &.p-token {
+    height: var(--corpse-size);
+    width: var(--corpse-size);
     font-size: var(--corpse-size);
     line-height: var(--corpse-size);
   }

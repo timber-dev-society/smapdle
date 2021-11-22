@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 import Markers from './markers'
 import Events from './events'
-import { setMap, createMarkerAtPositon } from '../../actions'
+import { setMap } from '../../actions'
 import config from '../../utils/app-config'
 import useMap from '../hooks/map'
 

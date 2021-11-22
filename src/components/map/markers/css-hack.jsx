@@ -6,6 +6,7 @@ const computeMetresPerPixelRatio = (zoom) => {
 }
 
 const GlobalStyle = createGlobalStyle`
+:root,
 .zoom {
   --zoom: ${props => props.zoom};
   --ratio: ${props => computeMetresPerPixelRatio(props.zoom)};

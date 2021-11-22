@@ -25,13 +25,6 @@ export const ADD_MARKER = Symbol('ADD_MARKER_@_MARKER')
 export const addMarker = createAction(ADD_MARKER)
 
 export const CREATE_MARKER_AT_POSITION = 'CREATE_MARKER_AT_POSITION'
-export const createMarkerAtPositon = createAction(CREATE_MARKER_AT_POSITION, ({ clientX, clientY, dataTransfer }) => ({
-  payload: {
-    token: dataTransfer.getData('text/plain'),
-    clientX,
-    clientY,
-  },
-}))
 export const dndCreateMarker = createAction(CREATE_MARKER_AT_POSITION, (token) => ({ payload: { token: token } })) 
 
 export const MOVE_PLAYER_MARKER = 'MOVE_PLAYER_MARKER'
