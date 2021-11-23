@@ -30,7 +30,6 @@ const firestoreDb = createMiddleware({
               dispatch(addMarker(marker))
               return
             case 'modified':
-              console.log('update', marker)
               dispatch(updateMarker(marker))
               return
             case 'removed':
@@ -46,11 +45,13 @@ const firestoreDb = createMiddleware({
     },
     [CREATE_MARKER_AT_POSITION]: ({ state, action }) => {
       const { lng, lat } = getMousePosition(action.payload, state.app.map)
+      console.log(action)
       markerStore.create({
         position: { latitude: lat, longitude: lng },
         active: true,
         owner: state.app.user.uid,
         token: action.payload.token,
+        isHidden: !action.payload.visibility,
       })
     },
     [MOVE_PLAYER_MARKER]: ({ state, action }) => {

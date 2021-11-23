@@ -25,7 +25,7 @@ export const ADD_MARKER = Symbol('ADD_MARKER_@_MARKER')
 export const addMarker = createAction(ADD_MARKER)
 
 export const CREATE_MARKER_AT_POSITION = 'CREATE_MARKER_AT_POSITION'
-export const dndCreateMarker = createAction(CREATE_MARKER_AT_POSITION, (token) => ({ payload: { token: token } })) 
+export const dndCreateMarker = createAction(CREATE_MARKER_AT_POSITION, (token, visibility = false) => ({ payload: { token, visibility } })) 
 
 export const MOVE_PLAYER_MARKER = 'MOVE_PLAYER_MARKER'
 export const dndMovePlayerMarker = createAction(MOVE_PLAYER_MARKER, (uid) => ({ payload: { uid: uid } }))
