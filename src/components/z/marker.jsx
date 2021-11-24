@@ -29,7 +29,7 @@ const Marker = ({ uid, visibleAfter }) => {
   useMovement(tokenRef, map, getSpeed(skin))
 
   return createPortal(
-    <Container className={`z ${isOver ? 'focus' : ''}`}>
+    <Container className={`z ${isOver ? 'focus' : ''} ${(isHidden && !canRead) ? 'hidden' : ''}`}>
       { isVisible &&
         <Wrapper className="zoom p-token" onClick={() => setMenuIsOpen(!isMenuOpen)} style={{ display: `${isHidden && !canRead ? 'none' : 'block'}`,opacity:`${isHidden ? 0.5 : 1}` }}>
           { !isDead && <Emoji symbol={getSkin(skin)} label="z" /> }
