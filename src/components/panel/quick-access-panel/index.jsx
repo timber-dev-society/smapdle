@@ -1,10 +1,10 @@
 
 import Emoji from 'a11y-react-emoji'
 import { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 
-import { dndMovePlayerMarker } from 'actions'
+import { dndMovePlayerMarker, flyTo } from 'actions'
 import { getSkin } from 'components/player/skin'
 import { json } from 'utils/app-func'
 import useAcl from 'components/hooks/acl'
@@ -28,10 +28,6 @@ const PlayerRow = styled.div`
   overflow: hidden;
   padding: 10px;
   width: 25px;
-
-  /*&.hover {
-    width: 100px;
-  }*/
 `
 
 const Name = styled.div`
@@ -60,6 +56,7 @@ const Skin = styled.div`
 `
 
 const Player = ({ player: { uid, name, skin, owner } }) => {
+  const dispatch = useDispatch()
   const skinIcon = getSkin(skin)
   const [ isHover, setIsHover ] = useState(false)
   const handleHover = (state) => () => {
@@ -76,7 +73,7 @@ const Player = ({ player: { uid, name, skin, owner } }) => {
   return (
     <PlayerRow onDragOver={(e) => e.preventDefault()} className={isHover && 'hover'} onMouseEnter={handleHover(true)} onMouseLeave={handleHover(false)}>
       <Name className={isHover && 'hover'}><NameDecorator>{name}</NameDecorator></Name>
-      <Skin draggable={canMove} onDragStart={handleDrag} onDragEnd={() => {}}><Emoji symbol={skinIcon} label={name} /></Skin>
+      <Skin onClick={() => dispatch(flyTo({ token: 'player', uid }))} draggable={canMove} onDragStart={handleDrag} onDragEnd={() => {}}><Emoji symbol={skinIcon} label={name} /></Skin>
     </PlayerRow>
   )
 }
