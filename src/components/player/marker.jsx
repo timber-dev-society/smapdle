@@ -35,6 +35,7 @@ const Marker = ({ uid }) => {
           uid={uid} 
           skin={{ skins }}
           weapon={{ weapons }}
+          canDelete={false}
         />
       }
     </Wrapper>,

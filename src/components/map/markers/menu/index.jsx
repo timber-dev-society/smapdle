@@ -10,7 +10,7 @@ import { useMenuReducer, useHandler } from './hook'
 import WeaponMenu from './weapon-menu'
 
 
-const Component = ({ closeMenu, uid, size, skin, visibility, dead, rotate, weapon }) => {
+const Component = ({ closeMenu, uid, size, skin, visibility, dead, rotate, weapon, canDelete }) => {
 
   const [ isOpen, open, { skinMenu, sizeMenu, weaponMenu, close } ] = useMenuReducer()
   const handle = useHandler(closeMenu, () => open(close))
@@ -51,16 +51,18 @@ const Component = ({ closeMenu, uid, size, skin, visibility, dead, rotate, weapo
             <WeaponMenu 
               weapons={weapon.weapons} 
               isOpen={isOpen.weapon} 
-              handleSave={(value) => handle(() => changeWeapon({ uid, size: value }))} 
+              handleSave={(value) => handle(() => changeWeapon({ uid, weapon: value }))}
             />
           </VItem>
         ) }
         { rotate && (
           <></>
         )}
-        <VItem onClick={() => handle(() => deleteToken(uid))}>
-          <FaTrashAlt />
-        </VItem>  
+        { canDelete && (
+          <VItem onClick={() => handle(() => deleteToken(uid))}>
+            <FaTrashAlt />
+          </VItem>
+        ) } 
       </VList>
     </Menu>
   )
@@ -74,6 +76,11 @@ Component.propTypes = {
   visibility: PropTypes.shape({ isHidden: PropTypes.bool.isRequired }),
   dead: PropTypes.shape({ isDead: PropTypes.bool.isRequired }),
   rotate: PropTypes.shape({}),
+  canDelete: PropTypes.bool,
+}
+
+Component.defaultProps = {
+  canDelete: true,
 }
 
 export default Component
