@@ -23,6 +23,7 @@ const Marker = ({ uid, visibleAfter }) => {
   const { el, token: tokenRef, map } = useMarker({ position, uid, canMove })
   const isVisible = useIsVisible(map, visibleAfter)
   const [ isMenuOpen, setMenuIsOpen ] = useState(false)
+  
 
   useMovement(tokenRef, map, getSpeed(skin))
 

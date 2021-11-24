@@ -8,8 +8,8 @@ import useMarker from 'components/hooks/marker'
 import useAcl from 'components/hooks/acl'
 import useMovement from 'components/hooks/marker/movement'
 import { Wrapper, Icon } from 'components/map/markers/__style__/marker.style'
-import { getSkin, getWeapon } from './skin'
-import Menu from './menu'
+import { getSkin, getWeapon, skins, weapons } from './skin'
+import Menu from 'components/map/markers/menu'
 
 const Marker = ({ uid }) => {
   const { color, position, skin, weapon, owner, token, speed } = useSelector(state => state.markers.player[uid], isEqual)
@@ -29,7 +29,14 @@ const Marker = ({ uid }) => {
           <Weapon className="weapon" />
         </Icon> 
       }
-      { canEdit && isMenuOpen && <Menu setMenuIsOpen={setMenuIsOpen} uid={uid} /> }
+      { canEdit && isMenuOpen && 
+        <Menu setMenuIsOpen={setMenuIsOpen} uid={uid} 
+          closeMenu={() => setMenuIsOpen(false)} 
+          uid={uid} 
+          skin={{ skins }}
+          weapon={{ weapons }}
+        />
+      }
     </Wrapper>,
     el
   )

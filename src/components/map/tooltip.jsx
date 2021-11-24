@@ -1,6 +1,3 @@
-
-import React from "react";
-
 const Tooltip = ({ feature }) => {
   const { id } = feature.properties;
 

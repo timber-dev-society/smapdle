@@ -9,8 +9,8 @@ import useMarker, { useIsVisible, useSizeable } from 'components/hooks/marker'
 import useAcl from 'components/hooks/acl'
 import { Container } from 'components/map/markers/__style__/token.style'
 import { Wrapper } from 'components/map/markers/__style__/marker.style'
-import { getSkin } from './skin'
-import Menu from './menu'
+import { getSkin, skins } from './skin'
+import Menu from 'components/map/markers/menu'
 
 const defaultVisibleAfter = 17.5
 
@@ -23,7 +23,6 @@ const Marker = ({ uid, visibleAfter }) => {
   const [ size, setSize ] = useSizeable(mSize)
   const [ isMenuOpen, setMenuIsOpen ] = useState(false)
   const isVisible = useIsVisible(map, visibleAfter)
-  
 
   return createPortal(
     <Container>
@@ -32,7 +31,15 @@ const Marker = ({ uid, visibleAfter }) => {
           <Emoji style={{ display: `${isHidden && !canRead ? 'none' : 'block'}`,opacity:`${isHidden ? 0.5 : 1}` }} symbol={getSkin(skin)} label="login" />
         </Wrapper>
       }
-      { canEdit && isMenuOpen && <Menu setMenuIsOpen={setMenuIsOpen} uid={uid} skin={skin} isHidden={isHidden} size={size} setSize={setSize} /> }
+      { canEdit && isMenuOpen && 
+        <Menu 
+          closeMenu={() => setMenuIsOpen(false)} 
+          uid={uid} 
+          skin={{ skins }} 
+          visibility={{ isHidden }} 
+          size={{ value: size, setSize }}
+        />
+      }
     </Container>,
     el
   )
