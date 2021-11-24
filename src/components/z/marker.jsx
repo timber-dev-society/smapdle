@@ -11,8 +11,9 @@ import useIsVisible from 'components/hooks/marker/is-visible'
 import useMovement from 'components/hooks/marker/movement'
 import { Container } from 'components/map/markers/__style__/token.style'
 import { Wrapper } from 'components/map/markers/__style__/marker.style'
-import { getSkin, getSpeed } from './skin'
-import Menu from './menu'
+import { getSkin, getSpeed, skins } from './skin'
+
+import Menu from 'components/map/markers/menu'
 
 const defaultVisibleAfter = 17.5
 
@@ -36,7 +37,15 @@ const Marker = ({ uid, visibleAfter }) => {
         </Wrapper>
       }
 
-      { canEdit && isMenuOpen && <Menu setMenuIsOpen={setMenuIsOpen} uid={uid} skin={skin} isHidden={isHidden} isDead={isDead} /> }
+      { canEdit && isMenuOpen && 
+        <Menu 
+          uid={uid}
+          closeMenu={() => setMenuIsOpen(false)}
+          skin={{ skins }} 
+          visibility={{ isHidden }} 
+          dead={{ isDead }} 
+        /> 
+      }
     </Container>,
     el
   )

@@ -30,7 +30,7 @@ const Marker = ({ uid }) => {
         </Icon> 
       }
       { canEdit && isMenuOpen && 
-        <Menu setMenuIsOpen={setMenuIsOpen} uid={uid} 
+        <Menu 
           closeMenu={() => setMenuIsOpen(false)} 
           uid={uid} 
           skin={{ skins }}
