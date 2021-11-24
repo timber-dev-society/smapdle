@@ -20,7 +20,7 @@ const useMap = ({ accessToken, style }) => {
       // create map
       map.current = new mapboxgl.Map({
           container: mapRef.current,
-          style: 'mapbox://styles/joline6b/ckrjlmvix8ffu17ny2vaseowq',
+          style: style,
           center: [ lng, lat ],
           zoom: zoom
       })

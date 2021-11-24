@@ -40,11 +40,11 @@ const config = {
     },
   ],
   map: {
-    with3DBuilding: false,
+    with3DBuilding: true,
   },
   mapbox: {
     accessToken: process.env.REACT_APP_MAP_ACCESSTOKEN,
-    style: 'mapbox://styles/joline6b/ckrjlmvix8ffu17ny2vaseowq',
+    style: process.env.REACT_APP_MAP_STYLE,
   },
   firebase: {
       apiKey: process.env.REACT_APP_FRB_APIKEY,

@@ -17,12 +17,10 @@ export const Container = styled.div`
   &.z {
     text-align: center;
     background: rgb(0,0,0);
-    background: radial-gradient(circle, rgba(0,0,0,1) 0%, rgba(255,255,255,0) 100%);
-    box-shadow: rgba(0, 0, 0, 0.56) 0 0 80px 10px;
+    background: radial-gradient(circle, rgba(0,0,0,1) 0%, rgba(255,255,255,0) 65%);
 
     &.hidden {
       background: none;
-      box-shadow: none;
     }
   }
 `
