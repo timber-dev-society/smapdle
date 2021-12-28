@@ -1,46 +1,40 @@
-import ZMarker from 'components/z/marker'
-import PlayerMarker from 'components/player/marker'
-import IncidentMarker from 'components/incident/marker'
-import VehicleMarker from 'components/vehicle/marker'
-import IndicatorMarker from 'components/indicator/marker'
+import { actorMarker, investigatorMarker, locationMarker, recorderMarker, vehicleMarker } from 'components/markers'
 import { READ, MOVE, NOTHING, ALL } from 'components/hooks/acl'
 
 const config = {
   groups: [
-    { role: 'admin', rules: { z: ALL, player: ALL, incident: ALL, vehicle: ALL, indicator: ALL, panels: ALL }},
-    { role: 'player', rules: { z: NOTHING, player: READ, incident: NOTHING, indicator: ALL, vehicle: MOVE, panels: NOTHING }},
+    { role: 'admin', rules: { tracker: READ, actor: ALL, investigator: ALL, vehicle: ALL, location: ALL, recorder: ALL, panels: ALL }},
+    { role: 'client', rules: { tracker: NOTHING, actor: MOVE, investigator: MOVE, vehicle: MOVE, location: MOVE, recorder: MOVE, panels: ALL }},
   ],
   markers: [
     {
-      name: 'z',
-      filter: (state) => state.markers.z,
-      Marker: ZMarker,
-      visibleAfter: 18,
+      name: 'actor',
+      filter: (state) => state.markers?.actor,
+      Marker: actorMarker,
     },
     {
-      name: 'indicator',
-      filter: (state) => state.markers.indicator,
-      Marker: IndicatorMarker,
+      name: 'investigator',
+      filter: (state) => state.markers?.investigator,
+      Marker: investigatorMarker,
     },
     {
-      name: 'player',
-      filter: (state) => state.markers.player,
-      Marker: PlayerMarker,
+      name: 'location',
+      filter: (state) => state.markers?.location,
+      Marker: locationMarker,
     },
     {
-      name: 'incident',
-      filter: (state) => state.markers.incident,
-      Marker: IncidentMarker,
+      name: 'recorder',
+      filter: (state) => state.markers?.recorder,
+      Marker: recorderMarker,
     },
     {
       name: 'vehicle',
-      filter: (state) => state.markers.vehicle,
-      Marker: VehicleMarker,
-      visibleAfter: 15,
-    },
+      filter: (state) => state.markers?.vehicle,
+      Marker: vehicleMarker,
+    }
   ],
   map: {
-    with3DBuilding: true,
+    with3DBuilding: false,
   },
   mapbox: {
     accessToken: process.env.REACT_APP_MAP_ACCESSTOKEN,

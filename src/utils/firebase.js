@@ -26,7 +26,6 @@ export const store = (collection) => ({
     }
   },
   update: async ({ uid, ...data }) => {
-    console.log({uid, data})
     try {
       const docRef = await firestore.collection(collection).doc(uid)
       await docRef.update(data)
@@ -38,7 +37,7 @@ export const store = (collection) => ({
   },
   remove: async (uid) => {
     try {
-      const docRef = await firestore.collection(collection).doc(uid).delete()
+      const docRef = await firestore.collection(collection).doc(uid)
       await docRef.delete()
 
       return docRef

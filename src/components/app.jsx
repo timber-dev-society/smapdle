@@ -5,10 +5,9 @@ import firebase from 'utils/firebase'
 import config from 'utils/app-config'
 import LoginForm from './login-form'
 import Map from './map'
-import { ToolsPanel, IncidentPanel, IndicatorPanel, ZPanel, VehiclePanel } from './panel'
+import { ActorPanel, ToolsPanel } from './panel'
 import { PanelContainer, AdminPanel, UserPanel } from './panel/base/panel'
 import { setUser } from 'actions'
-import { QuickAccessPanel } from './panel/quick-access-panel'
 
 const App = () => {
   const dispatch = useDispatch()
@@ -30,12 +29,8 @@ const App = () => {
           <>
             <Map />
             <PanelContainer>
-              <UserPanel><QuickAccessPanel /></UserPanel>
-              <UserPanel><ToolsPanel /></UserPanel>
-              <UserPanel><IndicatorPanel /></UserPanel>
-              <UserPanel><VehiclePanel /></UserPanel>
-              <AdminPanel><IncidentPanel /></AdminPanel>
-              <AdminPanel><ZPanel /></AdminPanel>
+              <AdminPanel><ToolsPanel /></AdminPanel>
+              <UserPanel><ActorPanel /></UserPanel>
             </PanelContainer>            
           </>
         ) }

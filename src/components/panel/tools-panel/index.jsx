@@ -10,11 +10,11 @@ import { dndCreateMarker } from 'actions'
 export const ToolsPanel = () => {
   const [ isDragging, setIsDragging ] = useState(false)
 
-  const handleDragStart = (event, type, visibity) => {
+  const handleDragStart = (event, type) => {
     event.stopPropagation()
 
     event.dataTransfer.effectAllowed = 'copy'
-    event.dataTransfer.setData('text/plain', json`${dndCreateMarker(type, visibity)}`)
+    event.dataTransfer.setData('text/plain', json`${dndCreateMarker(type)}`)
 
     setIsDragging(true)
   }

@@ -1,0 +1,6 @@
+export { actorMarker } from './actor/marker'
+export { investigatorMarker } from './investigator/marker'
+export { locationMarker } from './location/marker'
+export { recorderMarker } from './recorder/marker'
+export { trackerMarker } from './tracker/marker'
+export { vehicleMarker } from './vehicle/marker'

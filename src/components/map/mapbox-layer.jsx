@@ -4,8 +4,6 @@ import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-load
 import "mapbox-gl-leaflet";
 import PropTypes from "prop-types";
 import { useMap } from "react-leaflet";
-// import ReactL from "react-leaflet";
-//import { GridLayer, withLeaflet } from 'leaflet'
 
 const MapBoxGLLayer = (props) => {
   const map = useMap()

@@ -3,17 +3,16 @@ import { createReducer } from '@reduxjs/toolkit'
 import { UPDATE_MARKER, ADD_MARKER, SET_IS_OVER_MARKER, DELETE_MARKER } from '../../actions'
 
 const initialState = {
-  z: {},
-  player: {},
+  actor: {},
+  investigator: {},
+  location: {},
+  recorder: {},
   vehicle: {},
-  incident: {},
-  indicator: {},
 }
 
 const defaultMarker = {
   skin: 1,
   v: 0,
-  isHidden: true,
   isOver: false,
   isDead: false,
 }

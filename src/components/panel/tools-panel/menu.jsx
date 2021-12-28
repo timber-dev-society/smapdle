@@ -1,7 +1,5 @@
 import PropTypes from 'prop-types'
 import Emoji from 'a11y-react-emoji'
-import { FaEyeSlash, FaEye } from 'react-icons/fa'
-import { useState } from 'react'
 
 import { Icon } from '../__style__/admin-panel.style'
 import { Ul, Li } from '../__style__/menu.style'
@@ -9,40 +7,41 @@ import useAcl from 'components/hooks/acl'
 
 const Menu = ({ handleDragStart, handleDragEnd }) => {
   const { canRead } = useAcl({ type: `panels` })
-  const [ defaultVisibility, setDefaultVisibility ] = useState(false)
 
   return (
-    <Ul>
+    <>
       {
         canRead && (
-          <>
-            <Li onClick={() => setDefaultVisibility(!defaultVisibility)}>
-              { defaultVisibility ? <FaEye /> : <FaEyeSlash /> }
-            </Li>
+          <Ul>
             <Li>
-              <Icon draggable onDragStart={(e) => handleDragStart(e, 'z', defaultVisibility, '🧟')} onDragEnd={() => handleDragEnd()}>
-                <Emoji symbol="🧟" label="z" />
+              <Icon draggable onDragStart={(e) => handleDragStart(e, 'actor', '👨')} onDragEnd={() => handleDragEnd()}>
+                <Emoji symbol="👨" label="actor" />
               </Icon>
             </Li>
             <Li>
-              <Icon draggable onDragStart={(e) => handleDragStart(e, 'vehicle', defaultVisibility, '🚗')} onDragEnd={() => handleDragEnd()}>
-                <Emoji symbol="🚗" label="car" />
+              <Icon draggable onDragStart={(e) => handleDragStart(e, 'investigator', '🕵️‍♂️')} onDragEnd={() => handleDragEnd()}>
+                <Emoji symbol="🕵️‍♂️" label="investigator" />
               </Icon>
             </Li>
             <Li>
-              <Icon draggable onDragStart={(e) => handleDragStart(e, 'incident', defaultVisibility, '🪵')} onDragEnd={() => handleDragEnd()}>
-                <Emoji symbol="🪵" label="incident" />
+              <Icon draggable onDragStart={(e) => handleDragStart(e, 'location', '🏘️')} onDragEnd={() => handleDragEnd()}>
+                <Emoji symbol="🏘️" label="investigator" />
               </Icon>
             </Li>
-          </>
+            <Li>
+              <Icon draggable onDragStart={(e) => handleDragStart(e, 'recorder', '📷')} onDragEnd={() => handleDragEnd()}>
+                <Emoji symbol="📷" label="recorder" />
+              </Icon>
+            </Li>
+            <Li>
+              <Icon draggable onDragStart={(e) => handleDragStart(e, 'recorder', '🚗')} onDragEnd={() => handleDragEnd()}>
+                <Emoji symbol="🚗" label="vehicule" />
+              </Icon>
+            </Li>
+          </Ul>
         )
       }
-      <Li>
-        <Icon draggable onDragStart={(e) => handleDragStart(e, 'indicator', defaultVisibility, '❌')} onDragEnd={() => handleDragEnd()}>
-          <Emoji symbol="❌" label="indicator" />
-        </Icon>
-      </Li>
-    </Ul>
+    </>
   )
 }
 

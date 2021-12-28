@@ -1,11 +1,11 @@
-import { firestore, store } from '../../utils/firebase'
+import { firestore, store } from 'utils/firebase'
 import {
   LOAD_MARKERS, CREATE_MARKER_AT_POSITION, TOGGLE_VISIBILITY, KILL, DELETE, CHANGE_SKIN, SET_SIZE, CHANGE_WEAPON,
   updateMarker, addMarker, setIsLoaded, deleteMarker, setUserInfo, MOVE_PLAYER_MARKER,
-} from '../../actions'
-import { getMousePosition } from '../../utils/mapbox'
-import { flashErrorMsg } from '../../utils/flash'
-import { createMiddleware } from '../../utils/app-func'
+} from 'actions'
+import { getMousePosition } from 'utils/mapbox'
+import { flashErrorMsg } from 'utils/flash'
+import { createMiddleware } from 'utils/app-func'
 
 const markerStore = store("markers")
 
@@ -21,7 +21,8 @@ const firestoreDb = createMiddleware({
       /**
        * Add database listener
        */
-      firestore.collection('markers').where('active', '==', true).onSnapshot((snapshot) => {
+      console.log(`[Firestore] Load ${window.location.hash} database`)
+      firestore.collection('markers').where('case', '==', window.location.hash).onSnapshot((snapshot) => {
         snapshot.docChanges().forEach((change) => {
           const marker = { uid: change.doc.id, ...change.doc.data() }
 
@@ -45,10 +46,10 @@ const firestoreDb = createMiddleware({
     },
     [CREATE_MARKER_AT_POSITION]: ({ state, action }) => {
       const { lng, lat } = getMousePosition(action.payload, state.app.map)
-      console.log(action)
+
       markerStore.create({
         position: { latitude: lat, longitude: lng },
-        active: true,
+        case: window.location.hash,
         owner: state.app.user.uid,
         token: action.payload.token,
         isHidden: !action.payload.visibility,
@@ -56,7 +57,7 @@ const firestoreDb = createMiddleware({
     },
     [MOVE_PLAYER_MARKER]: ({ state, action }) => {
       const { lng, lat } = getMousePosition(action.payload, state.app.map)
-      console.log('move', lng, lat, action.payload.uid)
+
       markerStore.update({
         position: { latitude: lat, longitude: lng },
         uid: action.payload.uid,

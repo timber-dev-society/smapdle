@@ -2,22 +2,22 @@ import { useSelector } from 'react-redux'
 import { createSelectorCreator, defaultMemoize } from 'reselect'
 
 import { BasePanel } from './base/panel'
-import { getSkin } from 'components/incident/skin'
+import { getSkin } from 'components/markers/actor/skin'
 
 const createDeepEqualSelector = createSelectorCreator(defaultMemoize, (prev, next) => Object.keys(prev || {}).length === Object.keys(next || {}).length) 
 
-const incidentSelector = createDeepEqualSelector(
-  store => store.markers.incident,
-  incidentMarkers => Object.keys(incidentMarkers).map(uid => ({ uid, position: incidentMarkers[uid].position }))
+const actorSelector = createDeepEqualSelector(
+  store => store.markers.actor,
+  actorMarkers => Object.keys(actorMarkers).map(uid => ({ uid, position: actorMarkers[uid].position }))
 )
 
-export const IncidentPanel = () => {
-  const markers = useSelector(incidentSelector)
+export const ActorPanel = () => {
+  const markers = useSelector(actorSelector)
   const props = {
     getSkin,
     markers,
-    markerType: 'incident',
-    isHiddable: true,
+    markerType: 'actor',
+    isHiddable: false,
   }
 
   return (
