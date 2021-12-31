@@ -25,7 +25,7 @@ const Menu = ({ handleDragStart, handleDragEnd }) => {
             </Li>
             <Li>
               <Icon draggable onDragStart={(e) => handleDragStart(e, 'location', '🏘️')} onDragEnd={() => handleDragEnd()}>
-                <Emoji symbol="🏘️" label="investigator" />
+                <Emoji symbol="🏘️" label="location" />
               </Icon>
             </Li>
             <Li>
@@ -34,8 +34,8 @@ const Menu = ({ handleDragStart, handleDragEnd }) => {
               </Icon>
             </Li>
             <Li>
-              <Icon draggable onDragStart={(e) => handleDragStart(e, 'recorder', '🚗')} onDragEnd={() => handleDragEnd()}>
-                <Emoji symbol="🚗" label="vehicule" />
+              <Icon draggable onDragStart={(e) => handleDragStart(e, 'vehicle', '🚗')} onDragEnd={() => handleDragEnd()}>
+                <Emoji symbol="🚗" label="vehicle" />
               </Icon>
             </Li>
           </Ul>
