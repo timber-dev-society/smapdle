@@ -1,4 +1,4 @@
-import React, { StrictMode } from 'react'
+import { StrictMode } from 'react'
 import { render } from 'react-dom'
 import { createGlobalStyle } from 'styled-components'
 import reset from 'styled-reset'
@@ -12,7 +12,11 @@ import reportWebVitals, { sendToAnalytics } from './reportWebVitals'
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
-  font-size: 14px;
+
+  :root {
+    --blue: #152147;
+    --yellow: #ffdd00;
+  }
 `
 
 render(
