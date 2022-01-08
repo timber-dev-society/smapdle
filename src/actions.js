@@ -12,9 +12,18 @@ export const setUser = createAction(SET_USER, ({ uid, email }) => ({
 export const SET_USER_INFO = Symbol('SET_USER_INFO_@_APP')
 export const setUserInfo = createAction(SET_USER_INFO)
 
+export const LOAD_USER = Symbol('LOAD_USER_@_APP')
+export const loadUser = createAction(LOAD_USER)
+
 // APP EVENTS
+export const INIT_APP = Symbol('INIT_APP_@_APP')
+export const initApp = createAction(INIT_APP)
+
 export const SET_IS_LOADED = Symbol('SET_IS_LOADED_@_APP')
 export const setIsLoaded = createAction(SET_IS_LOADED)
+
+export const SET_STEP_FULFILLED = Symbol('SET_STEP_FULFILLED_@_APP')
+export const stepFulfilled = createAction(SET_STEP_FULFILLED)
 
 // MAP EVENTS
 export const SET_MAP = Symbol('SET_MAP_@_APP')
@@ -38,7 +47,6 @@ export const setIsOverMarker = createAction(SET_IS_OVER_MARKER)
 
 export const UPDATE_MARKER = Symbol('UPDATE_MARKER_@_MARKER')
 export const updateMarker = createAction(UPDATE_MARKER)
-
 
 export const DELETE_MARKER = Symbol('DELETE_MARKER_@_MARKER')
 export const deleteMarker = createAction(DELETE_MARKER)

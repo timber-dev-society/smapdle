@@ -1,7 +1,7 @@
 import { firestore, store } from 'utils/firebase'
 import {
-  LOAD_MARKERS, CREATE_MARKER_AT_POSITION, TOGGLE_VISIBILITY, KILL, DELETE, CHANGE_SKIN, SET_SIZE, CHANGE_WEAPON,
-  updateMarker, addMarker, setIsLoaded, deleteMarker, setUserInfo, MOVE_PLAYER_MARKER,
+  LOAD_MARKERS, LOAD_USER, CREATE_MARKER_AT_POSITION, TOGGLE_VISIBILITY, KILL, DELETE, CHANGE_SKIN, SET_SIZE, CHANGE_WEAPON,
+  updateMarker, addMarker, deleteMarker, setUserInfo, MOVE_PLAYER_MARKER, stepFulfilled,
 } from 'actions'
 import { getMousePosition } from 'utils/mapbox'
 import { flashErrorMsg } from 'utils/flash'
@@ -12,17 +12,19 @@ const markerStore = store("markers")
 const firestoreDb = createMiddleware({
   name: 'Firestore',
   middleware: {
+    [LOAD_USER]: async ({state, dispatch}) => {
+      const user = await firestore.collection('users').doc(state.app.user.uid).get()
+      
+      dispatch(setUserInfo(user.data()))
+      dispatch(stepFulfilled())
+    },
     [LOAD_MARKERS]: async ({ state, dispatch }) => {
       if (state.app.isLoaded) { return }
-
-      const user = await firestore.collection('users').doc(state.app.user.uid).get()
-      dispatch(setUserInfo(user.data()))
 
       /**
        * Add database listener
        */
-      console.log(`[Firestore] Load ${window.location.hash} database`)
-      firestore.collection('markers').where('case', '==', window.location.hash).onSnapshot((snapshot) => {
+      firestore.collection('markers').where('case', 'in', state.app.user.cases).onSnapshot((snapshot) => {
         snapshot.docChanges().forEach((change) => {
           const marker = { uid: change.doc.id, ...change.doc.data() }
 
@@ -41,7 +43,7 @@ const firestoreDb = createMiddleware({
               return
           }
         })
-        dispatch(setIsLoaded())
+        dispatch(stepFulfilled())
       })
     },
     [CREATE_MARKER_AT_POSITION]: ({ state, action }) => {
