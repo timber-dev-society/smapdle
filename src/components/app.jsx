@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 
 import firebase from 'utils/firebase'
 import config from 'utils/app-config'
-import LoginForm from './login-form'
+import Login from './login'
 import Map from './map'
 import { ActorPanel, ToolsPanel } from './panel'
 import { PanelContainer, AdminPanel, UserPanel } from './panel/base/panel'
@@ -22,7 +22,7 @@ const App = () => {
         }}
       </FirebaseAuthConsumer>
       <IfFirebaseUnAuthed>
-        { () => (<LoginForm firebase={firebase} />) }
+        { () => (<Login firebase={firebase} />) }
       </IfFirebaseUnAuthed>
       <IfFirebaseAuthed>
         { () => (

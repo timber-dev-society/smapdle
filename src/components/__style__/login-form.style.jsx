@@ -1,8 +1,8 @@
-import styled from "styled-components"
+import styled from 'styled-components'
 
 export const Wrapper = styled.div`
     align-items: center;
-    background-color: tomato;
+    background-color: var(--blue);
     display: flex;
     height: 100vh;
     width: 100vw;
@@ -10,7 +10,7 @@ export const Wrapper = styled.div`
 
 export const Modal = styled.div`
     display: block;
-    background-color: white;
+    background-color: var(--yellow);
     border: 2px solid tomato;
     border-radius: 8px;
     margin: 0 auto;
@@ -38,7 +38,7 @@ export const Input = styled.input`
 
     &:focus-visible,
     &:focus {
-        outline-color: crimson;
+        outline-color: var(--blue);
     }
 `
 
@@ -49,10 +49,10 @@ export const Error = styled(Row)`
 `
 
 export const Button = styled.button`
-    background-color: tomato;
+    background-color: var(--blue);
     border: none;
     border-radius: 5px;
-    color: white;
+    color: var(--yellow);
     cursor: pointer;
     float: right;
     font-size: 14px;

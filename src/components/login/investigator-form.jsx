@@ -1,6 +1,5 @@
 import { useState } from "react"
 import PropTypes from 'prop-types'
-import Emoji from 'a11y-react-emoji'
 
 import { Row, Label, Input, Error, Button } from '../__style__/login-form.style'
 
@@ -33,7 +32,7 @@ const InvestigatorForm = ({ firebase }) => {
       </Row>
       {isError && (<Error>{error}</Error>)}
       <Row>
-        <Button type="submit">Submit <Emoji symbol="🧟‍♂️" label="Brainzzz" /></Button>
+        <Button type="submit">Submit</Button>
       </Row>
     </form>
   )
