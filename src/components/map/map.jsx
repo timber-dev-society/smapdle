@@ -6,7 +6,7 @@ import Markers from './markers'
 import Events from './events'
 import { setMap } from 'actions'
 import config from 'utils/app-config'
-import useMap from 'hooks/map'
+import useMap from '../hooks/map'
 
 const MapDiv = styled.div`
   height: 100vh;

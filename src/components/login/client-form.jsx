@@ -1,6 +1,5 @@
-import { useState } from "react"
+import { useState } from 'react'
 import PropTypes from 'prop-types'
-import Emoji from 'a11y-react-emoji'
 
 import { Row, Label, Input, Error, Button } from '../__style__/login-form.style'
 
@@ -12,7 +11,7 @@ const ClientForm = ({ firebase }) => {
   const handleSubmit = async (event) => {
     setIsError(false)
     event.preventDefault()
-    firebase.auth().signInWithEmailAndPassword(login, paswd).catch(reason => {
+    firebase.auth().signInWithEmailAndPassword(login).catch(reason => {
       console.error(reason)
       setIsError(true)
       setError(reason.message)
@@ -22,7 +21,7 @@ const ClientForm = ({ firebase }) => {
   return (
     <form onSubmit={handleSubmit}>
       <Row>
-        <Label htmlFor="login">Login</Label>
+        <Label htmlFor="login">E-mail</Label>
         <Input id="login" type="text" value={login} onChange={(e) => setLogin(e.target.value)} />
       </Row>
 

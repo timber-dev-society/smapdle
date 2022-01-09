@@ -16,6 +16,7 @@ const GlobalStyle = createGlobalStyle`
   :root {
     --blue: #152147;
     --yellow: #ffdd00;
+    --light-yellow: #fbed53;
   }
 `
 
