@@ -62,6 +62,16 @@ export const flashErrorMsg = (content, error) => {
   flashStore.dispatch(setError(content))
 }
 
+export const flashSuccess = (content) => {
+  console.info(content)
+  flashStore.dispatch(setSuccess(content))
+}
+
+export const flashInfo = (content) => {
+  console.info(content)
+  flashStore.dispatch(setInfo(content))
+}
+
 export const FlashProvider = ({ children }) => (
   <Provider context={FlashContext} store={flashStore}>
     {children}

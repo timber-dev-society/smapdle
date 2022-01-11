@@ -15,6 +15,9 @@ export const setUserInfo = createAction(SET_USER_INFO)
 export const LOAD_USER = Symbol('LOAD_USER_@_APP')
 export const loadUser = createAction(LOAD_USER)
 
+export const LOAD_CASES = Symbol('LOAD_CASES_@_APP')
+export const loadCases = createAction(LOAD_CASES)
+
 // APP EVENTS
 export const INIT_APP = Symbol('INIT_APP_@_APP')
 export const initApp = createAction(INIT_APP)
@@ -22,8 +25,15 @@ export const initApp = createAction(INIT_APP)
 export const SET_IS_LOADED = Symbol('SET_IS_LOADED_@_APP')
 export const setIsLoaded = createAction(SET_IS_LOADED)
 
+export const SET_CASES = Symbol('SET_CASES_@_APP')
+export const setCases = createAction(SET_CASES)
+
 export const SET_STEP_FULFILLED = Symbol('SET_STEP_FULFILLED_@_APP')
 export const stepFulfilled = createAction(SET_STEP_FULFILLED)
+
+export const CHANGE_CASES = Symbol('CHANGE_CASES_@_APP')
+export const RELOAD_MARKERS = Symbol('RELOAD_MARKERS_@_APP')
+
 
 // MAP EVENTS
 export const SET_MAP = Symbol('SET_MAP_@_APP')
@@ -50,6 +60,9 @@ export const updateMarker = createAction(UPDATE_MARKER)
 
 export const DELETE_MARKER = Symbol('DELETE_MARKER_@_MARKER')
 export const deleteMarker = createAction(DELETE_MARKER)
+
+export const CLEAR_MARKERS = Symbol('CLEAR_MARKERS_@_MARKER')
+export const clearMarkers = createAction(CLEAR_MARKERS)
 
 export const FLY_TO = Symbol('FLY_TO')
 export const flyTo = createAction(FLY_TO)

@@ -1,11 +1,17 @@
 import { 
   INIT_APP, SET_STEP_FULFILLED,
-  loadUser, loadMarkers,
+  loadUser, loadMarkers, setIsLoaded, loadCases, stepFulfilled,
 } from 'actions'
 import { createMiddleware } from 'utils/app-func'
+import { flashSuccess, flashInfo, flashErrorMsg } from 'utils/flash'
 
-const USER = 1
-const MARKER = 2
+let r = 0
+const USER = ++r
+const CASES = ++r
+const MARKER = ++r
+const END = ++r
+
+let s = 0
 
 const runtime = createMiddleware({
   name: 'Runtime',
@@ -13,15 +19,31 @@ const runtime = createMiddleware({
     [INIT_APP]: ({ dispatch }) => {
       dispatch(stepFulfilled())
     },
-    [SET_STEP_FULFILLED]: ({ state, dispatch }) => {
-      switch (state.app.loadingStep + 1) {
+    [SET_STEP_FULFILLED]: ({ dispatch }) => {
+      s = s + 1
+      switch (s) {
         case USER:
+          flashInfo('Loading user...')
           dispatch(loadUser())
-          return
+          break
+        case CASES:
+          flashInfo('Loading cases...')
+          dispatch(loadCases())
+          break
         case MARKER:
+          flashInfo('Loading markers...')
           dispatch(loadMarkers())
-          return
+          break
+        case END:
+          flashSuccess('App loaded...')
+          dispatch(setIsLoaded())
+          break
+        default:
+          flashErrorMsg('Wrong runtime step')
+          break
       }
+
+      return ({store}) => console.log(store.getState().app.loadingStep)
     }
   }
 })
