@@ -15,27 +15,27 @@ const Menu = ({ handleDragStart, handleDragEnd }) => {
           <Ul>
             <Li>
               <Icon draggable onDragStart={(e) => handleDragStart(e, 'actor', '👨')} onDragEnd={() => handleDragEnd()}>
-                <Emoji symbol="👨" label="actor" />
+                <Emoji title="Add actor" symbol="👨" label="actor" />
               </Icon>
             </Li>
             <Li>
               <Icon draggable onDragStart={(e) => handleDragStart(e, 'investigator', '🕵️‍♂️')} onDragEnd={() => handleDragEnd()}>
-                <Emoji symbol="🕵️‍♂️" label="investigator" />
+                <Emoji title="Add investigator" symbol="🕵️‍♂️" label="investigator" />
               </Icon>
             </Li>
             <Li>
               <Icon draggable onDragStart={(e) => handleDragStart(e, 'location', '🏘️')} onDragEnd={() => handleDragEnd()}>
-                <Emoji symbol="🏘️" label="location" />
+                <Emoji title="Add location" symbol="🏘️" label="location" />
               </Icon>
             </Li>
             <Li>
               <Icon draggable onDragStart={(e) => handleDragStart(e, 'recorder', '📷')} onDragEnd={() => handleDragEnd()}>
-                <Emoji symbol="📷" label="recorder" />
+                <Emoji title="Add recorder" symbol="📷" label="recorder" />
               </Icon>
             </Li>
             <Li>
               <Icon draggable onDragStart={(e) => handleDragStart(e, 'vehicle', '🚗')} onDragEnd={() => handleDragEnd()}>
-                <Emoji symbol="🚗" label="vehicle" />
+                <Emoji title="Add vehicule" symbol="🚗" label="vehicle" />
               </Icon>
             </Li>
           </Ul>
