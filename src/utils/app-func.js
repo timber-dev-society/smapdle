@@ -15,8 +15,7 @@ export const createMiddleware = ({ name, middleware }) => store => next => async
     let result = null
 
     try {
-      console.log(action.type)
-      const fallback = await middleware[action.type]({ action, state: store.getState(), dispatch: store.dispatch })
+      const fallback = await middleware[action.type]({ action, getState: store.getState, dispatch: store.dispatch })
 
       //result = await next(action)
       //console.log(action.type, result, fallback)

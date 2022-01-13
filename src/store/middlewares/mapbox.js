@@ -1,20 +1,17 @@
+import { createMiddleware } from 'utils/app-func'
 import { FLY_TO } from '../../actions'
 import { positionToLngLat } from '../../utils/mapbox'
 
-const mapbox = store => next => action => {
+const mapbox = createMiddleware({
+  name: 'Mapbox',
+  middleware: {
+    [FLY_TO]: ({ getState }) => ({ store }) => {
+      const { map } = store.getState().app
+      const { lng, lat } = positionToLngLat(getState().app.flyTo)
 
-  if (action.type === FLY_TO) {
-    const { token, uid } = action.payload
-    const map = store.getState().app.map
-    const position = store.getState().markers[token][uid].position
-
-    map.flyTo({
-      center: positionToLngLat(position),
-      essential: false
-    })
+      map.flyTo({ center: [lng, lat] })
+    }
   }
-
-  return next(action)
-}
+})
 
 export default mapbox

@@ -1,7 +1,7 @@
 import { firestore, store } from 'utils/firebase'
 import {
   LOAD_MARKERS, LOAD_USER, CREATE_MARKER_AT_POSITION, TOGGLE_VISIBILITY, KILL, DELETE, CHANGE_SKIN, SET_SIZE, CHANGE_WEAPON, LOAD_CASES, CHANGE_CASES,
-  updateMarker, addMarker, deleteMarker, setUserInfo, MOVE_PLAYER_MARKER, stepFulfilled, setCases, clearMarkers,
+  updateMarker, addMarker, deleteMarker, setUserInfo, MOVE_PLAYER_MARKER, stepFulfilled, setCases, clearMarkers, setCurrentCase,
 } from 'actions'
 import { getMousePosition } from 'utils/mapbox'
 import { flashErrorMsg } from 'utils/flash'
@@ -37,23 +37,23 @@ const firestoreDb = createMiddleware({
   name: 'Firestore',
   middleware: {
     // Load user from firestore
-    [LOAD_USER]: async ({ state, dispatch }) => {
-      const user = await firestore.collection('users').doc(state.app.user.uid).get()
-      console.log(user)
+    [LOAD_USER]: async ({ getState, dispatch }) => {
+      const user = await firestore.collection('users').doc(getState().app.user.uid).get()
       
       dispatch(setUserInfo(user.data()))
       dispatch(stepFulfilled())
     },
     // Load default cases from the user
-    [LOAD_CASES]: async ({state, dispatch}) => {
-      dispatch(setCases(state.app.user.cases))
+    [LOAD_CASES]: async ({getState, dispatch}) => {
+      dispatch(setCases(getState().app.user.cases))
+      dispatch(setCurrentCase(window.localStorage.getItem('current_case') || getState().app.user.cases[0]))
       dispatch(stepFulfilled())
     },
     // Load markers and subscribe to marker's updates
-    [LOAD_MARKERS]: async ({ state, dispatch }) => {
-      if (state.app.isLoaded) { return }
+    [LOAD_MARKERS]: async ({ getState, dispatch }) => {
+      if (getState().app.isLoaded) { return }
 
-      _it.unsuscribe = firestore.collection('markers').where('case', 'in', state.app.cases).onSnapshot((snapshot) => {
+      _it.unsuscribe = firestore.collection('markers').where('case', 'in', getState().app.cases).onSnapshot((snapshot) => {
         snapshotToMarker(dispatch)(snapshot)
 
         dispatch(stepFulfilled())
@@ -67,19 +67,19 @@ const firestoreDb = createMiddleware({
         snapshotToMarker(dispatch)(snapshot)
       })
     },
-    [CREATE_MARKER_AT_POSITION]: ({ state, action }) => {
-      const { lng, lat } = getMousePosition(action.payload, state.app.map)
+    [CREATE_MARKER_AT_POSITION]: ({ getState, action }) => {
+      const { lng, lat } = getMousePosition(action.payload, getState().app.map)
 
       _it.markerStore.create({
         position: { latitude: lat, longitude: lng },
         case: window.location.hash,
-        owner: state.app.user.uid,
+        owner: getState().app.user.uid,
         token: action.payload.token,
         isHidden: !action.payload.visibility,
       })
     },
-    [MOVE_PLAYER_MARKER]: ({ state, action }) => {
-      const { lng, lat } = getMousePosition(action.payload, state.app.map)
+    [MOVE_PLAYER_MARKER]: ({ getState, action }) => {
+      const { lng, lat } = getMousePosition(action.payload, getState().app.map)
 
       _it.markerStore.update({
         position: { latitude: lat, longitude: lng },

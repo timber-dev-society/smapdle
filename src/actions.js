@@ -34,6 +34,9 @@ export const stepFulfilled = createAction(SET_STEP_FULFILLED)
 export const CHANGE_CASES = Symbol('CHANGE_CASES_@_APP')
 export const RELOAD_MARKERS = Symbol('RELOAD_MARKERS_@_APP')
 
+export const SET_CURRENT_CASE = Symbol('SET_CURRENT_CASE_@_APP')
+export const setCurrentCase = createAction(SET_CURRENT_CASE)
+
 
 // MAP EVENTS
 export const SET_MAP = Symbol('SET_MAP_@_APP')
