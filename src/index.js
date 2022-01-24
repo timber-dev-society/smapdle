@@ -14,9 +14,19 @@ const GlobalStyle = createGlobalStyle`
   ${reset}
 
   :root {
+    // colors 
     --blue: #152147;
     --yellow: #ffdd00;
     --light-yellow: #fbed53;
+    --white: #fff;
+
+    // colors definitions
+    --c-primary: var(--blue);
+    --c-secondary: var(--light-yellow);
+
+    --foreground-color: #152147;
+    --background-color: #fff;
+    --accent-color: #ffdd00;
   }
 `
 

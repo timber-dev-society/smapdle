@@ -37,10 +37,21 @@ export const RELOAD_MARKERS = Symbol('RELOAD_MARKERS_@_APP')
 export const SET_CURRENT_CASE = Symbol('SET_CURRENT_CASE_@_APP')
 export const setCurrentCase = createAction(SET_CURRENT_CASE)
 
+export const SET_CURRENT_LOCATION = Symbol('SET_CURRENT_LOCATION_@_APP')
+export const setCurrentLocation = createAction(SET_CURRENT_LOCATION)
 
 // MAP EVENTS
 export const SET_MAP = Symbol('SET_MAP_@_APP')
 export const setMap = createAction(SET_MAP)
+
+export const JUMP_TO = Symbol('JUMP_TO')
+export const jumpTo = createAction(JUMP_TO)
+
+export const FLY_TO = Symbol('FLY_TO')
+export const flyTo = createAction(FLY_TO)
+
+export const EASE_TO = Symbol('EASE_TO')
+export const easeTo = createAction(EASE_TO)
 
 // MARKER EVENTS
 export const ADD_MARKER = Symbol('ADD_MARKER_@_MARKER')
@@ -67,8 +78,6 @@ export const deleteMarker = createAction(DELETE_MARKER)
 export const CLEAR_MARKERS = Symbol('CLEAR_MARKERS_@_MARKER')
 export const clearMarkers = createAction(CLEAR_MARKERS)
 
-export const FLY_TO = Symbol('FLY_TO')
-export const flyTo = createAction(FLY_TO)
 
 // TOKENS EVENTS
 export const TOGGLE_VISIBILITY = Symbol('TOGGLE_VISIBILITY')

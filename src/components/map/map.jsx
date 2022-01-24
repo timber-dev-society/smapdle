@@ -13,7 +13,7 @@ const MapDiv = styled.div`
   width: 100vw;
 `
 
-const Map = () => {
+const Map = ({ style, children }) => {
     const { map, mapRef, isMapLoaded } = useMap(config.mapbox)
     const dispatch = useDispatch()
 
@@ -43,7 +43,14 @@ const Map = () => {
 
     return (
         <>
-          <MapDiv onDrop={handleDrop} onDragOver={(e) => e.preventDefault()} ref={mapRef} className="map-container" />
+          <div 
+            style={{ position: 'relative', height: '100vh', ...style }} 
+            onDrop={handleDrop} onDragOver={(e) => e.preventDefault()} 
+            ref={mapRef} 
+            className="map-container"
+          >
+            {children}
+          </div>
           { isMapLoaded && <><Markers map={map} /><Events map={map} /></> }
         </>
     )

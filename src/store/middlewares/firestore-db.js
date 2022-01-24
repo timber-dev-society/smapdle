@@ -1,7 +1,7 @@
 import { firestore, store } from 'utils/firebase'
 import {
   LOAD_MARKERS, LOAD_USER, CREATE_MARKER_AT_POSITION, TOGGLE_VISIBILITY, KILL, DELETE, CHANGE_SKIN, SET_SIZE, CHANGE_WEAPON, LOAD_CASES, CHANGE_CASES,
-  updateMarker, addMarker, deleteMarker, setUserInfo, MOVE_PLAYER_MARKER, stepFulfilled, setCases, clearMarkers, setCurrentCase,
+  updateMarker, addMarker, deleteMarker, setUserInfo, MOVE_PLAYER_MARKER, stepFulfilled, setCases, clearMarkers, setCurrentCase, flyTo, jumpTo, easeTo,
 } from 'actions'
 import { getMousePosition } from 'utils/mapbox'
 import { flashErrorMsg } from 'utils/flash'
@@ -44,9 +44,20 @@ const firestoreDb = createMiddleware({
       dispatch(stepFulfilled())
     },
     // Load default cases from the user
-    [LOAD_CASES]: async ({getState, dispatch}) => {
+    [LOAD_CASES]: async ({ getState, dispatch }) => {
+      const currentCase = window.localStorage.getItem('current_case') !== null ? window.localStorage.getItem('current_case') : getState().app.user.cases[0]
+
       dispatch(setCases(getState().app.user.cases))
-      dispatch(setCurrentCase(window.localStorage.getItem('current_case') || getState().app.user.cases[0]))
+      dispatch(setCurrentCase(currentCase))
+
+      if (window.localStorage.getItem(`${currentCase}_location`) !== null) {
+        const { lng, lat } = JSON.parse(window.localStorage.getItem(`${currentCase}_location`))
+
+        window.localStorage.setItem('lng', lng)
+        window.localStorage.setItem('lat', lat)
+        dispatch(easeTo({ longitude: lng, latitude: lat }))
+      }
+
       dispatch(stepFulfilled())
     },
     // Load markers and subscribe to marker's updates
@@ -72,7 +83,7 @@ const firestoreDb = createMiddleware({
 
       _it.markerStore.create({
         position: { latitude: lat, longitude: lng },
-        case: window.location.hash,
+        case: getState().app.currentCase,
         owner: getState().app.user.uid,
         token: action.payload.token,
         isHidden: !action.payload.visibility,

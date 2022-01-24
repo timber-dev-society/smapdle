@@ -1,16 +1,20 @@
 import { createMiddleware } from 'utils/app-func'
-import { FLY_TO } from '../../actions'
-import { positionToLngLat } from '../../utils/mapbox'
+import { EASE_TO, FLY_TO, JUMP_TO } from 'actions'
+import { positionToLngLat } from 'utils/mapbox'
+
+const moveTo = (movementType) => ({ getState, action }) =>{
+  const { map } = getState().app
+  const { lng, lat } = positionToLngLat(action.payload)
+
+  map[movementType]({ center: [lng, lat] })
+}
 
 const mapbox = createMiddleware({
   name: 'Mapbox',
   middleware: {
-    [FLY_TO]: ({ getState }) => ({ store }) => {
-      const { map } = store.getState().app
-      const { lng, lat } = positionToLngLat(getState().app.flyTo)
-
-      map.flyTo({ center: [lng, lat] })
-    }
+    [FLY_TO]: moveTo('flyTo'),
+    [JUMP_TO]: moveTo('jumpTo'),
+    [EASE_TO]: moveTo('easeTo'),
   }
 })
 

@@ -1,11 +1,16 @@
 import { useRef, useEffect, useState } from 'react'
-import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
+import { useDispatch } from 'react-redux'
+
+import mapboxgl from '!mapbox-gl' // eslint-disable-line import/no-webpack-loader-syntax
 import 'mapbox-gl/dist/mapbox-gl.css'
+
+import { setCurrentLocation } from 'actions'
 
 const useMap = ({ accessToken, style }) => {
   const map = useRef(null)
   const mapRef = useRef(null)
   const [ isMapLoaded, setIsLoaded ] = useState(false)
+  const dispatch = useDispatch()
 
   useEffect(() => {
       if (map.current) return; // initialize map only once
@@ -40,13 +45,11 @@ const useMap = ({ accessToken, style }) => {
 
       map.current.on('moveend', () => {
         const { lng, lat } = map.current.getCenter()
-        window.localStorage.setItem('lng', lng)
-        window.localStorage.setItem('lat', lat)
-      })
 
-      // map.current.on('contextmenu', () => {
-      //   console.log('contextmenu')
-      // })
+        dispatch(setCurrentLocation({ lng, lat }))
+       // window.localStorage.setItem('lng', lng)
+       // window.localStorage.setItem('lat', lat)
+      })
   })
 
   return {
