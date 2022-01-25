@@ -37,3 +37,11 @@ export const createMiddleware = ({ name, middleware }) => store => next => async
 }
 
 export const json = (_, oJson) => JSON.stringify(oJson, null, 2)
+
+export const getRealLogin = (login) => {
+  if (login.match(/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)) {
+    return login
+  }
+
+  return `${login}@i-vestigate.com`
+}

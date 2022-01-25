@@ -1,22 +1,19 @@
-import { useState } from "react"
+import { useState } from 'react'
 import PropTypes from 'prop-types'
 
 import { Row, Label, Input, Error, Button } from '../__style__/login-form.style'
+import { useError } from './hook'
 
-const InvestigatorForm = ({ firebase }) => {
+import { authenticate } from 'utils/firebase'
+
+const InvestigatorForm = () => {
   const [ login, setLogin ] = useState('')
   const [ paswd, setPaswd ] = useState('')
-  const [ error, setError ] = useState('')
-  const [ isError, setIsError ] = useState(false)
-
+  const [ isError, error, trigError ] = useError()
   const handleSubmit = async (event) => {
-    setIsError(false)
     event.preventDefault()
-    firebase.auth().signInWithEmailAndPassword(login, paswd).catch(reason => {
-      console.error(reason)
-      setIsError(true)
-      setError(reason.message)
-    })
+    const [ isSuccess, reasonFail ] = await authenticate(login, paswd)
+    trigError(!isSuccess, reasonFail)
   }
 
   return (

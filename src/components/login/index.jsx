@@ -6,7 +6,7 @@ import { Wrapper, Modal, Ul, Li, Img, Block } from 'components/__style__/login-f
 
 import logo from 'assets/images/ivestigate-logo.png'
 
-const Login = ({ firebase }) => {
+const Login = () => {
   const [ formType, setFormType ] = useState('client')
 
   return (
@@ -18,8 +18,8 @@ const Login = ({ firebase }) => {
             <Li active={formType === 'client'} onClick={() => setFormType('client')}>Client</Li>
             <Li active={formType === 'investigator'} onClick={() => setFormType('investigator')}>Investigator</Li>
           </Ul>
-          { formType === 'investigator' && <InvestigatorForm firebase={firebase} /> }
-          { formType === 'client' && <ClientForm firebase={firebase} /> }
+          { formType === 'investigator' && <InvestigatorForm /> }
+          { formType === 'client' && <ClientForm /> }
         </Modal>
       </Block>
     </Wrapper>

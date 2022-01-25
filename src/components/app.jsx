@@ -25,7 +25,7 @@ const App = () => {
         }}
       </FirebaseAuthConsumer>
       <IfFirebaseUnAuthed>
-        { () => (<Login firebase={firebase} />) }
+        { () => (<Login />) }
       </IfFirebaseUnAuthed>
       <IfFirebaseAuthed>
         { () => (
