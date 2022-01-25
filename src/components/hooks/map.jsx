@@ -2,7 +2,9 @@ import { useRef, useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 
 import mapboxgl from '!mapbox-gl' // eslint-disable-line import/no-webpack-loader-syntax
+import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
 import 'mapbox-gl/dist/mapbox-gl.css'
+import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css'
 
 import { setCurrentLocation } from 'actions'
 
@@ -31,6 +33,7 @@ const useMap = ({ accessToken, style }) => {
       })
 
       // attach basic controllers
+      map.current.addControl(new MapboxGeocoder({ accessToken, mapboxgl}))
       map.current.addControl(new mapboxgl.NavigationControl(), 'top-right')
 
       map.current.addControl(new mapboxgl.ScaleControl(), 'bottom-right')
@@ -47,8 +50,8 @@ const useMap = ({ accessToken, style }) => {
         const { lng, lat } = map.current.getCenter()
 
         dispatch(setCurrentLocation({ lng, lat }))
-       // window.localStorage.setItem('lng', lng)
-       // window.localStorage.setItem('lat', lat)
+        window.localStorage.setItem('lng', lng)
+        window.localStorage.setItem('lat', lat)
       })
   })
 

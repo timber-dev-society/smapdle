@@ -18,6 +18,7 @@ const flashSlice = createSlice({
         id: increment++,
         content: action.payload,
         style: SUCCESS,
+        timeout: 2000,
       })
     },
     setInfo(state, action) {
@@ -39,6 +40,7 @@ const flashSlice = createSlice({
         id: increment++,
         content: action.payload,
         style: ERROR,
+        timeout: 5000,
       })
     },
     removeFlash(state, action) {
