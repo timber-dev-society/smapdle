@@ -1,4 +1,4 @@
-import { SET_CURRENT_CASE, SET_CURRENT_LOCATION } from 'actions'
+import { SET_CURRENT_CASE, SET_CURRENT_LOCATION } from 'store/actions'
 import { createMiddleware, json } from 'utils/app-func'
 
 const localstorage = createMiddleware({

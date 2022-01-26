@@ -1,31 +1,40 @@
 import { useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux'
 
+const Item = ({ type, uid }) => {
 
+  return (
+    <li>{type} - {uid}</li>
+  )
+}
 
-import config from 'utils/app-config'
+const List = ({ type, markers }) => {
+  const keys = Object.keys(markers)
+  const isItems = keys.length > 0
+  
+  return (
+    <>
+      <h3>{type}</h3>
+      <ul>
+        {isItems && keys.map((key) => (<Item key={key} type={key} {...markers[key]} />))}
+        {!isItems && <li>No items</li>}
+      </ul>
+    </>
+  )
+}
 
 export const SidePanel = ({ style }) => {
-
+  const markers = useSelector(state => state.markers)
   const ref = useRef(null)
-  // const map = useSelector(state => state.app.map)
 
   useEffect(() => {
     if (ref.current) { return }
-    /*
 
-    const geocoder = new MapboxGeocoder({
-      accessToken: config.mapbox.accessToken,
-      mapboxgl: mapboxgl
-    });
-
-    document.getElementById('geocoder').appendChild(geocoder.onAdd(map));
-    */
   }, [ref])
 
   return (
     <div style={{ height: '100vh', ...style }}>
-      <div id="geocoder" style={{ margin: '5%', width: '89%' }} />
+      { Object.keys(markers).map((key) => (<List key={key} type={key} markers={markers[key]} />)) }
     </div>
   )
 }

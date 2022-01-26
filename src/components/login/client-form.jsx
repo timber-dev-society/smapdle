@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import PropTypes from 'prop-types'
 
-import { Row, Label, Input, Error, Button } from '../__style__/login-form.style'
+import { Row, Label, Input, Error, Button } from 'assets/style/login-form.style'
 import { useError } from './hook'
+import { authenticate } from 'utils/firebase'
 
 const ClientForm = () => {
   const [ login, setLogin ] = useState(window.location.hash ? window.location.hash.slice(1) : '')
@@ -27,10 +28,6 @@ const ClientForm = () => {
       </Row>
     </form>
   )
-}
-
-ClientForm.propTypes = {
-  firebase: PropTypes.object.isRequired
 }
 
 export default ClientForm

@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 
 import CssHack from './css-hack'
 import Filter from './filter'
-import { initApp } from 'actions'
+import { initApp } from 'store/actions'
 import appConfig from 'utils/app-config'
 
 

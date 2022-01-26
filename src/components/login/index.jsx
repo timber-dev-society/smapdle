@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import InvestigatorForm from './investigator-form'
 import ClientForm from './client-form'
-import { Wrapper, Modal, Ul, Li, Img, Block } from 'components/__style__/login-form.style'
+import { Wrapper, Modal, Ul, Li, Img, Block } from 'assets/style/login-form.style'
 
 import logo from 'assets/images/ivestigate-logo.png'
 

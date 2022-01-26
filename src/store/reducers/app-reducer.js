@@ -1,6 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit'
 
-import { SET_USER, SET_USER_INFO, SET_MAP, SET_IS_LOADED, SET_STEP_FULFILLED, SET_CASES, SET_CURRENT_CASE } from 'actions'
+import { SET_USER, SET_USER_INFO, SET_MAP, SET_IS_LOADED, SET_STEP_FULFILLED, SET_CASES, SET_CURRENT_CASE } from 'store/actions'
 
 const initialState = {
   user: null,

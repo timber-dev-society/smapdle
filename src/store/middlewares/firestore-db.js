@@ -2,7 +2,7 @@ import { firestore, store } from 'utils/firebase'
 import {
   LOAD_MARKERS, LOAD_USER, CREATE_MARKER_AT_POSITION, TOGGLE_VISIBILITY, KILL, DELETE, CHANGE_SKIN, SET_SIZE, CHANGE_WEAPON, LOAD_CASES, CHANGE_CASES,
   updateMarker, addMarker, deleteMarker, setUserInfo, MOVE_PLAYER_MARKER, stepFulfilled, setCases, clearMarkers, setCurrentCase, flyTo, jumpTo, easeTo,
-} from 'actions'
+} from 'store/actions'
 import { getMousePosition } from 'utils/mapbox'
 import { flashErrorMsg } from 'utils/flash'
 import { createMiddleware } from 'utils/app-func'

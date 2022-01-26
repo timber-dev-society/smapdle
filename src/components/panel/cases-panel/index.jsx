@@ -1,8 +1,8 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { createSelector } from 'reselect'
 
-import { setCurrentCase } from 'actions'
-import { Select, Container, Dropdown, Option } from './style'
+import { setCurrentCase } from 'store/actions'
+import { Select, Container, Dropdown, Option } from 'assets/style/panels/case'
 import { useState } from 'react'
 
 const casesSelector = createSelector(

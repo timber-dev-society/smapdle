@@ -6,7 +6,7 @@ import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css'
 
-import { setCurrentLocation } from 'actions'
+import { setCurrentLocation } from 'store/actions'
 
 const useMap = ({ accessToken, style }) => {
   const map = useRef(null)

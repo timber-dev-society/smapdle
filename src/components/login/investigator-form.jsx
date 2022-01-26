@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import PropTypes from 'prop-types'
 
-import { Row, Label, Input, Error, Button } from '../__style__/login-form.style'
+import { Row, Label, Input, Error, Button } from 'assets/style/login-form.style'
 import { useError } from './hook'
 
 import { authenticate } from 'utils/firebase'
@@ -33,10 +33,6 @@ const InvestigatorForm = () => {
       </Row>
     </form>
   )
-}
-
-InvestigatorForm.propTypes = {
-  firebase: PropTypes.object.isRequired
 }
 
 export default InvestigatorForm

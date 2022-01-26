@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types'
 import Emoji from 'a11y-react-emoji'
 
-import { Icon } from '../__style__/admin-panel.style'
-import { Ul, Li } from '../__style__/menu.style'
-import useAcl from 'components/hooks/acl'
+import { Icon } from 'assets/style/panels/admin.style'
+import { Ul, Li } from 'assets/style/panels/menu.style'
+import useAcl from 'hooks/acl'
 
 const Menu = ({ handleDragStart, handleDragEnd }) => {
   const { canRead } = useAcl({ type: `panels` })

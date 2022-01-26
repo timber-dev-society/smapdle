@@ -8,7 +8,7 @@ import Login from './login'
 import Map from './map'
 import { ActorPanel, CasesPanel, ToolsPanel, SidePanel } from './panel'
 import { PanelContainer, AdminPanel, UserPanel } from './panel/base/panel'
-import { setUser } from 'actions'
+import { setUser } from 'store/actions'
 
 const App = () => {
   const dispatch = useDispatch()

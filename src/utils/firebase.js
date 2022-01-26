@@ -48,9 +48,9 @@ export const store = (collection) => ({
   }
 })
 
-export const authenticate = async () => {
+export const authenticate = async (login, passwd) => {
   try {
-    await firebase.auth().signInWithEmailAndPassword(getRealLogin(login), paswd)
+    await firebase.auth().signInWithEmailAndPassword(getRealLogin(login), passwd)
     return [ true ]
   } catch (reason) {
     return [ false, reason ]

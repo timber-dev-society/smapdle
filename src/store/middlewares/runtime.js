@@ -1,7 +1,7 @@
 import { 
   INIT_APP, SET_STEP_FULFILLED,
   loadUser, loadMarkers, setIsLoaded, loadCases, stepFulfilled,
-} from 'actions'
+} from 'store/actions'
 import { createMiddleware } from 'utils/app-func'
 import { flashSuccess, flashInfo, flashErrorMsg } from 'utils/flash'
 

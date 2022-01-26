@@ -1,17 +1,11 @@
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import styled from 'styled-components'
 
 import Markers from './markers'
 import Events from './events'
-import { setMap } from 'actions'
+import { setMap } from 'store/actions'
 import config from 'utils/app-config'
-import useMap from '../hooks/map'
-
-const MapDiv = styled.div`
-  height: 100vh;
-  width: 100vw;
-`
+import useMap from 'hooks/map'
 
 const Map = ({ style, children }) => {
     const { map, mapRef, isMapLoaded } = useMap(config.mapbox)

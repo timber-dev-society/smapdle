@@ -1,5 +1,5 @@
 import { createMiddleware } from 'utils/app-func'
-import { EASE_TO, FLY_TO, JUMP_TO } from 'actions'
+import { EASE_TO, FLY_TO, JUMP_TO } from 'store/actions'
 import { positionToLngLat } from 'utils/mapbox'
 
 const moveTo = (movementType) => ({ getState, action }) =>{
